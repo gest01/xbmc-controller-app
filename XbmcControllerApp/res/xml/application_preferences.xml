@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory android:title="XBMC Connections">
+        
+        <ListPreference
+            android:key="defaultconnection"
+            android:summary="Set the default connection"
+            android:title="Default Connection" />
+        
+        <ListPreference
+            android:key="deleteConnection"
+            android:summary="Delete a connection"
+            android:title="Delete Connection" />
+        
+          <Preference
+            android:title="New Connection"
+            android:summary="Create a new xbmc connection"
+            android:layout_width="match_parent"
+            android:key="customPref" />
+        
+    </PreferenceCategory>
+    
+     <PreferenceCategory android:title="Home Screen">
+         
+         <CheckBoxPreference
+            android:title="Show Video Library"
+            android:summary="Show the Video Library on the Home Screen"
+            android:layout_width="match_parent"
+            android:key="pref_ShowVideoLibraryOnHome" />
+         
+        
+		<CheckBoxPreference
+            android:title="Show Music Library"
+            android:summary="Show the Music Library on the Home Screen"
+            android:layout_width="match_parent"
+            android:key="pref_ShowMusicLibraryOnHome" />
+        
+		<CheckBoxPreference
+            android:title="Show Picture Library"
+            android:summary="Show the Picture Library on the Home Screen"
+            android:layout_width="match_parent"
+            android:key="pref_ShowPictureLibraryOnHome" />
+         
+         
+     </PreferenceCategory>
+
+</PreferenceScreen>

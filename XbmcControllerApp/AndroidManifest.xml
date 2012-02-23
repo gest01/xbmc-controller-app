@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="ch.morefx.xbmc"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk android:minSdkVersion="15" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:name=".XbmcRemoteControlApplication"
+        android:hardwareAccelerated="true"
+        android:icon="@drawable/xbmclogo"
+        android:label="@string/app_name"
+        android:permission="android.permission.INTERNET" >
+        <activity
+            android:name=".XbmcControllerMainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="XbmcConnectionEdit"
+            android:label="" />
+        <activity
+            android:name=".screens.home.HomeScreenActivity"
+            android:label="HomeScreenActivity" />
+        <activity
+            android:name=".screens.musiclibrary.MusicLibraryActivity"
+            android:label="MusicLibraryActivity" />
+        <activity
+            android:name=".screens.musiclibrary.ArtistActivity"
+            android:label="Music Library" />
+        <activity
+            android:name=".screens.musiclibrary.AlbumActivity"
+            android:label="Album Activity" />
+        <activity
+            android:name=".screens.musiclibrary.SongActivity"
+            android:label="Song Activity" />
+        <activity
+            android:name=".preferences.ApplicationPreferenceActivity"
+            android:label="" />
+    </application>
+
+</manifest>

@@ -1,0 +1,75 @@
+package ch.morefx.xbmc.model;
+
+import java.io.File;
+import java.io.Serializable;
+
+public class Song extends LibraryItem implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+	private String title;
+	private int albumid;
+	private String track;
+	private int position;
+	private String thumbnail;
+	private String file;
+	
+	private Album relatedAlbum;
+	
+	
+	public Song(int position, Album relatedAlbum) {
+		this.position = position;
+		this.relatedAlbum = relatedAlbum;
+	}
+	
+	public String getFilepath(){
+		return this.file;
+	}
+	
+	public String getFilename(){
+		String filepath = getFilepath();
+		if (filepath == null || filepath.equals(""))
+			return "";
+		
+		return new File(getFilepath()).getName();
+	}
+	
+	@Override
+	public String getLabel() {
+		return this.title;
+	}
+	
+	public String getThumbnail(){
+		return this.thumbnail;
+	}
+	
+	public Album getAlbum(){
+		return this.relatedAlbum;
+	}
+	
+	public String getTrack(){
+		return this.track;
+	}
+	
+	public int getAlbumId(){
+		return this.albumid;
+	}
+	
+	public int getPosition(){
+		return this.position;
+	}
+	
+	
+	
+	public static String[] getSongFields() {
+		
+		// Siehe
+		// /home/stef/dev/xbmc/xbmc/interfaces/json-rpc/ServiceDescription.h
+		// Zeile 321 "Audio.Fields.Song"
+		return new String[] { "title", "artist", "albumartist", "genre",
+				"year", "rating", "album", "track", "duration", "comment",
+				"lyrics", "musicbrainztrackid", "musicbrainzartistid",
+				"musicbrainzalbumid", "musicbrainzalbumartistid", "playcount",
+				"fanart", "thumbnail", "file", "artistid", "albumid"};
+	}
+}

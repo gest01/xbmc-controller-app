@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello"></string>
+    <string name="app_name">XBMC Remote Control</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="save">Save</string>
+    <string name="close">Close</string>
+    <string name="cancel">Cancel</string>
+    <string name="no_connection">No xbmc connection</string>
+    <string name="no_connection_create_new">Do you want to create a new connection?</string>
+    <string name="xbmc_connection_new">New Xbmc Connection</string>
+    
+    <string name="connection_name">Name</string>
+    <string name="connection_name_hint">User friendly name</string>
+    <string name="connection_host">Host</string>
+    <string name="connection_host_hint">Host or IP adress</string>
+    <string name="connection_port">Port</string>
+    <string name="connection_port_hint">TCP Port (Default = 8080)</string>
+    <string name="connection_username">Username</string>
+    <string name="connection_password">Password</string>
+    <string name="connection_isdefault">Default xbmc connection</string>
+    
+    <string name="connection_username_is_required">Username is required</string>
+    <string name="connection_password_is_required">Password is required</string>
+    <string name="connection_host_is_required">Host is required</string>
+    <string name="connection_port_is_required">Port is required</string>
+    <string name="connection_name_is_required">Name is required</string>
+    
+</resources>
