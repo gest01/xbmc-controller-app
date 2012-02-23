@@ -38,8 +38,6 @@ public class AlbumArrayAdapter extends ArrayAdapter<Album>{
 		
 		Album album = getItem(position);
 		
-		
-		
 		holder.title.setText(album.getLabel());
 		holder.image.setImageDrawable(album.getThumbnail());
 		

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import ch.morefx.xbmc.R;
 import ch.morefx.xbmc.model.Song;
@@ -32,6 +33,7 @@ public class SongArrayAdapter extends ArrayAdapter<Song> {
 			holder = new ViewHolder();
 			holder.title = (TextView) convertView.findViewById(R.id.title);
 			holder.detail = (TextView) convertView.findViewById(R.id.detail);
+			holder.image = (ImageView) convertView.findViewById(R.id.image);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
@@ -40,11 +42,13 @@ public class SongArrayAdapter extends ArrayAdapter<Song> {
 		Song song = getItem(position);
 		holder.title.setText(song.getTrack() + ". " + song.getLabel() );
 		holder.detail.setText(song.getFilename());
+		holder.image.setImageDrawable(getContext().getResources().getDrawable(R.drawable.songicon));
 		
 		return convertView;
 	}
 	
   	private static class ViewHolder {
+  		ImageView image;
  		TextView title;
  		TextView detail;
  	}
