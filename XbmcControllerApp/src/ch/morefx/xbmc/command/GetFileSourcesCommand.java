@@ -12,6 +12,8 @@ public class GetFileSourcesCommand extends JsonCommand
 	implements CommandResponseHandler {
 	
 	public static final String MEDIA_MUSIC = "music";
+	public static final String MEDIA_VIDEO = "video";
+	public static final String MEDIA_PICTURES = "pictures";
 
 	private String media;
 	
@@ -26,7 +28,7 @@ public class GetFileSourcesCommand extends JsonCommand
 	}
 	
 	public void handleResponse(CommandResponse response) {
-		FileSource[] sourceArray = response.asArrayResult("files", FileSource[].class);
+		FileSource[] sourceArray = response.asArrayResult("sources", FileSource[].class);
 		this.filesources = Arrays.asList(sourceArray);
 	}
 

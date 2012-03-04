@@ -30,11 +30,15 @@
             android:name=".activities.home.HomeScreenActivity"
             android:label="HomeScreenActivity" />
         <activity
-            android:name=".activities.browser.BrowserActivity"
-            android:label="BrowserActivity" />
-<!--         <activity -->
-<!--             android:name=".activities.musiclibrary.MusicLibraryActivity" -->
-<!--             android:label="MusicLibraryActivity" /> -->
+            android:name=".activities.sourcebrowser.SourceBrowserActivity"
+            android:label="SourceBrowserActivity" />
+        <activity
+            android:name=".activities.sourcebrowser.DirectoryBrowserActivity"
+            android:label="DirectoryBrowserActivity" />
+
+        <!-- <activity -->
+        <!-- android:name=".activities.musiclibrary.MusicLibraryActivity" -->
+        <!-- android:label="MusicLibraryActivity" /> -->
         <activity
             android:name=".activities.musiclibrary.ArtistActivity"
             android:label="Music Library" />

@@ -13,8 +13,8 @@ import ch.morefx.xbmc.R;
 import ch.morefx.xbmc.XbmcConnection;
 import ch.morefx.xbmc.XbmcRemoteControlApplication;
 import ch.morefx.xbmc.activities.XbmcActivity;
-import ch.morefx.xbmc.activities.browser.BrowserActivity;
 import ch.morefx.xbmc.activities.musiclibrary.ArtistActivity;
+import ch.morefx.xbmc.activities.sourcebrowser.SourceBrowserActivity;
 import ch.morefx.xbmc.command.JsonCommandExecutor;
 
 /**
@@ -66,7 +66,7 @@ public class HomeScreenActivity extends XbmcActivity {
 	private ArrayList<HomeScreenMenuItem> populateMenuItem(){
 		ArrayList<HomeScreenMenuItem> items = new ArrayList<HomeScreenMenuItem>();
 		items.add(new HomeScreenMenuItem("Music Library", "Browse your Music Library", new Intent(this, ArtistActivity.class)));
-		items.add(new HomeScreenMenuItem("Music Browser", "Browse your Music Files", new Intent(this, BrowserActivity.class)));
+		items.add(new HomeScreenMenuItem("File Browser", "Browse your Media Files", new Intent(this, SourceBrowserActivity.class)));
 		//items.add(new HomeScreenMenuItem("Videos", "Video Library", new Intent(this, MusicLibraryActivity.class)));
 		//items.add(new HomeScreenMenuItem("Pictures", "Pictures Library", new Intent(this, MusicLibraryActivity.class)));
 		return items;

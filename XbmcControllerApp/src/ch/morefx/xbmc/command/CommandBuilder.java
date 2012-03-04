@@ -24,6 +24,22 @@ public class CommandBuilder{
 		this.params.put("sort", new Sort(value));
 	}
 	
+	public void setSortMethodAscending(String value){
+		
+		if (this.params == null)
+			this.params = new LinkedHashMap<String, Object>();
+		
+		this.params.put("sort", new Sort(value, "ascending"));
+	}
+	
+	public void setSortMethodDescending(String value){
+		
+		if (this.params == null)
+			this.params = new LinkedHashMap<String, Object>();
+		
+		this.params.put("sort", new Sort(value, "descending"));
+	}
+	
 	public void addParams(String key, int value)
 	{
 		if (this.params == null)
@@ -58,8 +74,16 @@ public class CommandBuilder{
 	
 	private static class Sort{
 		private final String method;
+		private final String order;
+		
 		public Sort(String method) {
 			this.method = method;
+			this.order = null;
+		}
+		
+		public Sort(String method, String order) {
+			this.method = method;
+			this.order = order;
 		}
 	}
 }

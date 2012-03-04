@@ -8,6 +8,12 @@ public final class Check {
 		}
 	}
 	
+	public static void argumentNotNull(Object argument, String argumentName){
+		if (argument == null){
+			throw new NullPointerException("Argument " + argumentName + " is null!");
+		}
+	}
+	
 	public static void assertion(boolean assertion, String message){
 		assert assertion : message;
 	}
