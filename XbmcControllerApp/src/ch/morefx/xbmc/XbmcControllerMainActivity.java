@@ -13,8 +13,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
+import ch.morefx.xbmc.activities.home.HomeScreenActivity;
 import ch.morefx.xbmc.preferences.ApplicationPreferenceActivity;
-import ch.morefx.xbmc.screens.home.HomeScreenActivity;
 import ch.morefx.xbmc.util.DialogUtility;
 
 public class XbmcControllerMainActivity extends Activity {

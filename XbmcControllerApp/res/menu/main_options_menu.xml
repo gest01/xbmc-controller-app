@@ -6,22 +6,5 @@
         android:icon="@android:drawable/ic_menu_preferences"
         android:showAsAction="ifRoom|withText"
         android:title="Settings"/>
-    <item
-        android:id="@+id/mnu_picture_library"
-        android:icon="@android:drawable/ic_menu_camera"
-        android:showAsAction="ifRoom|withText"
-        android:title="Picture"/>
-    
-     <item
-        android:id="@+id/mnu_audio_library"
-        android:icon="@android:drawable/ic_menu_gallery"
-        android:showAsAction="ifRoom|withText"
-        android:title="Audio" />
-     
-     <item
-        android:id="@+id/mnu_video_library"
-        android:icon="@android:drawable/ic_menu_upload_you_tube"
-        android:showAsAction="ifRoom|withText"
-        android:title="Video"/>
-    
+   
 </menu>

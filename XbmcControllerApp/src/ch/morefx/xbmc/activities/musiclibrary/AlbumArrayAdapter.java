@@ -1,4 +1,4 @@
-package ch.morefx.xbmc.screens.musiclibrary;
+package ch.morefx.xbmc.activities.musiclibrary;
 
 import java.util.List;
 

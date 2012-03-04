@@ -19,6 +19,7 @@
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -26,19 +27,22 @@
             android:name="XbmcConnectionEdit"
             android:label="" />
         <activity
-            android:name=".screens.home.HomeScreenActivity"
+            android:name=".activities.home.HomeScreenActivity"
             android:label="HomeScreenActivity" />
         <activity
-            android:name=".screens.musiclibrary.MusicLibraryActivity"
-            android:label="MusicLibraryActivity" />
+            android:name=".activities.browser.BrowserActivity"
+            android:label="BrowserActivity" />
+<!--         <activity -->
+<!--             android:name=".activities.musiclibrary.MusicLibraryActivity" -->
+<!--             android:label="MusicLibraryActivity" /> -->
         <activity
-            android:name=".screens.musiclibrary.ArtistActivity"
+            android:name=".activities.musiclibrary.ArtistActivity"
             android:label="Music Library" />
         <activity
-            android:name=".screens.musiclibrary.AlbumActivity"
+            android:name=".activities.musiclibrary.AlbumActivity"
             android:label="Album Activity" />
         <activity
-            android:name=".screens.musiclibrary.SongActivity"
+            android:name=".activities.musiclibrary.SongActivity"
             android:label="Song Activity" />
         <activity
             android:name=".preferences.ApplicationPreferenceActivity"

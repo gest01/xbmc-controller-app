@@ -1,19 +1,19 @@
-package ch.morefx.xbmc.screens.musiclibrary;
+package ch.morefx.xbmc.activities.musiclibrary;
 
 import java.util.List;
 
-import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import ch.morefx.xbmc.activities.XbmcListActivity;
 import ch.morefx.xbmc.model.Artist;
 import ch.morefx.xbmc.model.loaders.ArtistLoader;
 import ch.morefx.xbmc.model.loaders.PostExecuteHandler;
 
 public class ArtistActivity 
-	extends ListActivity {
+	extends XbmcListActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

@@ -1,4 +1,4 @@
-package ch.morefx.xbmc.screens.home;
+package ch.morefx.xbmc.activities.home;
 
 import android.content.Intent;
 

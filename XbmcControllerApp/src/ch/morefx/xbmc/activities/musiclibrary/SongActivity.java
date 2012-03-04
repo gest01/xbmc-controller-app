@@ -1,12 +1,12 @@
-package ch.morefx.xbmc.screens.musiclibrary;
+package ch.morefx.xbmc.activities.musiclibrary;
 
 import java.util.List;
 
-import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 import ch.morefx.xbmc.XbmcRemoteControlApplication;
+import ch.morefx.xbmc.activities.XbmcListActivity;
 import ch.morefx.xbmc.model.Album;
 import ch.morefx.xbmc.model.AudioLibrary;
 import ch.morefx.xbmc.model.Song;
@@ -15,7 +15,7 @@ import ch.morefx.xbmc.model.loaders.SongLoader;
 import ch.morefx.xbmc.util.Check;
 
 public final class SongActivity 
-	extends ListActivity {
+	extends XbmcListActivity {
 
 	public static final String EXTRA_ALBUM = "EXTRA_ALBUM";
 	

@@ -12,5 +12,4 @@ public class ApplicationPreferenceActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.application_preferences_layout);
     }
-	
 }

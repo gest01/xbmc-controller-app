@@ -1,4 +1,4 @@
-package ch.morefx.xbmc.screens.musiclibrary;
+package ch.morefx.xbmc.activities.musiclibrary;
 
 import java.util.List;
 
@@ -42,7 +42,7 @@ public class SongArrayAdapter extends ArrayAdapter<Song> {
 		Song song = getItem(position);
 		holder.title.setText(song.getTrack() + ". " + song.getLabel() );
 		holder.detail.setText(song.getFilename());
-		holder.image.setImageDrawable(getContext().getResources().getDrawable(R.drawable.songicon));
+		holder.image.setImageDrawable( getContext().getResources().getDrawable(R.drawable.songicon) );
 		
 		return convertView;
 	}
