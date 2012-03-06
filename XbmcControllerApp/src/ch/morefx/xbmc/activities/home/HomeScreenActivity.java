@@ -4,18 +4,14 @@ import java.util.ArrayList;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import ch.morefx.xbmc.R;
-import ch.morefx.xbmc.XbmcConnection;
-import ch.morefx.xbmc.XbmcRemoteControlApplication;
 import ch.morefx.xbmc.activities.XbmcActivity;
 import ch.morefx.xbmc.activities.musiclibrary.ArtistActivity;
 import ch.morefx.xbmc.activities.sourcebrowser.SourceBrowserActivity;
-import ch.morefx.xbmc.command.JsonCommandExecutor;
 
 /**
  * Defines the main activity for the Home Screen
@@ -33,32 +29,11 @@ public class HomeScreenActivity extends XbmcActivity {
 		ListView listView = (ListView) findViewById(R.id.homescreenactivity_list);
 		listView.setAdapter(adapter);
 		
-		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-		StrictMode.setThreadPolicy(policy);
-
-		
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				HomeScreenMenuItem menuItem = (HomeScreenMenuItem)parent.getItemAtPosition(position);
-				
-				if (menuItem.getTitle().equals("Pictures")){
-					XbmcRemoteControlApplication app = (XbmcRemoteControlApplication)getApplicationContext();
-					XbmcConnection connection = app.getCurrentConnection();
-					JsonCommandExecutor executor = new JsonCommandExecutor(connection);
-					String result = executor.executeDirect("{\"jsonrpc\": \"2.0\", \"method\": \"Player.GetActivePlayers\", \"id\": 1}");
-					System.out.println("RESULT = " + result);
-					
-					result = executor.executeDirect("{\"jsonrpc\": \"2.0\", \"method\": \"Playlist.GetItems\", \"params\": { \"playlistid\": 0, \"properties\": [ \"title\", \"album\", \"artist\", \"duration\", \"thumbnail\" ] }, \"id\": 1}");
-					System.out.println("RESULT = " + result);
-					
-					result = executor.executeDirect("{\"jsonrpc\": \"2.0\", \"method\": \"Player.GetProperties\", \"params\": { \"playerid\": 0, \"properties\": [ \"playlistid\", \"speed\", \"position\", \"totaltime\", \"time\" ] }, \"id\": 1}");
-					System.out.println("RESULT = " + result);
-					
-					
-				} else {
-					Intent intent = menuItem.getIntent();
-					startActivity(intent);
-				}
+				Intent intent = menuItem.getIntent();
+				startActivity(intent);
 			}
 		});
 	}

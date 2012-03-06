@@ -19,13 +19,25 @@ public class AudioLibrary {
 	private CommandExecutor executor;
 	
 	public AudioLibrary(XbmcConnection connection) {
-		Check.notNull(connection, "connection is null");
+		Check.argumentNotNull(connection, "connection");
 		
 		this.executor = new JsonCommandExecutor(connection);
 	}
 	
+	/**
+	 * 
+	 * @param filesource
+	 */
+	public void playSong(FileSource filesource) {
+		Check.argumentNotNull(filesource, "filesource");
+	}
+	
+	/**
+	 * 
+	 * @param song
+	 */
 	public void playSong(Song song){
-		Check.notNull(song, "song is null!");
+		Check.argumentNotNull(song, "song");
 		
 		//executor.executeDirect("{\"jsonrpc\": \"2.0\", \"method\": \"Playlist.Clear\", \"params\": { \"playlistid\": 0 }, \"id\": 1}");
 		execute(new PlaylistClearCommand(Playlist.Audio));		
@@ -44,7 +56,7 @@ public class AudioLibrary {
 	}
 	
 	public List<Album> getAlbums(Artist artist){
-		Check.notNull(artist, "artist is null!");
+		Check.argumentNotNull(artist, "artist");
 		
 		GetAlbumsCommand command = new GetAlbumsCommand(artist);
 		execute(command);
@@ -52,7 +64,7 @@ public class AudioLibrary {
 	}
 	
 	public List<Song> getSongs(Album album){
-		Check.notNull(album, "album is null!");
+		Check.argumentNotNull(album, "album");
 		
 		GetSongsCommand command = new GetSongsCommand(album);
 		execute(command);

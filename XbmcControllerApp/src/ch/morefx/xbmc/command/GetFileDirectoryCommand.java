@@ -24,13 +24,14 @@ public class GetFileDirectoryCommand
 	
 	@Override
 	void prepareCommand(CommandBuilder builder) {
-		//builder.addParams("properties", FileSource.getFields());
+		builder.addParams("properties", FileSource.getFields());
 		builder.addParams("directory", this.source.getFile());
+		builder.addParams("media", this.source.getMediaType());
 		builder.setSortMethodAscending("file");
 	}
 	
 	public void handleResponse(CommandResponse response) {
-		FileSource[] sourceArray = response.asArrayResult("files", FileSource[].class);
+		FileSource[] sourceArray = response.asArrayResultWithCreator("files", FileSource[].class, FileSource.class, new FileSourceInstanceCreator(this.source.getMediaType()));
 		this.directories = Arrays.asList(sourceArray);
 	}
 	
@@ -42,5 +43,5 @@ public class GetFileDirectoryCommand
 	 */
 	public List<FileSource> getDirectories(){
 		return this.directories;
-	}
+	}	
 }

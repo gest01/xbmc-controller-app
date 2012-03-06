@@ -28,7 +28,7 @@ public class GetFileSourcesCommand extends JsonCommand
 	}
 	
 	public void handleResponse(CommandResponse response) {
-		FileSource[] sourceArray = response.asArrayResult("sources", FileSource[].class);
+		FileSource[] sourceArray = response.asArrayResultWithCreator("sources", FileSource[].class, FileSource.class, new FileSourceInstanceCreator(this.media));
 		this.filesources = Arrays.asList(sourceArray);
 	}
 
@@ -42,4 +42,5 @@ public class GetFileSourcesCommand extends JsonCommand
 	public List<FileSource> getFileSources(){
 		return this.filesources;
 	}
+	
 }

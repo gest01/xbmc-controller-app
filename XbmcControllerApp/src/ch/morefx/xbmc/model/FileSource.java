@@ -12,6 +12,23 @@ public class FileSource
 	private String label;
 	private String type;
 	
+	private String mediaType;
+	
+	public FileSource(String mediaType) {
+		this.mediaType = mediaType;
+	}
+	
+	/**
+	 * Gets the mediatype (files, video, music or pictures) which this filesource is representing.
+	 * Possible media types see CFileOperations::GetDirectory
+	 * http://forum.xbmc.org/showthread.php?t=124667
+	 * @return the media type
+	 */
+	public String getMediaType(){
+		if (this.mediaType == null || this.mediaType.length() == 0)
+			this.mediaType = "files"; // this is the default when nothing else is set
+		return this.mediaType;
+	}
 	
 	@Override
 	public String toString() {

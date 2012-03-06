@@ -5,9 +5,9 @@ import java.util.List;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import ch.morefx.xbmc.activities.XbmcListActivity;
+import ch.morefx.xbmc.activities.musiclibrary.FileSourceArrayAdapter;
 import ch.morefx.xbmc.model.FileSource;
 import ch.morefx.xbmc.model.loaders.FileSourceLoader;
 import ch.morefx.xbmc.model.loaders.PostExecuteHandler;
@@ -32,7 +32,7 @@ public class SourceBrowserActivity
 	
 	private void populateList(List<FileSource> result){
 		if (result != null){
-			setListAdapter(new ArrayAdapter<FileSource>(getApplication(), android.R.layout.simple_list_item_1, result));
+			setListAdapter(new FileSourceArrayAdapter(getApplication(), android.R.layout.simple_list_item_1, result));
 		}
 	}
 	

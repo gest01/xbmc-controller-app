@@ -4,10 +4,9 @@ import java.util.List;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 import ch.morefx.xbmc.activities.XbmcListActivity;
+import ch.morefx.xbmc.activities.musiclibrary.FileSourceArrayAdapter;
 import ch.morefx.xbmc.model.FileSource;
 import ch.morefx.xbmc.model.loaders.FileDirectoryLoader;
 import ch.morefx.xbmc.model.loaders.PostExecuteHandler;
@@ -21,7 +20,6 @@ public class DirectoryBrowserActivity
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
 		
 		FileSource filesource = (FileSource)getIntent().getExtras().getSerializable(EXTRA_FILESOURCE);
 		Check.notNull(filesource, "FileSource object missing from Intent extras");
@@ -40,7 +38,7 @@ public class DirectoryBrowserActivity
 	
 	private void populateList(List<FileSource> result){
 		if (result != null){
-			setListAdapter(new ArrayAdapter<FileSource>(getApplication(), android.R.layout.simple_list_item_1, result));
+			setListAdapter(new FileSourceArrayAdapter(getApplication(), android.R.layout.simple_list_item_1, result));
 		}
 	}
 	
@@ -50,8 +48,7 @@ public class DirectoryBrowserActivity
 		if (filesource.isDirectory()){
 			loadList(filesource);	
 		} else {
-			Toast.makeText(l.getContext(), "PLAY " + filesource.toString(), Toast.LENGTH_LONG);
+			System.out.println("EXE " + filesource);
 		}
-		
 	}
 }
