@@ -49,7 +49,7 @@ public class XbmcConnectionManager {
 		} catch (FileNotFoundException e) {
 			// That's ok..probably the first time
 		} catch (Exception e) {
-			e.printStackTrace();
+			XbmcExceptionHandler.handleException(TAG, "Error while opening xbmc_connections - settingsfile", e);
 		}
 	}
 	
@@ -62,7 +62,7 @@ public class XbmcConnectionManager {
 		} catch (FileNotFoundException e) {
 			/// That's ok..probably the first time
 		} catch (Exception e) {
-			e.printStackTrace();
+			XbmcExceptionHandler.handleException(TAG, "Error while saving xbmc_connections", e);
 		}
 	}
 	

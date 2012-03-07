@@ -6,19 +6,22 @@ import android.util.Log;
 
 public class XbmcExceptionHandler implements UncaughtExceptionHandler {
 
+	private static final String TAG = "XbmcExceptionHandler";
+	
 	public void uncaughtException(Thread thread, Throwable ex) {
-		Log.e("XbmcExceptionHandler", "**** Unhandled Exception Occured ****", ex);
+		Log.e(TAG, "**** Unhandled Exception Occured ****", ex);
 	}
 
 	
-	public static void handleException(Throwable ex){
-		handleException(Thread.currentThread(), ex);
+	public static void handleException(final String message, Throwable ex){
+		Log.e(TAG, message, ex);
+	}
+	
+	public static void handleException(final String tag, final String message, Throwable ex){
+		Log.e(tag, message, ex);
 	}
 	
 	public static void handleException(Thread thread, Throwable ex){
-		Log.e("XbmcExceptionHandler", "FUCK!!!!");
-		ex.printStackTrace();
-		//Toast.makeText(null, ex.toString(), Toast.LENGTH_SHORT);
-		//DialogUtil.showError(null, ex.toString(), "FUCK");
+		Log.e(TAG, "**** Unhandled Exception Occured ****", ex);
 	}
 }

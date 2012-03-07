@@ -36,9 +36,10 @@
             android:name=".activities.sourcebrowser.DirectoryBrowserActivity"
             android:label="DirectoryBrowserActivity" />
 
-        <!-- <activity -->
-        <!-- android:name=".activities.musiclibrary.MusicLibraryActivity" -->
-        <!-- android:label="MusicLibraryActivity" /> -->
+        <activity
+         android:name=".activities.videolibrary.VideoActivity"
+         android:label="VideoActivity" />
+        
         <activity
             android:name=".activities.musiclibrary.ArtistActivity"
             android:label="Music Library" />

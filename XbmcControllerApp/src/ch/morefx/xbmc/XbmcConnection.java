@@ -9,6 +9,7 @@ import org.apache.http.params.HttpConnectionParams;
 
 import ch.morefx.xbmc.command.HttpRequestRetryHandlerImpl;
 import ch.morefx.xbmc.model.AudioLibrary;
+import ch.morefx.xbmc.model.VideoLibrary;
 import ch.morefx.xbmc.util.DrawableManager;
 
 
@@ -29,13 +30,16 @@ public class XbmcConnection implements Serializable {
 	private int port;
 	private long id;
 	private boolean isDefault;
+	
 	private AudioLibrary audioLibrary;
+	private VideoLibrary videoLibrary;
 	
 	public XbmcConnection() {
 		setPort(DEFAULT_PORT);
 		setUsername(DEFAULT_USERNAME);
 		id = DEFAULT_NOID;
 		this.audioLibrary = null;
+		this.videoLibrary = null;
 	}
 	
 	public DefaultHttpClient createHttpClient(){
@@ -65,13 +69,27 @@ public class XbmcConnection implements Serializable {
 		this.audioLibrary = null;
 	}
 	
-	
-	public synchronized AudioLibrary getAudioLibrary(){
+	/**
+	 * Gets the AudioLibrary connected by this Connection.
+	 * @return AudioLibrary
+	 */public synchronized AudioLibrary getAudioLibrary(){
 		if (this.audioLibrary == null){
 			this.audioLibrary = new AudioLibrary(this);
 		}
 		
 		return this.audioLibrary;
+	}
+	
+	/**
+	 * Gets the VideoLibrary connected by this Connection.
+	 * @return VideoLibrary
+	 */
+	public synchronized VideoLibrary getVideoLibrary(){
+		if (this.videoLibrary == null){
+			this.videoLibrary = new VideoLibrary(this);
+		}
+		
+		return this.videoLibrary;
 	}
 	
 	public String getXbmcConnectionUri() {

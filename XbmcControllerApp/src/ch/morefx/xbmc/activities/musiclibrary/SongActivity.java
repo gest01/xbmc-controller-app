@@ -5,7 +5,6 @@ import java.util.List;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
-import ch.morefx.xbmc.XbmcRemoteControlApplication;
 import ch.morefx.xbmc.activities.XbmcListActivity;
 import ch.morefx.xbmc.model.Album;
 import ch.morefx.xbmc.model.AudioLibrary;
@@ -45,13 +44,8 @@ public final class SongActivity
 	
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
-		final Song song = (Song)getListAdapter().getItem(position);
-	    new Thread(new Runnable() {
-	        public void run() {
-	    		XbmcRemoteControlApplication app = (XbmcRemoteControlApplication)getApplicationContext();
-	    		AudioLibrary library = app.getCurrentConnection().getAudioLibrary();
-	    		library.playSong(song);
-	        }
-	    }).start();
+		Song song = (Song)getListAdapter().getItem(position);
+		AudioLibrary library = getAudioLibrary();
+		library.playSong(song);
 	}
 }

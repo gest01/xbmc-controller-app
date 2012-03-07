@@ -6,6 +6,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import ch.morefx.xbmc.R;
+import ch.morefx.xbmc.XbmcRemoteControlApplication;
+import ch.morefx.xbmc.model.AudioLibrary;
 import ch.morefx.xbmc.preferences.ApplicationPreferenceActivity;
 
 public class XbmcListActivity extends ListActivity{
@@ -29,5 +31,13 @@ public class XbmcListActivity extends ListActivity{
 	        return super.onOptionsItemSelected(item);
        }
     }
-
+    
+    protected XbmcRemoteControlApplication getXbmcApplication(){
+		return (XbmcRemoteControlApplication)getApplicationContext();
+    }
+    
+    protected AudioLibrary getAudioLibrary(){
+		XbmcRemoteControlApplication app = getXbmcApplication();
+		return app.getCurrentConnection().getAudioLibrary();
+    }
 }

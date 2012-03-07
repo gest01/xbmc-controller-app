@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import ch.morefx.xbmc.XbmcConnection;
 import ch.morefx.xbmc.XbmcRemoteControlApplication;
 import ch.morefx.xbmc.model.AudioLibrary;
+import ch.morefx.xbmc.model.VideoLibrary;
 import ch.morefx.xbmc.util.Check;
 
 public abstract class AsyncTaskLoader<Params, Progress, Result>  
@@ -47,4 +48,12 @@ public abstract class AsyncTaskLoader<Params, Progress, Result>
 		Check.notNull(connection, "Current connection is not set!");
 		return connection.getAudioLibrary();
 	}
+	
+	protected VideoLibrary getVideoLibrary(){
+		XbmcConnection connection = getConnection();
+		
+		Check.notNull(connection, "Current connection is not set!");
+		return connection.getVideoLibrary();
+	}
+	
 }

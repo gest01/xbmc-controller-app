@@ -1,4 +1,4 @@
-package ch.morefx.xbmc.activities.musiclibrary;
+package ch.morefx.xbmc.activities.sourcebrowser;
 
 import java.util.List;
 

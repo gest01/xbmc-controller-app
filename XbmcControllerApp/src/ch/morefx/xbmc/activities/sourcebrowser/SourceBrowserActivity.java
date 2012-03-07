@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 import ch.morefx.xbmc.activities.XbmcListActivity;
-import ch.morefx.xbmc.activities.musiclibrary.FileSourceArrayAdapter;
 import ch.morefx.xbmc.model.FileSource;
 import ch.morefx.xbmc.model.loaders.FileSourceLoader;
 import ch.morefx.xbmc.model.loaders.PostExecuteHandler;

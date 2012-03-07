@@ -19,8 +19,9 @@ import org.json.JSONObject;
 import android.util.Log;
 import ch.morefx.xbmc.CommandExecutor;
 import ch.morefx.xbmc.XbmcConnection;
+import ch.morefx.xbmc.XbmcExceptionHandler;
 
-public class JsonCommandExecutor 
+public final class JsonCommandExecutor 
 	implements CommandExecutor {
 
 	private static final String TAG = "JsonCommandExecutor";
@@ -29,6 +30,16 @@ public class JsonCommandExecutor
 
 	public JsonCommandExecutor(XbmcConnection connection) {
 		this.connection = connection;
+	}
+	
+	public void executeAsync(JsonCommand command) {
+		AsyncJsonCommandExecutor asyncExecutor = new AsyncJsonCommandExecutor(this);
+		asyncExecutor.execute(command);
+	}	
+	
+	public void executeAsync(JsonCommand... commands) {
+		AsyncJsonCommandExecutor asyncExecutor = new AsyncJsonCommandExecutor(this);
+		asyncExecutor.execute(commands);		
 	}
 
 	public final void execute(JsonCommand command) {
@@ -112,20 +123,15 @@ public class JsonCommandExecutor
 			return responseString;
 			
 		} catch (UnsupportedEncodingException e) {
-			Log.e(TAG, "***** UnsupportedEncodingException *****");
-			e.printStackTrace();
+			XbmcExceptionHandler.handleException(TAG, "*** UnsupportedEncodingException ***", e);
 		} catch (ClientProtocolException e) {
-			Log.e(TAG, "***** ClientProtocolException *****");
-			e.printStackTrace();
+			XbmcExceptionHandler.handleException(TAG, "*** ClientProtocolException ***", e);
 		} catch (IllegalStateException e) {
-			Log.e(TAG, "***** IllegalStateException *****");
-			e.printStackTrace();
+			XbmcExceptionHandler.handleException(TAG, "*** IllegalStateException ***", e);
 		} catch (IOException e) {
-			Log.e(TAG, "***** IOException *****");
-			e.printStackTrace();
+			XbmcExceptionHandler.handleException(TAG, "*** IOException ***", e);
 		}catch (Exception e) {
-			Log.e(TAG, "***** Exception *****");
-			e.printStackTrace();
+			XbmcExceptionHandler.handleException(TAG, "*** Exception ***", e);
 		}
 		
 		return null;

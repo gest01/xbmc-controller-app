@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 import ch.morefx.xbmc.activities.XbmcListActivity;
-import ch.morefx.xbmc.activities.musiclibrary.FileSourceArrayAdapter;
+import ch.morefx.xbmc.model.AudioLibrary;
 import ch.morefx.xbmc.model.FileSource;
 import ch.morefx.xbmc.model.loaders.FileDirectoryLoader;
 import ch.morefx.xbmc.model.loaders.PostExecuteHandler;
@@ -48,7 +48,8 @@ public class DirectoryBrowserActivity
 		if (filesource.isDirectory()){
 			loadList(filesource);	
 		} else {
-			System.out.println("EXE " + filesource);
+			AudioLibrary library = getAudioLibrary();
+			library.playSong(filesource);
 		}
 	}
 }
