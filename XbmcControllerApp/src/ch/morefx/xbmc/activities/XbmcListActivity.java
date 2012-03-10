@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import ch.morefx.xbmc.R;
 import ch.morefx.xbmc.XbmcRemoteControlApplication;
 import ch.morefx.xbmc.model.AudioLibrary;
+import ch.morefx.xbmc.model.VideoLibrary;
 import ch.morefx.xbmc.preferences.ApplicationPreferenceActivity;
 
 public class XbmcListActivity extends ListActivity{
@@ -36,8 +37,21 @@ public class XbmcListActivity extends ListActivity{
 		return (XbmcRemoteControlApplication)getApplicationContext();
     }
     
+    /**
+     * Gets the connected Audio Library
+     * @return AudioLibrary
+     */
     protected AudioLibrary getAudioLibrary(){
 		XbmcRemoteControlApplication app = getXbmcApplication();
 		return app.getCurrentConnection().getAudioLibrary();
+    }
+    
+    /**
+     * Gets the connected Video Library
+     * @return VideoLibrary
+     */
+    protected VideoLibrary getVideoLibrary(){
+		XbmcRemoteControlApplication app = getXbmcApplication();
+		return app.getCurrentConnection().getVideoLibrary();
     }
 }

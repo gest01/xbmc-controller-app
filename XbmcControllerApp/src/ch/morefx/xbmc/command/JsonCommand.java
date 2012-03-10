@@ -26,5 +26,4 @@ public abstract class JsonCommand {
 	void prepareCommand(CommandBuilder builder){
 		
 	}
-
 }

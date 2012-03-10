@@ -9,9 +9,9 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceFragment;
 import ch.morefx.xbmc.R;
 import ch.morefx.xbmc.XbmcConnection;
-import ch.morefx.xbmc.XbmcConnectionEdit;
 import ch.morefx.xbmc.XbmcConnectionManager;
 import ch.morefx.xbmc.XbmcRemoteControlApplication;
+import ch.morefx.xbmc.activities.XbmcConnectionEditActivity;
 
 public class ApplicationPreferenceFragment extends PreferenceFragment {
 
@@ -58,7 +58,7 @@ public class ApplicationPreferenceFragment extends PreferenceFragment {
         Preference pref = getPreferenceManager().findPreference("customPref");
         pref.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 			public boolean onPreferenceClick(Preference preference) {
-				Intent intent = new Intent(getActivity(), XbmcConnectionEdit.class);
+				Intent intent = new Intent(getActivity(), XbmcConnectionEditActivity.class);
 	         	startActivity(intent);
 				return false;
 			}

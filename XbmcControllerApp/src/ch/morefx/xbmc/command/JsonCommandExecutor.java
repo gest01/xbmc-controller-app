@@ -115,11 +115,10 @@ public final class JsonCommandExecutor
 			
 			HttpResponse response = httpClient.execute(post);
 			InputStream in = response.getEntity().getContent();
-			java.io.BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-			
+			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 			String responseString = reader.readLine();
-			Log.d(TAG, "RESPONSE: " + responseString);
 			
+			Log.d(TAG, "RESPONSE: " + responseString);
 			return responseString;
 			
 		} catch (UnsupportedEncodingException e) {

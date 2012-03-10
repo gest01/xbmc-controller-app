@@ -6,7 +6,7 @@ import ch.morefx.xbmc.XbmcConnection;
 import ch.morefx.xbmc.command.GetAlbumsCommand;
 import ch.morefx.xbmc.command.GetArtistsCommand;
 import ch.morefx.xbmc.command.GetSongsCommand;
-import ch.morefx.xbmc.command.PlayerOpenCommand;
+import ch.morefx.xbmc.command.PlayerOpenCommandAdapter;
 import ch.morefx.xbmc.command.PlaylistAddCommand;
 import ch.morefx.xbmc.command.PlaylistClearCommand;
 import ch.morefx.xbmc.util.Check;
@@ -24,7 +24,7 @@ public final class AudioLibrary extends XbmcLibrary {
 	public void playSong(FileSource filesource) {
 		Check.argumentNotNull(filesource, "filesource");
 		
-		executeAsync(new PlayerOpenCommand(filesource));
+		executeAsync(new PlayerOpenCommandAdapter(filesource));
 	}
 	
 	/**
@@ -38,7 +38,7 @@ public final class AudioLibrary extends XbmcLibrary {
 		//executor.executeDirect("{\"jsonrpc\": \"2.0\", \"method\": \"Player.Open\", \"params\": { \"item\": { \"playlistid\": 0, \"position\": " + song.getPosition() + " } }}");
 		executeAsync(new PlaylistClearCommand(Playlist.Audio),
 					 new PlaylistAddCommand(Playlist.Audio, song.getAlbum()),
-					 new PlayerOpenCommand(Playlist.Audio, song));
+					 new PlayerOpenCommandAdapter(Playlist.Audio, song));
 	}
 	
 	public List<Artist> getArtists(){

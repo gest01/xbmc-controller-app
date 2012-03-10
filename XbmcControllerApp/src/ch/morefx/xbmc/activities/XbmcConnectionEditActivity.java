@@ -1,6 +1,5 @@
-package ch.morefx.xbmc;
+package ch.morefx.xbmc.activities;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -8,9 +7,13 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import ch.morefx.xbmc.R;
+import ch.morefx.xbmc.XbmcConnection;
+import ch.morefx.xbmc.XbmcConnectionManager;
+import ch.morefx.xbmc.XbmcRemoteControlApplication;
 import ch.morefx.xbmc.util.DialogUtility;
 
-public class XbmcConnectionEdit extends Activity {
+public class XbmcConnectionEditActivity extends XbmcActivity {
 
 	public static final String PARAM_EXTRA_CONENCTION = "CONNECTION";
 	

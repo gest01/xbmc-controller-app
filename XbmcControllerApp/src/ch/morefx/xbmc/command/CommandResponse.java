@@ -6,11 +6,15 @@ import java.lang.reflect.Type;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import ch.morefx.xbmc.XbmcExceptionHandler;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 public class CommandResponse {
 
+	private static final String TAG = "CommandResponse";
+	
 	private JSONObject jsonResult;
 	private GsonBuilder builder;
 	
@@ -52,7 +56,7 @@ public class CommandResponse {
 			return typedArray;
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			XbmcExceptionHandler.handleException(TAG, "json deserialization error", e);
 		}
 		
 		return null;

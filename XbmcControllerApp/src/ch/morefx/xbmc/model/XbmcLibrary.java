@@ -15,7 +15,7 @@ public class XbmcLibrary {
 	
 	public XbmcLibrary(XbmcConnection connection) {
 		Check.argumentNotNull(connection, "connection");
-		
+
 		this.executor = new JsonCommandExecutor(connection);
 	}
 	
@@ -25,5 +25,9 @@ public class XbmcLibrary {
 	
 	protected void executeAsync(JsonCommand ... commands){
 		this.executor.executeAsync(commands);
+	}
+	
+	protected void executeAsync(JsonCommand command){
+		this.executor.executeAsync(command);
 	}
 }

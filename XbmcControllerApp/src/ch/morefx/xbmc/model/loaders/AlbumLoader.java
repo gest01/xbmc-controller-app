@@ -3,8 +3,6 @@ package ch.morefx.xbmc.model.loaders;
 import java.util.List;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
-import ch.morefx.xbmc.XbmcConnection;
 import ch.morefx.xbmc.model.Album;
 import ch.morefx.xbmc.model.Artist;
 import ch.morefx.xbmc.util.Check;
@@ -22,15 +20,9 @@ public class AlbumLoader extends AsyncTaskLoader<Artist, Void, List<Album>>{
 
 		Artist artist = params[0];
 		
-		XbmcConnection connection = getConnection();
-		Drawable fallback = getContext().getResources().getDrawable(ch.morefx.xbmc.R.drawable.cdicon);
-		
 		List<Album> albums = getAudioLibrary().getAlbums(artist);
-		for(Album album : albums){
-			if (album.getThumbnail() == null){
-				album.loadThumbnail(connection, fallback);
-			}
-		}
+		loadThumbnails(albums);
 		return albums;
 	}
+
 }

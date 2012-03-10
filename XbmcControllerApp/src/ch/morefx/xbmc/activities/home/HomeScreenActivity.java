@@ -26,10 +26,12 @@ public class HomeScreenActivity extends XbmcActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.homescreenactivity_layout);
 		
+		startPlayerService();
+		
 		HomeScreenMenuItemAdapter adapter = new HomeScreenMenuItemAdapter(this, R.layout.homescreenactivity_layout, populateMenuItem());		
 		ListView listView = (ListView) findViewById(R.id.homescreenactivity_list);
 		listView.setAdapter(adapter);
-		
+				
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				HomeScreenMenuItem menuItem = (HomeScreenMenuItem)parent.getItemAtPosition(position);
@@ -39,6 +41,12 @@ public class HomeScreenActivity extends XbmcActivity {
 		});
 	}
 	
+	@Override
+	protected void onDestroy() {
+		stopPlayerService();
+		super.onDestroy();
+	}
+		
 	private ArrayList<HomeScreenMenuItem> populateMenuItem(){
 		ArrayList<HomeScreenMenuItem> items = new ArrayList<HomeScreenMenuItem>();
 		items.add(new HomeScreenMenuItem("Music Library", "Listen to your Music", new Intent(this, ArtistActivity.class)));

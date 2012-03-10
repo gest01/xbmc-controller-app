@@ -1,10 +1,14 @@
 package ch.morefx.xbmc.model.loaders;
 
+import java.util.List;
+
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import ch.morefx.xbmc.XbmcConnection;
 import ch.morefx.xbmc.XbmcRemoteControlApplication;
 import ch.morefx.xbmc.model.AudioLibrary;
+import ch.morefx.xbmc.model.ThumbnailHolder;
 import ch.morefx.xbmc.model.VideoLibrary;
 import ch.morefx.xbmc.util.Check;
 
@@ -35,6 +39,24 @@ public abstract class AsyncTaskLoader<Params, Progress, Result>
 		if (this.handler != null){
 			this.handler.onPostExecute(result);	
 		}
+	}
+	
+	protected void loadThumbnails(List<? extends ThumbnailHolder> holders){
+		for(ThumbnailHolder holder : holders){
+			loadThumbnail(holder);
+		}
+	}
+	
+	protected void loadThumbnail(ThumbnailHolder holder){
+		if (holder.getThumbnail() != null)
+			return;
+		
+		XbmcConnection connection = getConnection();
+		Drawable fallback = getContext().getResources().getDrawable(holder.getThumbnailFallbackResourceId());
+		
+		String thumbnailUrl = connection.formatThumbnailUrl(holder.getThumbnailUri());
+		Drawable drawableThumbnail = connection.getDrawableManager().fetchDrawableWithFallback(thumbnailUrl, fallback);
+		holder.setThumbnail(drawableThumbnail);
 	}
 	
 	protected XbmcConnection getConnection(){

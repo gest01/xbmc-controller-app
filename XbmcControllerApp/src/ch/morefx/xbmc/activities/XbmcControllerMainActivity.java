@@ -1,4 +1,4 @@
-package ch.morefx.xbmc;
+package ch.morefx.xbmc.activities;
 
 import java.util.List;
 
@@ -13,6 +13,9 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
+import ch.morefx.xbmc.R;
+import ch.morefx.xbmc.XbmcConnection;
+import ch.morefx.xbmc.XbmcRemoteControlApplication;
 import ch.morefx.xbmc.activities.home.HomeScreenActivity;
 import ch.morefx.xbmc.preferences.ApplicationPreferenceActivity;
 import ch.morefx.xbmc.util.DialogUtility;
@@ -81,7 +84,7 @@ public class XbmcControllerMainActivity extends Activity {
     						public void onClick(DialogInterface dialog, int which) {
     						   dialog.dismiss();
     						   if (which == DialogInterface.BUTTON_POSITIVE){
-    				         	   Intent intent = new Intent(XbmcControllerMainActivity.this, XbmcConnectionEdit.class);
+    				         	   Intent intent = new Intent(XbmcControllerMainActivity.this, XbmcConnectionEditActivity.class);
     				         	   startActivity(intent);
     						   }
     						}

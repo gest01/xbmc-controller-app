@@ -18,7 +18,6 @@ public class GetMoviesCommand extends JsonCommand
 	@Override
 	void prepareCommand(CommandBuilder builder) {
 		builder.addParams("properties", Movie.getMovieFields());
-		//builder.setSortMethod("artist");
 	}
 	
 	public void handleResponse(CommandResponse response) {

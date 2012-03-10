@@ -3,10 +3,9 @@ package ch.morefx.xbmc.model;
 import java.io.Serializable;
 
 import android.graphics.drawable.Drawable;
-import ch.morefx.xbmc.XbmcConnection;
 
 public class Album extends LibraryItem
-	implements Serializable{
+	implements Serializable, ThumbnailHolder{
 
 	private static final long serialVersionUID = 1L;
 
@@ -27,17 +26,24 @@ public class Album extends LibraryItem
     	return this.albumid;
     }
     
+    public int getThumbnailFallbackResourceId() {
+    	return ch.morefx.xbmc.R.drawable.cdicon;
+    }
+    
+    public String getThumbnailUri() {
+    	return this.thumbnail;
+    }
+    
+    public void setThumbnail(Drawable drawable) {
+    	this.drawableThumbnail = drawable;
+    }
+    
     // Marked as transient due activity transition
     private transient Drawable drawableThumbnail;
     
     public Drawable getThumbnail(){
     	return this.drawableThumbnail;
     }
-
-	public void loadThumbnail(XbmcConnection connection, Drawable defaultThumbnail){
-		String thumbnailUrl = connection.getThumbnailUrl(this.thumbnail);
-		this.drawableThumbnail = connection.getDrawableManager().fetchDrawableWithFallback(thumbnailUrl, defaultThumbnail);
-	}
     
     @Override
     public int getId() {
@@ -52,9 +58,8 @@ public class Album extends LibraryItem
 	
     public static String[] getAlbumFields()
     {
-		// Siehe
-		// /home/stef/dev/xbmc/xbmc/interfaces/json-rpc/ServiceDescription.h
-		// Zeile 311 "Audio.Fields.Album"
+		// xbmc/xbmc/interfaces/json-rpc/ServiceDescription.h
+		// line 311 "Audio.Fields.Album"
             return new  String[]{
             		"title",
 		            "description",

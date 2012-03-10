@@ -9,7 +9,7 @@ public class XbmcExceptionHandler implements UncaughtExceptionHandler {
 	private static final String TAG = "XbmcExceptionHandler";
 	
 	public void uncaughtException(Thread thread, Throwable ex) {
-		Log.e(TAG, "**** Unhandled Exception Occured ****", ex);
+		handleException(thread, ex);
 	}
 
 	

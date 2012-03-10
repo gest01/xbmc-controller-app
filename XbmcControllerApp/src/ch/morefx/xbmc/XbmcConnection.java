@@ -42,6 +42,10 @@ public class XbmcConnection implements Serializable {
 		this.videoLibrary = null;
 	}
 	
+	/**
+	 * Creates a HttpClient with this connections credentials
+	 * @return DefaultHttpClient
+	 */
 	public DefaultHttpClient createHttpClient(){
 		DefaultHttpClient client = new DefaultHttpClient();
 		client.setHttpRequestRetryHandler(new HttpRequestRetryHandlerImpl());
@@ -96,7 +100,7 @@ public class XbmcConnection implements Serializable {
 		return String.format(JSONRPC_URL, getHost(), getPort());
 	}
 	
-	public String getThumbnailUrl(String thumbnail) {
+	public String formatThumbnailUrl(String thumbnail) {
 		return String.format(THUMBNAIL_URL, getHost(), getPort(), thumbnail);
 	}
 	

@@ -10,7 +10,6 @@ public class FileSource
 	private String file;
 	private String filetype;
 	private String label;
-	private String type;
 	
 	private String mediaType;
 	
