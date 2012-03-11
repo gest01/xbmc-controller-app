@@ -8,10 +8,17 @@ public class HomeScreenMenuItem {
     private String description;
     private Intent intent;
     
-    public HomeScreenMenuItem(String title, String description, Intent intent) {
+    private int iconResourceId;
+    
+    public HomeScreenMenuItem(int iconResourceId, String title, String description, Intent intent) {
         this.title = title;
         this.description = description;
         this.intent = intent;
+        this.iconResourceId = iconResourceId;
+    }
+    
+    public int getIconResourceId(){
+    	return this.iconResourceId;
     }
     
     public String getTitle() {

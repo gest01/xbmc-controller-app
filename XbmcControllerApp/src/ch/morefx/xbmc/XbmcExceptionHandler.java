@@ -11,17 +11,17 @@ public class XbmcExceptionHandler implements UncaughtExceptionHandler {
 	public void uncaughtException(Thread thread, Throwable ex) {
 		handleException(thread, ex);
 	}
-
-	
-	public static void handleException(final String message, Throwable ex){
-		Log.e(TAG, message, ex);
-	}
-	
-	public static void handleException(final String tag, final String message, Throwable ex){
-		Log.e(tag, message, ex);
-	}
 	
 	public static void handleException(Thread thread, Throwable ex){
 		Log.e(TAG, "**** Unhandled Exception Occured ****", ex);
 	}
+
+	public static void handleException(final String tag, Throwable ex){
+		Log.e(tag, ex.getMessage(), ex);
+	}
+		
+	public static void handleException(final String tag, final String message, Throwable ex){
+		Log.e(tag, message, ex);
+	}
+
 }

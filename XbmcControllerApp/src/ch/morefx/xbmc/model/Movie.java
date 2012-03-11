@@ -56,7 +56,7 @@ public class Movie extends LibraryItem
                 "playcount", "writer", "studio", "mpaa", "cast", "country",
                 "imdbnumber", "premiered", "productioncode", "runtime", "set",
                 "showlink", "streamdetails", "top250", "votes", "fanart",
-                "thumbnail", "file", "sorttitle", "resume", "setid"
+                "thumbnail", "file", /*"sorttitle" Removed..when using PlaylistGetItems, it returns an error ,*/ "resume", "setid"
 		};
 	}
 	

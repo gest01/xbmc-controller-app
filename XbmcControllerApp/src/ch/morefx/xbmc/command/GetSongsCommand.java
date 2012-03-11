@@ -39,7 +39,7 @@ public class GetSongsCommand extends JsonCommand
 	}
 	
 	
-	private final class SongInstanceCreator implements InstanceCreator<Song>{
+	private static final class SongInstanceCreator implements InstanceCreator<Song>{
 		private int position = 0; 
 		private Album album;
 		public SongInstanceCreator(Album album) {

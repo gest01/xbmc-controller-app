@@ -39,7 +39,7 @@ public class GetAlbumsCommand extends JsonCommand
 	}
 	
 	
-	private final class AlbumInstanceCreator implements InstanceCreator<Album>{
+	private static final class AlbumInstanceCreator implements InstanceCreator<Album>{
 		private Artist artist;
 		public AlbumInstanceCreator(Artist artist) {
 			this.artist = artist;

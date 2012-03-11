@@ -10,6 +10,7 @@ import ch.morefx.xbmc.XbmcRemoteControlApplication;
 import ch.morefx.xbmc.model.AudioLibrary;
 import ch.morefx.xbmc.model.VideoLibrary;
 import ch.morefx.xbmc.preferences.ApplicationPreferenceActivity;
+import ch.morefx.xbmc.services.PlayerService;
 
 public class XbmcListActivity extends ListActivity{
 	
@@ -32,6 +33,14 @@ public class XbmcListActivity extends ListActivity{
 	        return super.onOptionsItemSelected(item);
        }
     }
+    
+    protected void startPlayerService(){
+        startService(new Intent(this, PlayerService.class));
+	}
+	
+	protected void stopPlayerService(){
+		stopService(new Intent(this, PlayerService.class));
+	}
     
     protected XbmcRemoteControlApplication getXbmcApplication(){
 		return (XbmcRemoteControlApplication)getApplicationContext();

@@ -5,6 +5,8 @@ import java.util.List;
 import ch.morefx.xbmc.XbmcConnection;
 import ch.morefx.xbmc.command.GetMoviesCommand;
 import ch.morefx.xbmc.command.PlayerOpenCommandAdapter;
+import ch.morefx.xbmc.command.PlaylistAddCommand;
+import ch.morefx.xbmc.command.PlaylistClearCommand;
 import ch.morefx.xbmc.util.Check;
 
 public class VideoLibrary extends XbmcLibrary {
@@ -31,6 +33,9 @@ public class VideoLibrary extends XbmcLibrary {
 	public void playMovie(Movie movie) {
 		Check.argumentNotNull(movie, "movie");
 		
-		executeAsync(new PlayerOpenCommandAdapter(movie));
+		executeAsync(
+				 new PlaylistClearCommand(Playlist.Video),
+				 new PlaylistAddCommand(movie),
+				 new PlayerOpenCommandAdapter(movie));
 	}
 }

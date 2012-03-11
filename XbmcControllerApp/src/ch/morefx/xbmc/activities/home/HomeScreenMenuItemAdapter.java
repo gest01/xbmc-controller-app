@@ -1,41 +1,52 @@
 package ch.morefx.xbmc.activities.home;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import ch.morefx.xbmc.R;
 
 public class HomeScreenMenuItemAdapter extends ArrayAdapter<HomeScreenMenuItem> {
 
-	private List<HomeScreenMenuItem> items;
-
+	private LayoutInflater inflater;
+	
 	public HomeScreenMenuItemAdapter(Context context, int textViewResourceId, ArrayList<HomeScreenMenuItem> items) {
 		super(context, textViewResourceId, items);
-		this.items = items;
+		
+		this.inflater = LayoutInflater.from(context);
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-
-		View v = convertView;
-		if (v == null) {
-			LayoutInflater vi = LayoutInflater.from(getContext());
-			v = vi.inflate(R.layout.homescreenactivity_item_layout, null);
+		
+		ViewHolder holder;
+		if (convertView == null) {
+			convertView = this.inflater.inflate(R.layout.homescreenactivity_item_layout, parent, false);
+			holder = new ViewHolder();
+			holder.title = (TextView) convertView.findViewById(R.id.homescreenactivity_item_title);
+			holder.detail = (TextView) convertView.findViewById(R.id.homescreenactivity_item_description);
+			holder.image = (ImageView) convertView.findViewById(R.id.homescreenactivity_item_icon);
+			convertView.setTag(holder);
+		} else {
+			holder = (ViewHolder) convertView.getTag();
 		}
 
-		HomeScreenMenuItem mnuItem = this.items.get(position);
-		if (mnuItem != null) {
-			TextView description = (TextView) v.findViewById(R.id.homescreenactivity_item_description);
-			TextView title = (TextView)v.findViewById(R.id.homescreenactivity_item_title);
-			description.setText(mnuItem.getDescription());
-			title.setText(mnuItem.getTitle());
-		}
-		return v;
+		HomeScreenMenuItem mnuItem = getItem(position);
+		holder.title.setText(mnuItem.getTitle());
+		holder.detail.setText(mnuItem.getDescription());
+		holder.image.setImageDrawable(getContext().getResources().getDrawable(mnuItem.getIconResourceId()));
+		
+		return convertView;
 	}
+	
+  	private static class ViewHolder {
+  		ImageView image;
+ 		TextView title;
+ 		TextView detail;
+ 	}
 }

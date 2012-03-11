@@ -28,11 +28,11 @@ public class PlayerOpenCommandAdapter extends JsonCommand{
 		this.commandImpl = new PlayerOpenCommandForFileSource(filesource);
 	}
 	
-	public PlayerOpenCommandAdapter(Playlist playlist, Song song) {
+	public PlayerOpenCommandAdapter(Song song) {
 		super("Player.Open");
 		
 		Check.argumentNotNull(song, "song");
-		this.commandImpl = new PlayerOpenCommandForSong(playlist, song);
+		this.commandImpl = new PlayerOpenCommandForSong(song);
 	}
 	
 	@Override
@@ -70,18 +70,16 @@ public class PlayerOpenCommandAdapter extends JsonCommand{
 		}
 	}
 	private static class PlayerOpenCommandForSong extends PlayerOpenCommandAdapter{
-		private Playlist playlist;
 		private Song song;
 		
-		public PlayerOpenCommandForSong(Playlist playlist, Song song) {
-			this.playlist = playlist;
+		public PlayerOpenCommandForSong(Song song) {
 			this.song = song;
 		}
 		
 		@Override
 		void prepareCommand(CommandBuilder builder) {
 			CommandItemSet itemSet = new CommandItemSet();
-			itemSet.add("playlistid", this.playlist.getPlaylistId());
+			itemSet.add("playlistid", Playlist.Audio.getPlaylistId());
 			itemSet.add("position", song.getPosition());
 			builder.addParams(itemSet);
 		}

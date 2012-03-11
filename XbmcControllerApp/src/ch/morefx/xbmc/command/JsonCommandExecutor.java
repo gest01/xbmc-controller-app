@@ -13,6 +13,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.protocol.HTTP;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -48,43 +49,55 @@ public final class JsonCommandExecutor
 		String jsonCommand = command.prepareCommand();
 		String responseString = executeJsonCommand(jsonCommand, client);
 		
+		if (responseString == null){
+			Log.w(TAG, "responseString is null");
+			return;
+		}
+		
+		if (responseString.contains("error")) {
+			Log.e(TAG, "ERROR  : " + responseString);
+			return;
+		}
+		
 		try {
 			
-			if (responseString == null){
-				Log.w(TAG, "responseString is null");
-				return;
-			}
-				
-			
-			if (responseString.contains("error")) {
-				Log.e(TAG, "ERROR  : " + responseString);
+			JSONObject jsonResponse = new JSONObject(responseString);		
+			if (!jsonResponse.isNull("result")) {
+				handleJsonResult(command, jsonResponse);
 			} else {
-				
-				JSONObject jsonResponse = new JSONObject(responseString);		
-				if (!jsonResponse.isNull("result")) {
-					
-					Object resultObject = jsonResponse.get("result");
-					if (resultObject instanceof JSONObject){
-						if (command instanceof CommandResponseHandler){
-							JSONObject jsonResult = (JSONObject)resultObject;
-							CommandResponse commandResponse = new CommandResponse(jsonResult);
-							((CommandResponseHandler)command).handleResponse(commandResponse);
-						}
-					}
-					else if (resultObject instanceof String){
-						// Nothing todo?!
-					} else {
-						Log.w(TAG, "Unhandled Result Object " + resultObject);
-					}
-
-				} else {
-					Log.e(TAG, "ERROR : RESULT IS NULL OR EMPTY ");
-				}
+				Log.e(TAG, "ERROR : RESULT IS NULL OR EMPTY ");
 			}
 			
 		} catch (JSONException e) {
-			Log.e(TAG, "JSON DESERIALIZATION ERROR");
-			e.printStackTrace();
+			XbmcExceptionHandler.handleException(TAG, e);
+		}
+	}
+
+	private final void handleJsonResult(JsonCommand command, JSONObject jsonResponse){
+		
+		if (command instanceof CommandResponseHandler){
+			CommandResponse commandResponse = null;
+			
+			try {
+				
+				Object resultObject = jsonResponse.get("result");
+				if (resultObject instanceof String)
+					commandResponse = new CommandResponse((String)resultObject);
+				if (resultObject instanceof JSONObject)
+					commandResponse = new CommandResponse((JSONObject)resultObject);
+				if (resultObject instanceof JSONArray)
+					commandResponse = new CommandResponse((JSONArray)resultObject);
+									
+				if (commandResponse == null)
+					throw new Exception("unable to create a CommandResponse object from json result : " + resultObject.getClass()); // This should never happen!
+				
+				((CommandResponseHandler)command).handleResponse(commandResponse);
+				
+			} catch (JSONException e){
+				XbmcExceptionHandler.handleException(TAG, e);
+			} catch (Exception ex){
+				XbmcExceptionHandler.handleException(TAG, ex);
+			}
 		}
 	}
 	

@@ -1,7 +1,7 @@
 package ch.morefx.xbmc.services;
 
-import ch.morefx.xbmc.XbmcRemoteControlApplication;
 import android.app.Service;
+import ch.morefx.xbmc.XbmcRemoteControlApplication;
 
 /**
  * Defines the base class for all services

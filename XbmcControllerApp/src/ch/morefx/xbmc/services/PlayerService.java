@@ -6,6 +6,18 @@ import java.util.TimerTask;
 import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
+import ch.morefx.xbmc.CommandExecutor;
+import ch.morefx.xbmc.XbmcConnection;
+import ch.morefx.xbmc.XbmcExceptionHandler;
+import ch.morefx.xbmc.command.JsonCommandExecutor;
+import ch.morefx.xbmc.command.PlayerGetActivePlayersCommand;
+import ch.morefx.xbmc.command.PlayerGetPropertiesCommand;
+import ch.morefx.xbmc.command.PlaylistGetItems;
+import ch.morefx.xbmc.model.Playlist;
+import ch.morefx.xbmc.model.players.AudioPlayer;
+import ch.morefx.xbmc.model.players.PicturePlayer;
+import ch.morefx.xbmc.model.players.Player;
+import ch.morefx.xbmc.model.players.VideoPlayer;
 
 public class PlayerService extends XbmcService {
 
@@ -34,36 +46,54 @@ public class PlayerService extends XbmcService {
 		return null;
 	}
 
-	@Override
-	public boolean onUnbind(Intent intent) {
-		return super.onUnbind(intent);
-	}
 
 	@Override
 	public void onDestroy() {
 		Log.i(TAG, "onDestroy");
 
+		if (this.timer != null){
+			this.timer.cancel();	
+		}
+		
+		
 		super.onDestroy();
 	}
+	
+	
 
 	private void startService() {
-		timer.scheduleAtFixedRate(
 
-		new TimerTask() {
+		TimerTask task = new TimerTask() {
 			public void run() {
 				try {
 
-					
-					Log.i(TAG, "update....");
-					Thread.sleep(UPDATE_INTERVAL);
+					XbmcConnection connection = getXbmcApplication().getCurrentConnection();
+					if (connection != null) {
+						CommandExecutor executor = new JsonCommandExecutor(connection);
 
-				} catch (InterruptedException ie) {
-					Log.e(getClass().getSimpleName(),
-							"InterruptedException" + ie.toString());
+						PlayerGetActivePlayersCommand command = new PlayerGetActivePlayersCommand();
+						executor.execute(command);
+
+						if (command.isPlaying()) {
+							for (Player player : command.getPlayers()) {
+								if (player instanceof AudioPlayer)
+									executor.execute(new PlaylistGetItems(Playlist.Audio));
+								if (player instanceof VideoPlayer)
+									executor.execute(new PlaylistGetItems(Playlist.Video));
+								if (player instanceof PicturePlayer)
+									executor.execute(new PlaylistGetItems(Playlist.Picture));
+
+								executor.execute(new PlayerGetPropertiesCommand(player));
+							}
+						}
+					}
+
+				} catch (Exception ex) {
+					XbmcExceptionHandler.handleException(TAG, ex);
 				}
 			}
-		}, 
-		DELAY_INTERVAL, 
-		UPDATE_INTERVAL);
+		};
+
+		this.timer.scheduleAtFixedRate(task, DELAY_INTERVAL, UPDATE_INTERVAL);
 	}
 }

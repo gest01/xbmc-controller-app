@@ -2,7 +2,7 @@ package ch.morefx.xbmc.model;
 
 public enum Playlist {
 	
-	Video(1), Audio(0);
+	Video(1), Audio(0), Picture(2);
 	
 	private int playlistId;
 	

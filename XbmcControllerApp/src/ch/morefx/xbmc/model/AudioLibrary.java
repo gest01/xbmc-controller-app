@@ -33,12 +33,9 @@ public final class AudioLibrary extends XbmcLibrary {
 	 */
 	public void playSong(Song song){
 		Check.argumentNotNull(song, "song");
-		//executor.executeDirect("{\"jsonrpc\": \"2.0\", \"method\": \"Playlist.Clear\", \"params\": { \"playlistid\": 0 }, \"id\": 1}");
-		//executor.executeDirect("{\"jsonrpc\": \"2.0\", \"method\": \"Playlist.Add\", \"params\": { \"playlistid\": 0, \"item\": { \"albumid\": " + song.getAlbumId() + " } }, \"id\": 1}");
-		//executor.executeDirect("{\"jsonrpc\": \"2.0\", \"method\": \"Player.Open\", \"params\": { \"item\": { \"playlistid\": 0, \"position\": " + song.getPosition() + " } }}");
 		executeAsync(new PlaylistClearCommand(Playlist.Audio),
-					 new PlaylistAddCommand(Playlist.Audio, song.getAlbum()),
-					 new PlayerOpenCommandAdapter(Playlist.Audio, song));
+					 new PlaylistAddCommand(song.getAlbum()),
+					 new PlayerOpenCommandAdapter(song));
 	}
 	
 	public List<Artist> getArtists(){

@@ -1,18 +1,26 @@
 package ch.morefx.xbmc.command;
 
 import ch.morefx.xbmc.model.Album;
+import ch.morefx.xbmc.model.Movie;
 import ch.morefx.xbmc.model.Playlist;
 
 public class PlaylistAddCommand extends JsonCommand {
 
 	private Playlist playlist;
-	private Album album;
+	private int id;
 	
-	public PlaylistAddCommand(Playlist playlist, Album album) {
+	public PlaylistAddCommand(Movie movie) {
 		super("Playlist.Add");
 		
-		this.playlist = playlist;
-		this.album = album;
+		this.playlist = Playlist.Video;
+		this.id = movie.getMovieId();
+	}
+	
+	public PlaylistAddCommand(Album album) {
+		super("Playlist.Add");
+		
+		this.playlist = Playlist.Audio;
+		this.id = album.getAlbumId();
 	}
 	
 	@Override
@@ -20,7 +28,12 @@ public class PlaylistAddCommand extends JsonCommand {
 		
 		builder.addParams("playlistid", this.playlist.getPlaylistId());
 		CommandItemSet itemSet = new CommandItemSet();
-		itemSet.add("albumid", this.album.getAlbumId());
+		
+		if ( this.playlist == Playlist.Audio)
+			itemSet.add("albumid", this.id);
+		if (this.playlist == Playlist.Video)
+			itemSet.add("movieid", this.id);
+		
 		builder.addParams(itemSet);
 	}
 }
