@@ -39,7 +39,7 @@ public class PlayerGetActivePlayersCommand extends JsonCommand
 	 * Is xbmc playing a song, video or showing a picture ?
 	 * @return if something is playing then it returns true, false otherwise.
 	 */
-	public boolean isPlaying(){
+	public boolean hasActivePlayers(){
 		return players != null && players.size() > 0;
 	}
 	
@@ -47,7 +47,7 @@ public class PlayerGetActivePlayersCommand extends JsonCommand
 	 * Gets a list with all active players.
 	 * @return List of Player or null, when nothing is playing.
 	 */
-	public List<Player> getPlayers(){
+	public List<Player> getActivePlayers(){
 		return this.players;
 	}
 	

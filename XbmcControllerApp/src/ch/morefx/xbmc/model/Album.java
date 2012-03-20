@@ -14,7 +14,7 @@ public class Album extends LibraryItem
     private int albumid;
     private Artist relatedArtist;
     
-    public Album( Artist artist) {
+    public Album(Artist artist) {
     	this.relatedArtist = artist;
 	}
     

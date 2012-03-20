@@ -13,7 +13,6 @@ public class XbmcRemoteControlApplication extends Application {
 		Thread.setDefaultUncaughtExceptionHandler(new XbmcExceptionHandler());
 	}
 	
-
 	/**
 	 * Gets the current active connection or null when no connection was selected
 	 * @return XbmcConnection or null 

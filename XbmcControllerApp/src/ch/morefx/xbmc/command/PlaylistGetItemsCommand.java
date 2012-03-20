@@ -1,5 +1,9 @@
 package ch.morefx.xbmc.command;
 
+import java.util.Arrays;
+import java.util.List;
+
+import ch.morefx.xbmc.command.GetSongsCommand.SongInstanceCreator;
 import ch.morefx.xbmc.model.Movie;
 import ch.morefx.xbmc.model.Playlist;
 import ch.morefx.xbmc.model.Song;
@@ -8,12 +12,12 @@ import ch.morefx.xbmc.model.Song;
  * Implements the Playlist.GetItems json command
  * See http://wiki.xbmc.org/index.php?title=JSON-RPC_API/v3#Playlist.GetItems
  */
-public class PlaylistGetItems extends JsonCommand
+public class PlaylistGetItemsCommand extends JsonCommand
 	implements CommandResponseHandler{
 
 	private Playlist playlist;
 	
-	public PlaylistGetItems(Playlist playlist) {
+	public PlaylistGetItemsCommand(Playlist playlist) {
 		super("Playlist.GetItems");
 		
 		this.playlist = playlist;
@@ -27,16 +31,15 @@ public class PlaylistGetItems extends JsonCommand
 	
 	public void handleResponse(CommandResponse response) {
 		
+		if (this.playlist == Playlist.Audio){
+			Song[] songsArray = response.asArrayResultWithCreator("items", Song[].class, Song.class, new SongInstanceCreator(null));
+			this.songs = Arrays.asList(songsArray);
+		}
+	}	
+	
+	private List<Song> songs;
+	
+	public List<Song> getSongs(){
+		return this.songs;
 	}
-	
-//	private String[] getMovieFields(){
-//		return new String[] {
-//				"comment", "tvshowid", "set", "lyrics", "albumartist", "duration", 
-//				"setid", "album",  "votes", "mpaa", "writer", "albumid", "plotoutline", 
-//				"track", "season", "musicbrainztrackid", "imdbnumber", "studio", "showlink", 
-//				"showtitle", "episode", "musicbrainzartistid", "productioncode", "country", 
-//				"premiered", "originaltitle", "cast", "artistid", "firstaired", "tagline", "top250", "trailer"
-//		};
-//	}
-	
 }

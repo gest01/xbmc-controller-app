@@ -31,7 +31,7 @@ public class GetSongsCommand extends JsonCommand
 		Song[] songsArray = response.asArrayResultWithCreator("songs", Song[].class, Song.class, new SongInstanceCreator(this.album));
 		this.songs = Arrays.asList(songsArray);
 	}
-
+	
 	private List<Song> songs;
 	
 	public List<Song> getSongs(){
@@ -39,7 +39,7 @@ public class GetSongsCommand extends JsonCommand
 	}
 	
 	
-	private static final class SongInstanceCreator implements InstanceCreator<Song>{
+	public static final class SongInstanceCreator implements InstanceCreator<Song>{
 		private int position = 0; 
 		private Album album;
 		public SongInstanceCreator(Album album) {

@@ -8,6 +8,14 @@ public class Player {
 		this.playerId = playerId;
 	}
 	
+	public void updatePlayer(int playerid){
+		
+	}
+	
+	public boolean isActive(){
+		return true;
+	}
+	
 	public int getPlayerId(){
 		return this.playerId;
 	}

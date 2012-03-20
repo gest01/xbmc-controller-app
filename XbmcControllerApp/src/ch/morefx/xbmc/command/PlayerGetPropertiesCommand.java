@@ -1,5 +1,6 @@
 package ch.morefx.xbmc.command;
 
+import ch.morefx.xbmc.model.PlayerProperties;
 import ch.morefx.xbmc.model.players.Player;
 import ch.morefx.xbmc.util.Check;
 
@@ -11,6 +12,7 @@ public class PlayerGetPropertiesCommand extends JsonCommand
 	implements CommandResponseHandler{
 
 	private Player player;
+	private PlayerProperties properties;
 	
 	public PlayerGetPropertiesCommand(Player player) {
 		super("Player.GetProperties");
@@ -22,37 +24,15 @@ public class PlayerGetPropertiesCommand extends JsonCommand
 	@Override
 	void prepareCommand(CommandBuilder builder) {
 		builder.addParams("playerid", player.getPlayerId());
-		builder.addParams("properties",  getFields());
+		builder.addParams("properties",  PlayerProperties.getFields());
 	}
 	
 	public void handleResponse(CommandResponse response) {
+		properties = response.asObjectResult(PlayerProperties.class);
 	}
 	
-	private static String[] getFields(){
-		return new String[] {
-				"canrotate"
-				,"canrepeat"
-				,"speed"
-				,"canshuffle"
-				,"shuffled"
-				,"canmove"
-				,"subtitleenabled"
-				,"percentage"
-				,"type"
-				,"repeat"
-				,"canseek"
-				,"currentsubtitle"
-				,"subtitles"
-				,"totaltime"
-				,"canzoom"
-				,"currentaudiostream"
-				,"playlistid"
-				,"audiostreams"
-				,"partymode"
-				,"time"
-				,"position"
-				,"canchangespeed"
-		};
+	public PlayerProperties getProperties(){
+		return this.properties;
 	}
 	
 }

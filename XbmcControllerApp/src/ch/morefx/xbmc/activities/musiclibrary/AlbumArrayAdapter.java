@@ -1,8 +1,7 @@
 package ch.morefx.xbmc.activities.musiclibrary;
 
-import java.util.List;
-
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,14 +9,17 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import ch.morefx.xbmc.R;
+import ch.morefx.xbmc.XbmcConnection;
+import ch.morefx.xbmc.XbmcRemoteControlApplication;
 import ch.morefx.xbmc.model.Album;
+import ch.morefx.xbmc.model.players.AudioPlayer;
 
 public class AlbumArrayAdapter extends ArrayAdapter<Album>{
 	
 	private LayoutInflater inflater;
 	
-	public AlbumArrayAdapter(Context context, int textViewResourceId, List<Album> albums) {
-		super(context, textViewResourceId, albums);
+	public AlbumArrayAdapter(Context context, int textViewResourceId) {
+		super(context, textViewResourceId);
 		this.inflater = LayoutInflater.from(context);
 	}
 
@@ -38,6 +40,12 @@ public class AlbumArrayAdapter extends ArrayAdapter<Album>{
 		
 		Album album = getItem(position);
 		
+		XbmcRemoteControlApplication app = (XbmcRemoteControlApplication)getContext().getApplicationContext();
+		XbmcConnection connection = app.getCurrentConnection();
+		AudioPlayer player = connection.getAudioLibrary().getPlayer();
+		boolean isPlaying = player.isPlaying(album);
+		
+		holder.title.setTypeface(null, isPlaying ? Typeface.BOLD_ITALIC : Typeface.NORMAL);
 		holder.title.setText(album.getLabel());
 		holder.image.setImageDrawable(album.getThumbnail());
 		

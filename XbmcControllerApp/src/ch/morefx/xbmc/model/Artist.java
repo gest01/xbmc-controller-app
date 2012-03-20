@@ -26,9 +26,9 @@ public class Artist extends LibraryItem
 
 	public static String[] getArtistFields() {
 		
-		// Siehe
-		// /home/stef/dev/xbmc/xbmc/interfaces/json-rpc/ServiceDescription.h
-		// Zeile 302 "Audio.Fields.Artist"
+		// See
+		// /xbmc/xbmc/interfaces/json-rpc/ServiceDescription.h
+		// Line 302 "Audio.Fields.Artist"
 		return new String[] {
 				"instrument", "style", "mood", "born", "formed",
 		        "description", "genre", "died", "disbanded",

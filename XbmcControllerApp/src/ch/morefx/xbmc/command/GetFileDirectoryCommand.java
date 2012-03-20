@@ -31,7 +31,7 @@ public class GetFileDirectoryCommand
 	}
 	
 	public void handleResponse(CommandResponse response) {
-		FileSource[] sourceArray = response.asArrayResultWithCreator("files", FileSource[].class, FileSource.class, new FileSourceInstanceCreator(this.source.getMediaType()));
+		FileSource[] sourceArray = response.asArrayResultWithCreator("files", FileSource[].class, FileSource.class, new FileSourceInstanceCreator(this.source.getMediaType(), this.source));
 		this.directories = Arrays.asList(sourceArray);
 	}
 	

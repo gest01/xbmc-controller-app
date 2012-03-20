@@ -5,7 +5,6 @@ import java.util.List;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import ch.morefx.xbmc.activities.XbmcListActivity;
 import ch.morefx.xbmc.model.Artist;
@@ -15,11 +14,16 @@ import ch.morefx.xbmc.model.loaders.PostExecuteHandler;
 public class ArtistActivity 
 	extends XbmcListActivity {
 
+	private ArtistArrayAdapter adapter;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
 		getListView().setTextFilterEnabled(true);
+		
+		this.adapter = new ArtistArrayAdapter(this, android.R.layout.simple_list_item_1);
+		setListAdapter(adapter);
 		
 		new ArtistLoader(this)
 			.setPostExecuteHandler(new PostExecuteHandler<List<Artist>>() {
@@ -31,7 +35,7 @@ public class ArtistActivity
 	
 	private void populateList(List<Artist> result){
 		if (result != null){
-			setListAdapter(new ArrayAdapter<Artist>(getApplication(), android.R.layout.simple_list_item_1, result));
+			this.adapter.addAll(result);
 		}
 	}
 	

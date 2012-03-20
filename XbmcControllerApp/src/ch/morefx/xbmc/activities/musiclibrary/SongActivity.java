@@ -2,6 +2,10 @@ package ch.morefx.xbmc.activities.musiclibrary;
 
 import java.util.List;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
@@ -11,6 +15,8 @@ import ch.morefx.xbmc.model.AudioLibrary;
 import ch.morefx.xbmc.model.Song;
 import ch.morefx.xbmc.model.loaders.PostExecuteHandler;
 import ch.morefx.xbmc.model.loaders.SongLoader;
+import ch.morefx.xbmc.model.players.AudioPlayer;
+import ch.morefx.xbmc.services.PlayerService;
 import ch.morefx.xbmc.util.Check;
 
 public final class SongActivity 
@@ -18,15 +24,49 @@ public final class SongActivity
 
 	public static final String EXTRA_ALBUM = "EXTRA_ALBUM";
 	
+	private Album album;
+	private SongArrayAdapter adapter;
+	private BroadcastReceiver receiver;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		Album album = (Album)getIntent().getExtras().getSerializable(EXTRA_ALBUM);
+		album = (Album)getIntent().getExtras().getSerializable(EXTRA_ALBUM);
 		Check.notNull(album, "Album object missing from Intent extras");
+		
+		this.adapter = new SongArrayAdapter(this, android.R.layout.simple_list_item_1);
+		setListAdapter(this.adapter);
 		
 		getListView().setTextFilterEnabled(true);
 		
+		loadSongs();
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		
+		receiver = new BroadcastReceiver() {
+			@Override
+			public void onReceive(Context context, Intent intent) {
+				loadSongs();
+				
+				AudioPlayer player = getAudioLibrary().getPlayer();
+				getListView().setSelection(player.getCurrentSong().getPosition());
+			}
+ 		};
+		
+		this.registerReceiver(receiver, new IntentFilter(PlayerService.REFRESH_AUDIO_LIBRARY));
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		this.unregisterReceiver(receiver);
+	}
+
+	private void loadSongs(){
 		new SongLoader(this)
 		 .setPostExecuteHandler(new PostExecuteHandler<List<Song>>() {
 			public void onPostExecute(List<Song> result) {
@@ -36,16 +76,19 @@ public final class SongActivity
 	}
 	
 	private void populateList(List<Song> result){
+		this.adapter.clear();
 		if (result != null){
-			setListAdapter(new SongArrayAdapter(getApplication(), android.R.layout.simple_list_item_1, result));
+			this.adapter.addAll(result);
 		}
 	}
 	
 	
 	@Override
-	public void onListItemClick(ListView l, View v, int position, long id) {
-		Song song = (Song)getListAdapter().getItem(position);
+	public void onListItemClick(ListView listView, View v, int position, long id) {
+		Song song = this.adapter.getItem(position);
 		AudioLibrary library = getAudioLibrary();
 		library.playSong(song);
+		
+		loadSongs();
 	}
 }

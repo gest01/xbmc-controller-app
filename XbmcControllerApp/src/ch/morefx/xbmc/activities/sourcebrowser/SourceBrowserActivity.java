@@ -14,11 +14,16 @@ import ch.morefx.xbmc.model.loaders.PostExecuteHandler;
 public class SourceBrowserActivity 
 	extends XbmcListActivity {
 
+	private FileSourceArrayAdapter adapter;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
 		getListView().setTextFilterEnabled(true);
+		
+		this.adapter = new FileSourceArrayAdapter(this, android.R.layout.simple_list_item_1);
+		setListAdapter(adapter);
 		
 		new FileSourceLoader(this)
 		 .setPostExecuteHandler(new PostExecuteHandler<List<FileSource>>() {
@@ -30,8 +35,9 @@ public class SourceBrowserActivity
 	
 	
 	private void populateList(List<FileSource> result){
+		this.adapter.clear();
 		if (result != null){
-			setListAdapter(new FileSourceArrayAdapter(getApplication(), android.R.layout.simple_list_item_1, result));
+			this.adapter.addAll(result);
 		}
 	}
 	

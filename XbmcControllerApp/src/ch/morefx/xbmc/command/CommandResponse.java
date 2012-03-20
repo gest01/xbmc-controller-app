@@ -81,6 +81,19 @@ public class CommandResponse {
 		return null;
 	}
 	
+	public <T> T asObjectResult(Class<T> typeOfResultClass) {
+		try {
+			
+			Gson g = this.builder.create();
+			return g.fromJson(jsonResult.toString(), typeOfResultClass);
+			
+		} catch (JsonSyntaxException e) {
+			XbmcExceptionHandler.handleException(TAG, "json deserialization error", e);
+		}
+		
+		return null;
+	}
+	
 	private <T> T toArrayResult(JSONArray jsonArrayResult, Class<T> typeOfResultClass) {
 		try {
 			

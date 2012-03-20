@@ -13,6 +13,7 @@ public class Song extends LibraryItem implements Serializable {
 	private int position;
 	private String thumbnail;
 	private String file;
+	private int artistid;
 	
 	private Album relatedAlbum;
 	
@@ -55,10 +56,32 @@ public class Song extends LibraryItem implements Serializable {
 		return this.albumid;
 	}
 	
+	public int getArtistId(){
+		return this.artistid;
+	}
+	
 	public int getPosition(){
 		return this.position;
 	}
 	
+	@Override
+	public boolean equals(Object o) {
+		if (o == null) return false;
+		if (this == o) return true;
+		if (!(o instanceof Song))
+			return false;
+		
+		Song song = (Song)o;
+		return song.getAlbumId() == getAlbumId() &&
+				song.getArtistId() == getArtistId() &&
+				song.getPosition() == getPosition();
+		
+	}
+	
+	@Override
+	public int hashCode() {
+		return getAlbumId() ^ getArtistId() ^ getId();
+	}
 	
 	
 	public static String[] getSongFields() {

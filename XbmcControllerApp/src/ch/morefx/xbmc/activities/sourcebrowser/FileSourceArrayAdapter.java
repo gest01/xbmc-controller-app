@@ -1,7 +1,5 @@
 package ch.morefx.xbmc.activities.sourcebrowser;
 
-import java.util.List;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,8 +13,8 @@ public class FileSourceArrayAdapter extends ArrayAdapter<FileSource>{
 	
 	public LayoutInflater inflater;
 	
-	public FileSourceArrayAdapter(Context context, int textViewResourceId, List<FileSource> sources) {
-		super(context, textViewResourceId, sources);
+	public FileSourceArrayAdapter(Context context, int textViewResourceId) {
+		super(context, textViewResourceId);
 		this.inflater = LayoutInflater.from(context);
 	}
 	

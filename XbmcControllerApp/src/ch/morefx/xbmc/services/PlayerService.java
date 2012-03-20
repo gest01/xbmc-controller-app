@@ -12,27 +12,27 @@ import ch.morefx.xbmc.XbmcExceptionHandler;
 import ch.morefx.xbmc.command.JsonCommandExecutor;
 import ch.morefx.xbmc.command.PlayerGetActivePlayersCommand;
 import ch.morefx.xbmc.command.PlayerGetPropertiesCommand;
-import ch.morefx.xbmc.command.PlaylistGetItems;
+import ch.morefx.xbmc.command.PlaylistGetItemsCommand;
 import ch.morefx.xbmc.model.Playlist;
+import ch.morefx.xbmc.model.Song;
 import ch.morefx.xbmc.model.players.AudioPlayer;
-import ch.morefx.xbmc.model.players.PicturePlayer;
 import ch.morefx.xbmc.model.players.Player;
-import ch.morefx.xbmc.model.players.VideoPlayer;
+
+// http://stackoverflow.com/questions/2463175/how-to-have-android-service-communicate-with-activity
 
 public class PlayerService extends XbmcService {
 
+	public static final String REFRESH_AUDIO_LIBRARY = "ch.morefx.xbmc.services.REFRESH_AUDIO_LIBRARY";
+	
 	private static final String TAG = "PlayerService";
 
 	private Timer timer = new Timer();
-	private static long UPDATE_INTERVAL = 1000 * 5;
+	private static long UPDATE_INTERVAL = 1000 * 6;
 	private static long DELAY_INTERVAL = 0;
 
-	@Override
-	public void onCreate() {
-		Log.i(TAG, "onCreate");
-		super.onCreate();
-	}
-
+	private XbmcConnection connection;
+	private CommandExecutor executor;
+	
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 
@@ -55,10 +55,8 @@ public class PlayerService extends XbmcService {
 			this.timer.cancel();	
 		}
 		
-		
 		super.onDestroy();
 	}
-	
 	
 
 	private void startService() {
@@ -67,23 +65,18 @@ public class PlayerService extends XbmcService {
 			public void run() {
 				try {
 
-					XbmcConnection connection = getXbmcApplication().getCurrentConnection();
+					connection = getXbmcApplication().getCurrentConnection();
 					if (connection != null) {
-						CommandExecutor executor = new JsonCommandExecutor(connection);
-
+						executor = new JsonCommandExecutor(connection);
+						
 						PlayerGetActivePlayersCommand command = new PlayerGetActivePlayersCommand();
-						executor.execute(command);
+						executor.execute(command); 
 
-						if (command.isPlaying()) {
-							for (Player player : command.getPlayers()) {
-								if (player instanceof AudioPlayer)
-									executor.execute(new PlaylistGetItems(Playlist.Audio));
-								if (player instanceof VideoPlayer)
-									executor.execute(new PlaylistGetItems(Playlist.Video));
-								if (player instanceof PicturePlayer)
-									executor.execute(new PlaylistGetItems(Playlist.Picture));
-
-								executor.execute(new PlayerGetPropertiesCommand(player));
+						if (command.hasActivePlayers()) {
+							for (Player player : command.getActivePlayers()) {
+								if (player instanceof AudioPlayer) {
+									updatePlayer((AudioPlayer)player);
+								}
 							}
 						}
 					}
@@ -95,5 +88,30 @@ public class PlayerService extends XbmcService {
 		};
 
 		this.timer.scheduleAtFixedRate(task, DELAY_INTERVAL, UPDATE_INTERVAL);
+	}
+	
+	private void updatePlayer(AudioPlayer player){
+		
+		PlaylistGetItemsCommand playlistcommand = new PlaylistGetItemsCommand(Playlist.Audio);
+		executor.execute(playlistcommand);
+		
+		PlayerGetPropertiesCommand propertiescommand = new PlayerGetPropertiesCommand(player); 
+		executor.execute(propertiescommand);
+		
+		for(Song song : playlistcommand.getSongs()){
+			if (song.getPosition() == propertiescommand.getProperties().getPosition()){
+				AudioPlayer audioPlayer = connection.getAudioLibrary().getPlayer();
+				if (!audioPlayer.isPlaying(song)){
+					audioPlayer.setPlaying(song);
+					sendAudioLibraryRefreshEvent();
+				}
+				
+				break;
+			}
+		}
+	}
+	
+	private void sendAudioLibraryRefreshEvent(){
+		sendBroadcast(new Intent(REFRESH_AUDIO_LIBRARY));
 	}
 }

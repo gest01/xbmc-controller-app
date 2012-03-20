@@ -11,11 +11,32 @@ public class FileSource
 	private String filetype;
 	private String label;
 	
-	private String mediaType;
+	private int albumid, artistid;
 	
-	public FileSource(String mediaType) {
+	private String mediaType;
+	private FileSource parent;
+	
+	public FileSource(String mediaType, FileSource parent) {
 		this.mediaType = mediaType;
+		this.parent = parent;
 	}
+	
+	/**
+	 * Gets TRUE when this FileSource instance has a parent relation.
+	 * @return True / False
+	 */
+	public boolean hasParent(){
+		return this.parent != null;
+	}
+	
+	/**
+	 * Gets the parent FileSource of this FileSource instance
+	 * @return Parent or NULL when no parent is defined.
+	 */
+	public FileSource getParent(){
+		return this.parent;
+	}
+	
 	
 	/**
 	 * Gets the mediatype (files, video, music or pictures) which this filesource is representing.
@@ -28,6 +49,15 @@ public class FileSource
 			this.mediaType = "files"; // this is the default when nothing else is set
 		return this.mediaType;
 	}
+	
+	public int getAlbumId(){
+		return this.albumid;
+	}
+	
+	public int getArtistId(){
+		return this.artistid;
+	}
+	
 	
 	@Override
 	public String toString() {

@@ -1,6 +1,7 @@
 package ch.morefx.xbmc.command;
 
 import ch.morefx.xbmc.model.Album;
+import ch.morefx.xbmc.model.FileSource;
 import ch.morefx.xbmc.model.Movie;
 import ch.morefx.xbmc.model.Playlist;
 
@@ -21,6 +22,13 @@ public class PlaylistAddCommand extends JsonCommand {
 		
 		this.playlist = Playlist.Audio;
 		this.id = album.getAlbumId();
+	}
+	
+	public PlaylistAddCommand(FileSource filesource) {
+		super("Playlist.Add");
+		
+		this.playlist = Playlist.Audio;
+		this.id = filesource.getAlbumId();
 	}
 	
 	@Override
