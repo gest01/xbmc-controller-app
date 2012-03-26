@@ -5,12 +5,11 @@ import ch.morefx.xbmc.model.Artist;
 import ch.morefx.xbmc.model.Song;
 import ch.morefx.xbmc.util.Check;
 
-public class AudioPlayer extends Player {
+public class AudioPlayer extends MediaPlayer {
 	
 	private Song playingSong;
 	
-	public AudioPlayer(int playerId) {
-		super(playerId);
+	public AudioPlayer() {
 	}
 	
 	public void setPlaying(Song song){

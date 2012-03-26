@@ -1,19 +1,25 @@
 package ch.morefx.xbmc.model.players;
 
-public class Player {
+public class MediaPlayer {
 
+	private static final int DISABLED_PLAYER_ID = -1;
+	
 	private int playerId;
 	
-	public Player(int playerId) {
-		this.playerId = playerId;
+	public MediaPlayer() {
+		this.playerId = DISABLED_PLAYER_ID;
 	}
 	
 	public void updatePlayer(int playerid){
-		
+		this.playerId = playerid;
+	}
+	
+	public void disable(){
+		updatePlayer(DISABLED_PLAYER_ID);
 	}
 	
 	public boolean isActive(){
-		return true;
+		return this.playerId != DISABLED_PLAYER_ID;
 	}
 	
 	public int getPlayerId(){

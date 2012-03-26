@@ -7,12 +7,26 @@ import ch.morefx.xbmc.command.GetMoviesCommand;
 import ch.morefx.xbmc.command.PlayerOpenCommandAdapter;
 import ch.morefx.xbmc.command.PlaylistAddCommand;
 import ch.morefx.xbmc.command.PlaylistClearCommand;
+import ch.morefx.xbmc.model.players.VideoPlayer;
 import ch.morefx.xbmc.util.Check;
 
 public class VideoLibrary extends XbmcLibrary {
 	
+	private VideoPlayer videoplayer;
+	
 	public VideoLibrary(XbmcConnection connection) {
 		super(connection);
+		
+		this.videoplayer = new VideoPlayer();
+	}
+	
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public VideoPlayer getPlayer(){
+		return this.videoplayer;
 	}
 	
 	/**

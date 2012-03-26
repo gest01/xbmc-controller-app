@@ -20,7 +20,7 @@ public final class AudioLibrary extends XbmcLibrary {
 	public AudioLibrary(XbmcConnection connection) {
 		super(connection);
 		
-		this.audioplayer = new AudioPlayer(0);
+		this.audioplayer = new AudioPlayer();
 	}
 	
 	

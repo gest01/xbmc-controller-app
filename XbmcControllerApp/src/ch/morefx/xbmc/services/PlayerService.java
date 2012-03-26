@@ -13,16 +13,17 @@ import ch.morefx.xbmc.command.JsonCommandExecutor;
 import ch.morefx.xbmc.command.PlayerGetActivePlayersCommand;
 import ch.morefx.xbmc.command.PlayerGetPropertiesCommand;
 import ch.morefx.xbmc.command.PlaylistGetItemsCommand;
+import ch.morefx.xbmc.model.PlayerInfo;
 import ch.morefx.xbmc.model.Playlist;
 import ch.morefx.xbmc.model.Song;
 import ch.morefx.xbmc.model.players.AudioPlayer;
-import ch.morefx.xbmc.model.players.Player;
 
 // http://stackoverflow.com/questions/2463175/how-to-have-android-service-communicate-with-activity
 
 public class PlayerService extends XbmcService {
 
 	public static final String REFRESH_AUDIO_LIBRARY = "ch.morefx.xbmc.services.REFRESH_AUDIO_LIBRARY";
+	public static final String REFRESH_VIDEO_LIBRARY = "ch.morefx.xbmc.services.REFRESH_VIDEO_LIBRARY";
 	
 	private static final String TAG = "PlayerService";
 
@@ -65,20 +66,15 @@ public class PlayerService extends XbmcService {
 			public void run() {
 				try {
 
-					connection = getXbmcApplication().getCurrentConnection();
+					connection = getXbmcApplication().getCurrentConnection();				
 					if (connection != null) {
 						executor = new JsonCommandExecutor(connection);
 						
 						PlayerGetActivePlayersCommand command = new PlayerGetActivePlayersCommand();
 						executor.execute(command); 
-
-						if (command.hasActivePlayers()) {
-							for (Player player : command.getActivePlayers()) {
-								if (player instanceof AudioPlayer) {
-									updatePlayer((AudioPlayer)player);
-								}
-							}
-						}
+						
+						updateAudioPlayer(command.getAudioPlayerInfo());
+								
 					}
 
 				} catch (Exception ex) {
@@ -90,27 +86,55 @@ public class PlayerService extends XbmcService {
 		this.timer.scheduleAtFixedRate(task, DELAY_INTERVAL, UPDATE_INTERVAL);
 	}
 	
-	private void updatePlayer(AudioPlayer player){
+	private void updateAudioPlayer(PlayerInfo info){
 		
-		PlaylistGetItemsCommand playlistcommand = new PlaylistGetItemsCommand(Playlist.Audio);
-		executor.execute(playlistcommand);
+		boolean sendRefreshEvent = false;
 		
-		PlayerGetPropertiesCommand propertiescommand = new PlayerGetPropertiesCommand(player); 
-		executor.execute(propertiescommand);
-		
-		for(Song song : playlistcommand.getSongs()){
-			if (song.getPosition() == propertiescommand.getProperties().getPosition()){
-				AudioPlayer audioPlayer = connection.getAudioLibrary().getPlayer();
-				if (!audioPlayer.isPlaying(song)){
-					audioPlayer.setPlaying(song);
-					sendAudioLibraryRefreshEvent();
-				}
-				
-				break;
+		AudioPlayer player = connection.getAudioLibrary().getPlayer();
+		if (info == null){
+			if (player.isActive()){
+				player.disable();
+				sendRefreshEvent = true;	
 			}
+
+		} else {
+			
+			player.updatePlayer(info.getPlayerId());
+			
+			PlaylistGetItemsCommand playlistcommand = new PlaylistGetItemsCommand(Playlist.Audio);
+			executor.execute(playlistcommand);
+			
+			PlayerGetPropertiesCommand propertiescommand = new PlayerGetPropertiesCommand(info); 
+			executor.execute(propertiescommand);
+			
+			for(Song song : playlistcommand.getSongs()){
+				if (song.getPosition() == propertiescommand.getProperties().getPosition()){
+					if (!player.isPlaying(song)){
+						player.setPlaying(song);
+						sendRefreshEvent = true;
+					}
+					
+					break;
+				}
+			}
+		}
+		
+		if (sendRefreshEvent){
+			sendAudioLibraryRefreshEvent();
 		}
 	}
 	
+	
+	/**
+	 * Sends a REFRESH_VIDEO_LIBRARY Broadcast message to all interested BroadcastReceivers
+	 */
+	private void sendVideoLibraryRefreshEvent(){
+		sendBroadcast(new Intent(REFRESH_VIDEO_LIBRARY));
+	}
+	
+	/**
+	 * Sends a REFRESH_AUDIO_LIBRARY Broadcast message to all interested BroadcastReceivers
+	 */
 	private void sendAudioLibraryRefreshEvent(){
 		sendBroadcast(new Intent(REFRESH_AUDIO_LIBRARY));
 	}

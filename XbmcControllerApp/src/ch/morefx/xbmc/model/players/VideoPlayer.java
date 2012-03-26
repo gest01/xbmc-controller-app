@@ -1,7 +1,7 @@
 package ch.morefx.xbmc.model.players;
 
-public class VideoPlayer extends Player{
-	public VideoPlayer(int playerId) {
-		super(playerId);
+public class VideoPlayer extends MediaPlayer{
+	public VideoPlayer() {
+
 	}
 }

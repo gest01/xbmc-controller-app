@@ -1,7 +1,7 @@
 package ch.morefx.xbmc.command;
 
+import ch.morefx.xbmc.model.PlayerInfo;
 import ch.morefx.xbmc.model.PlayerProperties;
-import ch.morefx.xbmc.model.players.Player;
 import ch.morefx.xbmc.util.Check;
 
 /**
@@ -11,10 +11,10 @@ import ch.morefx.xbmc.util.Check;
 public class PlayerGetPropertiesCommand extends JsonCommand 
 	implements CommandResponseHandler{
 
-	private Player player;
+	private PlayerInfo player;
 	private PlayerProperties properties;
 	
-	public PlayerGetPropertiesCommand(Player player) {
+	public PlayerGetPropertiesCommand(PlayerInfo player) {
 		super("Player.GetProperties");
 		
 		Check.argumentNotNull(player, "player");
