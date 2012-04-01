@@ -11,7 +11,7 @@ import ch.morefx.xbmc.util.Check;
  */
 public class GetFileDirectoryCommand
 	extends JsonCommand
-		implements CommandResponseHandler {
+		implements JsonCommandResponseHandler {
 	
 	private FileSource source;
 	
@@ -23,14 +23,14 @@ public class GetFileDirectoryCommand
 	}
 	
 	@Override
-	void prepareCommand(CommandBuilder builder) {
+	void prepareCommand(JsonCommandBuilder builder) {
 		builder.addParams("properties", FileSource.getFields());
 		builder.addParams("directory", this.source.getFile());
 		builder.addParams("media", this.source.getMediaType());
 		builder.setSortMethodAscending("file");
 	}
 	
-	public void handleResponse(CommandResponse response) {
+	public void handleResponse(JsonCommandResponse response) {
 		FileSource[] sourceArray = response.asArrayResultWithCreator("files", FileSource[].class, FileSource.class, new FileSourceInstanceCreator(this.source.getMediaType(), this.source));
 		this.directories = Arrays.asList(sourceArray);
 	}

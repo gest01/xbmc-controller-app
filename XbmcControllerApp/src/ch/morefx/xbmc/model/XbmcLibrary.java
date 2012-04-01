@@ -1,7 +1,7 @@
 package ch.morefx.xbmc.model;
 
-import ch.morefx.xbmc.CommandExecutor;
 import ch.morefx.xbmc.XbmcConnection;
+import ch.morefx.xbmc.command.CommandExecutorAdapter;
 import ch.morefx.xbmc.command.JsonCommand;
 import ch.morefx.xbmc.command.JsonCommandExecutor;
 import ch.morefx.xbmc.util.Check;
@@ -11,12 +11,12 @@ import ch.morefx.xbmc.util.Check;
  */
 public class XbmcLibrary {
 	
-	private CommandExecutor executor;
+	private CommandExecutorAdapter executor;
 	
 	public XbmcLibrary(XbmcConnection connection) {
 		Check.argumentNotNull(connection, "connection");
 
-		this.executor = new JsonCommandExecutor(connection);
+		this.executor = new CommandExecutorAdapter(new JsonCommandExecutor(connection));
 	}
 	
 	protected void execute(JsonCommand command){

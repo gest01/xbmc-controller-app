@@ -4,7 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 @SuppressWarnings("unused")
-public class CommandBuilder{
+public class JsonCommandBuilder{
 	
 	private String jsonrpc = "2.0";
 	private int id = 1;
@@ -12,7 +12,7 @@ public class CommandBuilder{
 	
 	private Map<String, Object> params;
 	
-	public CommandBuilder(String jsonMethod) {
+	public JsonCommandBuilder(String jsonMethod) {
 		method = jsonMethod;
 	}
 	

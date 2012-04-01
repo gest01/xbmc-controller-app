@@ -9,7 +9,7 @@ import ch.morefx.xbmc.util.Check;
  * See http://wiki.xbmc.org/index.php?title=JSON-RPC_API/v3#Player.GetProperties
  */
 public class PlayerGetPropertiesCommand extends JsonCommand 
-	implements CommandResponseHandler{
+	implements JsonCommandResponseHandler{
 
 	private PlayerInfo player;
 	private PlayerProperties properties;
@@ -22,12 +22,12 @@ public class PlayerGetPropertiesCommand extends JsonCommand
 	}
 	
 	@Override
-	void prepareCommand(CommandBuilder builder) {
+	void prepareCommand(JsonCommandBuilder builder) {
 		builder.addParams("playerid", player.getPlayerId());
 		builder.addParams("properties",  PlayerProperties.getFields());
 	}
 	
-	public void handleResponse(CommandResponse response) {
+	public void handleResponse(JsonCommandResponse response) {
 		properties = response.asObjectResult(PlayerProperties.class);
 	}
 	

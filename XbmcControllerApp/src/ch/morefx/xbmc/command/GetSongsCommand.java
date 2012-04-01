@@ -10,7 +10,7 @@ import ch.morefx.xbmc.model.Song;
 import com.google.gson.InstanceCreator;
 
 public class GetSongsCommand extends JsonCommand
-	implements CommandResponseHandler {
+	implements JsonCommandResponseHandler {
 	
 	private Album album;
 	
@@ -21,13 +21,13 @@ public class GetSongsCommand extends JsonCommand
 	}
 	
 	@Override
-	void prepareCommand(CommandBuilder builder) {
+	void prepareCommand(JsonCommandBuilder builder) {
 		builder.addParams("albumid", this.album.getId());
 		builder.addParams("properties", Song.getSongFields());
 		builder.setSortMethod("track");
 	}
 	
-	public void handleResponse(CommandResponse response) {
+	public void handleResponse(JsonCommandResponse response) {
 		Song[] songsArray = response.asArrayResultWithCreator("songs", Song[].class, Song.class, new SongInstanceCreator(this.album));
 		this.songs = Arrays.asList(songsArray);
 	}

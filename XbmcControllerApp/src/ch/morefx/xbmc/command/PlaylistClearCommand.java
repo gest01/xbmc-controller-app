@@ -13,7 +13,7 @@ public class PlaylistClearCommand extends JsonCommand {
 	}
 
 	@Override
-	void prepareCommand(CommandBuilder builder) {
+	void prepareCommand(JsonCommandBuilder builder) {
 		builder.addParams("playlistid", this.playlist.getPlaylistId());
 	}
 }

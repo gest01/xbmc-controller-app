@@ -36,7 +36,7 @@ public class PlayerOpenCommandAdapter extends JsonCommand{
 	}
 	
 	@Override
-	void prepareCommand(CommandBuilder builder) {
+	void prepareCommand(JsonCommandBuilder builder) {
 		this.commandImpl.prepareCommand(builder);
 	}
 
@@ -48,7 +48,7 @@ public class PlayerOpenCommandAdapter extends JsonCommand{
 		}
 		
 		@Override
-		void prepareCommand(CommandBuilder builder) {
+		void prepareCommand(JsonCommandBuilder builder) {
 			CommandItemSet itemSet = new CommandItemSet();
 			itemSet.add("movieid", this.movie.getMovieId());
 			builder.addParams(itemSet);
@@ -63,7 +63,7 @@ public class PlayerOpenCommandAdapter extends JsonCommand{
 		}
 		
 		@Override
-		void prepareCommand(CommandBuilder builder) {
+		void prepareCommand(JsonCommandBuilder builder) {
 			CommandItemSet itemSet = new CommandItemSet();
 			itemSet.add("file", this.source.getFile());
 			builder.addParams(itemSet);
@@ -77,7 +77,7 @@ public class PlayerOpenCommandAdapter extends JsonCommand{
 		}
 		
 		@Override
-		void prepareCommand(CommandBuilder builder) {
+		void prepareCommand(JsonCommandBuilder builder) {
 			CommandItemSet itemSet = new CommandItemSet();
 			itemSet.add("playlistid", Playlist.Audio.getPlaylistId());
 			itemSet.add("position", song.getPosition());

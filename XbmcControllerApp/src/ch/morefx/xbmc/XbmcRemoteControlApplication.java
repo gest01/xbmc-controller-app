@@ -1,6 +1,7 @@
 package ch.morefx.xbmc;
 
 import android.app.Application;
+import android.util.Log;
 
 public class XbmcRemoteControlApplication extends Application {
 	
@@ -32,6 +33,8 @@ public class XbmcRemoteControlApplication extends Application {
 		}
 		
 		this.currentConnection = connection;
+		
+		Log.d("XbmcRemoteControlApplication", "Current XbmcConnection : " + connection.toString() + "(" + connection.getXbmcConnectionUri() + ")");
 	}
 	
 	/**

@@ -18,7 +18,7 @@ import com.google.gson.JsonParseException;
  * See http://wiki.xbmc.org/index.php?title=JSON-RPC_API/v3#Player.GetActivePlayers
  */
 public class PlayerGetActivePlayersCommand extends JsonCommand
-	implements CommandResponseHandler{
+	implements JsonCommandResponseHandler{
 
 	
 	private List<PlayerInfo> playerInfos;
@@ -28,7 +28,7 @@ public class PlayerGetActivePlayersCommand extends JsonCommand
 	}
 	
 	
-	public void handleResponse(CommandResponse response) {
+	public void handleResponse(JsonCommandResponse response) {
 		PlayerInfo[] playerArray = response.asArrayResultWithCreator(PlayerInfo[].class, PlayerInfo.class, new PlayerInfoCreator());
 		playerInfos = Arrays.asList(playerArray);
 	}

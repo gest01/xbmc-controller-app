@@ -28,7 +28,7 @@ public class ArtistArrayAdapter extends ArrayAdapter<Artist>{
 		ViewHolder holder;
 		
 		if (convertView == null) {
-			convertView = this.inflater.inflate(R.layout.song_list_item, parent, false);
+			convertView = this.inflater.inflate(R.layout.artist_list_item, parent, false);
 			holder = new ViewHolder();
 			holder.title = (TextView) convertView.findViewById(R.id.title);
 			convertView.setTag(holder);

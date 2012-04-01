@@ -13,7 +13,7 @@ import ch.morefx.xbmc.model.Song;
  * See http://wiki.xbmc.org/index.php?title=JSON-RPC_API/v3#Playlist.GetItems
  */
 public class PlaylistGetItemsCommand extends JsonCommand
-	implements CommandResponseHandler{
+	implements JsonCommandResponseHandler{
 
 	private Playlist playlist;
 	
@@ -24,12 +24,12 @@ public class PlaylistGetItemsCommand extends JsonCommand
 	}
 	
 	@Override
-	void prepareCommand(CommandBuilder builder) {
+	void prepareCommand(JsonCommandBuilder builder) {
 		builder.addParams("playlistid", this.playlist.getPlaylistId());
 		builder.addParams("properties", this.playlist == Playlist.Audio ? Song.getSongFields() : Movie.getMovieFields());
 	}
 	
-	public void handleResponse(CommandResponse response) {
+	public void handleResponse(JsonCommandResponse response) {
 		
 		if (this.playlist == Playlist.Audio){
 			Song[] songsArray = response.asArrayResultWithCreator("items", Song[].class, Song.class, new SongInstanceCreator(null));

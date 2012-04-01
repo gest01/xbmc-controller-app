@@ -3,7 +3,7 @@ package ch.morefx.xbmc.model.loaders;
 import java.util.List;
 
 import android.content.Context;
-import ch.morefx.xbmc.CommandExecutor;
+import ch.morefx.xbmc.command.CommandExecutorAdapter;
 import ch.morefx.xbmc.command.GetFileDirectoryCommand;
 import ch.morefx.xbmc.command.JsonCommandExecutor;
 import ch.morefx.xbmc.model.FileSource;
@@ -22,7 +22,7 @@ public class FileDirectoryLoader extends AsyncTaskLoader<FileSource, Void, List<
 		FileSource fs = params[0];
 		
 		GetFileDirectoryCommand command = new GetFileDirectoryCommand(fs);
-		CommandExecutor executor = new JsonCommandExecutor(getConnection());
+		CommandExecutorAdapter executor = new CommandExecutorAdapter(new JsonCommandExecutor(getConnection()));
 		executor.execute(command);
 		
 		return command.getDirectories();

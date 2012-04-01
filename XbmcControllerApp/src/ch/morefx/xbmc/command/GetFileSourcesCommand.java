@@ -9,7 +9,7 @@ import ch.morefx.xbmc.model.FileSource;
  * Implements a JSON-RPC command that queries all file sources by using the Files.GetSources command.
  */
 public class GetFileSourcesCommand extends JsonCommand
-	implements CommandResponseHandler {
+	implements JsonCommandResponseHandler {
 	
 	public static final String MEDIA_MUSIC = "music";
 	public static final String MEDIA_VIDEO = "video";
@@ -23,11 +23,11 @@ public class GetFileSourcesCommand extends JsonCommand
 	}
 	
 	@Override
-	void prepareCommand(CommandBuilder builder) {
+	void prepareCommand(JsonCommandBuilder builder) {
 		builder.addParams("media", this.media);
 	}
 	
-	public void handleResponse(CommandResponse response) {
+	public void handleResponse(JsonCommandResponse response) {
 		FileSource[] sourceArray = response.asArrayResultWithCreator("sources", FileSource[].class, FileSource.class, new FileSourceInstanceCreator(this.media));
 		this.filesources = Arrays.asList(sourceArray);
 	}

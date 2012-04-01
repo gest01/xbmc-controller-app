@@ -53,7 +53,7 @@ public class XbmcConnection implements Serializable {
 				new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT),
 				new UsernamePasswordCredentials(getUsername(), getPassword()));
 		
-		HttpConnectionParams.setConnectionTimeout(client.getParams(), 0); // Timeout Limit
+		HttpConnectionParams.setConnectionTimeout(client.getParams(), 10000); // Timeout Limit
 		return client;
 	}
 	

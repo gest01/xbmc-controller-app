@@ -5,7 +5,7 @@ package ch.morefx.xbmc.command;
  * See http://wiki.xbmc.org/index.php?title=JSON-RPC_API/v3#JSONRPC.Ping
  */
 public class PingCommand extends JsonCommand
-	implements CommandResponseHandler{
+	implements JsonCommandResponseHandler{
 
 	private boolean ok;
 	
@@ -13,7 +13,7 @@ public class PingCommand extends JsonCommand
 		super("JSONRPC.Ping");
 	}
 	
-	public void handleResponse(CommandResponse response) {
+	public void handleResponse(JsonCommandResponse response) {
 		this.ok = response.getRawResult().equals("pong");
 	}
 	

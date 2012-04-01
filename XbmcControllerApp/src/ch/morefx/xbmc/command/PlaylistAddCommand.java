@@ -32,7 +32,7 @@ public class PlaylistAddCommand extends JsonCommand {
 	}
 	
 	@Override
-	void prepareCommand(CommandBuilder builder) {
+	void prepareCommand(JsonCommandBuilder builder) {
 		
 		builder.addParams("playlistid", this.playlist.getPlaylistId());
 		CommandItemSet itemSet = new CommandItemSet();

@@ -1,10 +1,11 @@
 package ch.morefx.xbmc.command;
 
-import ch.morefx.xbmc.CommandExecutor;
 import ch.morefx.xbmc.XbmcExceptionHandler;
 import ch.morefx.xbmc.util.Check;
 
 final class AsyncJsonCommandExecutor {
+	
+	private static final String TAG ="AsyncJsonCommandExecutor";
 	
 	private CommandExecutor executor;
 	
@@ -30,7 +31,11 @@ final class AsyncJsonCommandExecutor {
 	private void executeAsync(final JsonCommand command, boolean waitForCompletion){
 		Thread executionScope = new Thread(new Runnable() {
 			public void run() {
-				executor.execute(command);
+				try {
+					executor.execute(command);
+				} catch(CommandExecutorException cex){
+					XbmcExceptionHandler.handleException(TAG, "*** InterruptedException ***", cex);
+				}
 			}
 		});
 		executionScope.start();
@@ -39,7 +44,7 @@ final class AsyncJsonCommandExecutor {
 			try {
 				executionScope.join();
 			} catch(InterruptedException iex){
-				XbmcExceptionHandler.handleException("AsyncJsonCommandExecutor", "*** InterruptedException ***", iex);
+				XbmcExceptionHandler.handleException(TAG, "*** InterruptedException ***", iex);
 			}
 		}
 	}

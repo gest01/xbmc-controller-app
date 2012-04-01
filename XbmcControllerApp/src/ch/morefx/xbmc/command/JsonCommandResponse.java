@@ -13,7 +13,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 
-public class CommandResponse {
+public class JsonCommandResponse {
 
 	private static final String TAG = "CommandResponse";
 	
@@ -22,17 +22,17 @@ public class CommandResponse {
 	private GsonBuilder builder;
 	private String rawResult = null;
 	
-	public CommandResponse(JSONArray array) throws Exception {
+	public JsonCommandResponse(JSONArray array) throws Exception {
 		this.rawResult = array.toString();
 		this.jsonArrayResult = array;
 		this.builder = new GsonBuilder();
 	}
 
-	CommandResponse(String result) {
+	JsonCommandResponse(String result) {
 		 this.rawResult = result;
 	}
 	
-	CommandResponse(JSONObject jsonResult) {
+	JsonCommandResponse(JSONObject jsonResult) {
 		this.rawResult = jsonResult.toString();
 		this.jsonResult = jsonResult;
 		this.builder = new GsonBuilder();

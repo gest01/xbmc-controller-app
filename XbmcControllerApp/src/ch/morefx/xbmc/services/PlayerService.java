@@ -6,9 +6,10 @@ import java.util.TimerTask;
 import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
-import ch.morefx.xbmc.CommandExecutor;
 import ch.morefx.xbmc.XbmcConnection;
 import ch.morefx.xbmc.XbmcExceptionHandler;
+import ch.morefx.xbmc.command.CommandExecutor;
+import ch.morefx.xbmc.command.CommandExecutorException;
 import ch.morefx.xbmc.command.JsonCommandExecutor;
 import ch.morefx.xbmc.command.PlayerGetActivePlayersCommand;
 import ch.morefx.xbmc.command.PlayerGetPropertiesCommand;
@@ -48,16 +49,16 @@ public class PlayerService extends XbmcService {
 	}
 
 
-	@Override
-	public void onDestroy() {
-		Log.i(TAG, "onDestroy");
-
-		if (this.timer != null){
-			this.timer.cancel();	
-		}
-		
-		super.onDestroy();
-	}
+//	@Override
+//	public void onDestroy() {
+//		Log.i(TAG, "onDestroy");
+//
+//		if (this.timer != null){
+//			this.timer.cancel();	
+//		}
+//		
+//		super.onDestroy();
+//	}
 	
 
 	private void startService() {
@@ -78,6 +79,7 @@ public class PlayerService extends XbmcService {
 					}
 
 				} catch (Exception ex) {
+					System.out.println("SHIT!!!!!!!!!!!!!!!!!!");
 					XbmcExceptionHandler.handleException(TAG, ex);
 				}
 			}
@@ -86,7 +88,7 @@ public class PlayerService extends XbmcService {
 		this.timer.scheduleAtFixedRate(task, DELAY_INTERVAL, UPDATE_INTERVAL);
 	}
 	
-	private void updateAudioPlayer(PlayerInfo info){
+	private void updateAudioPlayer(PlayerInfo info) throws CommandExecutorException{
 		
 		boolean sendRefreshEvent = false;
 		
@@ -125,12 +127,12 @@ public class PlayerService extends XbmcService {
 	}
 	
 	
-	/**
-	 * Sends a REFRESH_VIDEO_LIBRARY Broadcast message to all interested BroadcastReceivers
-	 */
-	private void sendVideoLibraryRefreshEvent(){
-		sendBroadcast(new Intent(REFRESH_VIDEO_LIBRARY));
-	}
+//	/**
+//	 * Sends a REFRESH_VIDEO_LIBRARY Broadcast message to all interested BroadcastReceivers
+//	 */
+//	private void sendVideoLibraryRefreshEvent(){
+//		sendBroadcast(new Intent(REFRESH_VIDEO_LIBRARY));
+//	}
 	
 	/**
 	 * Sends a REFRESH_AUDIO_LIBRARY Broadcast message to all interested BroadcastReceivers

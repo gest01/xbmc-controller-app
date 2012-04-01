@@ -6,19 +6,19 @@ import java.util.List;
 import ch.morefx.xbmc.model.Artist;
 
 public class GetArtistsCommand extends JsonCommand 
-	implements CommandResponseHandler {
+	implements JsonCommandResponseHandler {
 
 	public GetArtistsCommand() {
 		super("AudioLibrary.GetArtists");
 	}
 
 	@Override
-	void prepareCommand(CommandBuilder builder) {
+	void prepareCommand(JsonCommandBuilder builder) {
 		builder.addParams("properties", Artist.getArtistFields());
 		builder.setSortMethod("artist");
 	}
 	
-	public void handleResponse(CommandResponse response) {
+	public void handleResponse(JsonCommandResponse response) {
 		Artist[] artistArray = response.asArrayResult("artists", Artist[].class);
 		this.artists = Arrays.asList(artistArray);
 	}

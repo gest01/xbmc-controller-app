@@ -6,10 +6,10 @@ import com.google.gson.GsonBuilder;
 
 public abstract class JsonCommand {
 
-	private CommandBuilder builders;
+	private JsonCommandBuilder builders;
 	
 	JsonCommand(String method) {
-		this.builders = new CommandBuilder(method);
+		this.builders = new JsonCommandBuilder(method);
 	}
 	
 	public final String prepareCommand(){
@@ -23,7 +23,7 @@ public abstract class JsonCommand {
 		return gson.toJson(this.builders);
 	}
 
-	void prepareCommand(CommandBuilder builder){
+	void prepareCommand(JsonCommandBuilder builder){
 		
 	}
 }

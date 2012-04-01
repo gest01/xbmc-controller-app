@@ -6,7 +6,7 @@ package ch.morefx.xbmc.command;
  * See http://wiki.xbmc.org/index.php?title=JSON-RPC_API/v3#Application.SetMute
  */
 public class ApplicationSetMuteCommand extends JsonCommand
-	implements CommandResponseHandler{
+	implements JsonCommandResponseHandler{
 
 	private boolean isMuted;
 	
@@ -16,12 +16,12 @@ public class ApplicationSetMuteCommand extends JsonCommand
 	
 
 	@Override
-	void prepareCommand(CommandBuilder builder) {
+	void prepareCommand(JsonCommandBuilder builder) {
 		builder.addParams("mute", "toggle");
 	}
 	
 	
-	public void handleResponse(CommandResponse response) {
+	public void handleResponse(JsonCommandResponse response) {
 		this.isMuted = response.getRawResult().equals("true");
 	}
 	

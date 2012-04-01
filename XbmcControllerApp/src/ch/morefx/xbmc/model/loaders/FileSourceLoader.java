@@ -4,19 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
-import ch.morefx.xbmc.CommandExecutor;
+import ch.morefx.xbmc.command.CommandExecutorAdapter;
 import ch.morefx.xbmc.command.GetFileSourcesCommand;
 import ch.morefx.xbmc.command.JsonCommandExecutor;
 import ch.morefx.xbmc.model.FileSource;
 
 public class FileSourceLoader extends AsyncTaskLoader<Void, Void, List<FileSource>> {
 
-	private CommandExecutor executor;
+	private CommandExecutorAdapter executor;
 	
 	public FileSourceLoader(Context context) {
 		super(context);
 		
-		this.executor = new JsonCommandExecutor(getConnection());
+		this.executor = new CommandExecutorAdapter(new JsonCommandExecutor(getConnection()));
 	}
 	
 	@Override
