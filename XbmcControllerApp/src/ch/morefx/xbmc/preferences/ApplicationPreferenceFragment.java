@@ -43,18 +43,6 @@ public class ApplicationPreferenceFragment extends PreferenceFragment {
 			}
 		});
         
-        ListPreference lp = (ListPreference)getPreferenceManager().findPreference("defaultconnection");
-        lp.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-			public boolean onPreferenceChange(Preference preference, Object newValue) {
-				long defaultId = Long.parseLong(newValue.toString());
-				manager.setDefaultConnection(defaultId);
-				manager.persist();
-				loadConnections();
-				return true;
-			}
-		});
-        
-        
         Preference pref = getPreferenceManager().findPreference("customPref");
         pref.setOnPreferenceClickListener(new OnPreferenceClickListener() {
 			public boolean onPreferenceClick(Preference preference) {
@@ -85,12 +73,6 @@ public class ApplicationPreferenceFragment extends PreferenceFragment {
         lp.setEnabled(connections.length > 0);
         lp.setEntries(entries);
         lp.setEntryValues(entriesKeys);
-        
-        XbmcConnection defaultConnection = manager.getDefaultConnection();
-        if (defaultConnection != null){
-        	lp.setValue( Long.toString(defaultConnection.getId()));
-        }
-        
 	}
 	
 	private XbmcConnectionManager getConnectionManager(){

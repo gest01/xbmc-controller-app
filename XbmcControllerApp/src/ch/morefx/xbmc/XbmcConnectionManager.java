@@ -24,21 +24,6 @@ public class XbmcConnectionManager {
 		load(context);
 	}
 	
-	/**
-	 * Gets the default xbmc connection or null when no xbmc connection has the default flag set to true;
-	 * @return default xbmc connection or null
-	 */
-	public XbmcConnection getDefaultConnection(){
-		for(XbmcConnection connection : this.connections){
-			if (connection.isDefault()){
-				return connection;
-			}
-		}
-		
-		return null;
-	}
-
-	
 	@SuppressWarnings("unchecked")
 	private void load(Context context) {
 		try {
@@ -64,14 +49,6 @@ public class XbmcConnectionManager {
 		} catch (Exception e) {
 			XbmcExceptionHandler.handleException(TAG, "Error while saving xbmc_connections", e);
 		}
-	}
-	
-	public void setDefaultConnection(long connectionId){
-		for(XbmcConnection connection : this.connections){
-			connection.setDefault(connection.getId() == connectionId);
-		}
-		
-		Log.d(TAG, "Default Connnection is no : " + getDefaultConnection().getConnectionName());
 	}
 	
 	public void deleteConnection(long connectionId){	

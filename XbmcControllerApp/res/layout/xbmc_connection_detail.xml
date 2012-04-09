@@ -1,95 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-    
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/connection_name"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-    
+
     <EditText
         android:id="@+id/txtconnectioname"
-        android:inputType="text"
-        android:hint="@string/connection_name_hint"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"/>
-    
-    
+        android:layout_height="wrap_content"
+        android:hint="@string/connection_name_hint"
+        android:inputType="text" />
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/connection_host"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-    
+
     <EditText
         android:id="@+id/txthost"
-        android:inputType="text"
         android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:hint="@string/connection_host_hint"
-        android:layout_height="wrap_content"/>
-    
+        android:inputType="text" />
+
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/connection_port"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-    
+
     <EditText
         android:id="@+id/txtport"
-        android:inputType="number"
         android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:hint="@string/connection_port_hint"
-        android:layout_height="wrap_content"/>
-    
-    
+        android:inputType="number" />
+
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/connection_username"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-    
+
     <EditText
         android:id="@+id/txtusername"
-        android:inputType="text"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"/>
-    
-   <TextView
+        android:layout_height="wrap_content"
+        android:inputType="text" />
+
+    <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/connection_password"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-    
+
     <EditText
         android:id="@+id/txtpassword"
-        android:inputType="textPassword"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"/>
-
-    
-    <CheckBox  
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:paddingRight="10dp"
-        android:text="@string/connection_isdefault"
-        android:id="@+id/chkisdefault"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
-
-
-    
-    <Button 
-        android:id="@+id/btnsave"
-        android:text="@string/save"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        />
-    
-  </LinearLayout>
+        android:inputType="textPassword" />
+
+    <Button
+        android:id="@+id/btnsave"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/save" />
+
+</LinearLayout>

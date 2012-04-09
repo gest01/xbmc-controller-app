@@ -27,5 +27,6 @@
     <string name="connection_host_is_required">Host is required</string>
     <string name="connection_port_is_required">Port is required</string>
     <string name="connection_name_is_required">Name is required</string>
+    <string name="music_library">Music Library</string>
     
 </resources>

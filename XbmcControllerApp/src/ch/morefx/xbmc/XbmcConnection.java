@@ -29,7 +29,6 @@ public class XbmcConnection implements Serializable {
 	private String username, password, host, connectionName;
 	private int port;
 	private long id;
-	private boolean isDefault;
 	
 	private AudioLibrary audioLibrary;
 	private VideoLibrary videoLibrary;
@@ -109,14 +108,6 @@ public class XbmcConnection implements Serializable {
 		return getConnectionName();
 	}
 
-	public boolean isDefault(){
-		return this.isDefault;
-	}
-	
-	public void setDefault(boolean isDefault){
-		this.isDefault = isDefault;
-	}
-	
 	public String getUsername() {
 		return username;
 	}

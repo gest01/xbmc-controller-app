@@ -5,7 +5,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.TextView;
 import ch.morefx.xbmc.R;
 import ch.morefx.xbmc.XbmcConnection;
@@ -57,7 +56,6 @@ public class XbmcConnectionEditActivity extends XbmcActivity {
 		getPasswordTextView().setText(this.connection.getPassword());
 		getHostTextView().setText(this.connection.getHost());
 		getPortTextView().setText(Integer.toString(this.connection.getPort()));
-		getDefaultConnectionCheckBox().setChecked(this.connection.isDefault());
 	}
 	
 	private void updateConnection(){
@@ -66,7 +64,6 @@ public class XbmcConnectionEditActivity extends XbmcActivity {
 		this.connection.setUsername(getUsernameTextView().getText().toString());
 		this.connection.setPassword(getPasswordTextView().getText().toString());
 		this.connection.setPort(Integer.parseInt(getPortTextView().getText().toString()));
-		this.connection.setDefault(getDefaultConnectionCheckBox().isChecked());
 	}
 	
 	private boolean validateInput(){
@@ -122,9 +119,5 @@ public class XbmcConnectionEditActivity extends XbmcActivity {
 	
 	private TextView getHostTextView(){
 		return (TextView)findViewById(R.id.txthost);
-	}
-	
-	private CheckBox getDefaultConnectionCheckBox(){
-		return (CheckBox)findViewById(R.id.chkisdefault);
 	}
 }

@@ -19,9 +19,7 @@ public class ArtistActivity
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-		getListView().setTextFilterEnabled(true);
-		
+
 		this.adapter = new ArtistArrayAdapter(this, android.R.layout.simple_list_item_1);
 		setListAdapter(adapter);
 		

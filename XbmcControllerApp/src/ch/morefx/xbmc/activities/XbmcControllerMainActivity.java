@@ -4,20 +4,19 @@ import java.util.List;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
 import ch.morefx.xbmc.R;
 import ch.morefx.xbmc.XbmcConnection;
+import ch.morefx.xbmc.XbmcConnectionTester;
 import ch.morefx.xbmc.XbmcRemoteControlApplication;
 import ch.morefx.xbmc.activities.home.HomeScreenActivity;
-import ch.morefx.xbmc.preferences.ApplicationPreferenceActivity;
 import ch.morefx.xbmc.util.DialogUtility;
 
 public class XbmcControllerMainActivity extends Activity {
@@ -32,65 +31,29 @@ public class XbmcControllerMainActivity extends Activity {
         
         this.application = (XbmcRemoteControlApplication)getApplication();
     }
-    
-    @Override
-    protected void onStart() {
-    	super.onStart();
-    	ensureXbmcConnections();
-    }
-    
+      
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main_options_menu, menu);
+        inflater.inflate(R.menu.home_options_menu, menu);
         return true;
     }
     
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
       switch (item.getItemId()) {
-	      case R.id.mnu_connections:
-        	   Intent intent = new Intent(XbmcControllerMainActivity.this, ApplicationPreferenceActivity.class);
-        	   startActivity(intent);
+	      case R.id.mnu_select_connection:
+	    	  showConnectionSelectionDialog();
 	        return true;
+	        
+	      case R.id.mnu_new_connection:
+        	   Intent i = new Intent(XbmcControllerMainActivity.this, XbmcConnectionEditActivity.class);
+        	   startActivity(i);
+	        return true;
+	        
 	      default:
 	        return super.onOptionsItemSelected(item);
        }
-    }
-    
-    private void ensureXbmcConnections(){
-
-    	XbmcConnection defaultConnection = this.application.getConnectionManager().getDefaultConnection();
-    	if (defaultConnection != null){
-    		
-    		// set the connection;
-    		this.application.setCurrentConnection(defaultConnection);
-    		
-    		// a default connection is specified...Go to home screen
-      	   Intent intent = new Intent(XbmcControllerMainActivity.this, HomeScreenActivity.class);
-      	   startActivity(intent);
-      	   
-    	} else {
-    		
-    		List<XbmcConnection> connections = this.application.getConnectionManager().getConnections();
-        	if (connections.size() > 0){
-        		showConnectionSelectionDialog();
-        	} else {
-        		
-        		DialogUtility.showYesNo(this, 
-        				R.string.no_connection_create_new, 
-        				R.string.no_connection, 
-        				new OnClickListener() {
-    						public void onClick(DialogInterface dialog, int which) {
-    						   dialog.dismiss();
-    						   if (which == DialogInterface.BUTTON_POSITIVE){
-    				         	   Intent intent = new Intent(XbmcControllerMainActivity.this, XbmcConnectionEditActivity.class);
-    				         	   startActivity(intent);
-    						   }
-    						}
-    			});
-        	}
-    	}
     }
     
     private void showConnectionSelectionDialog(){
@@ -100,15 +63,38 @@ public class XbmcControllerMainActivity extends Activity {
     	final ArrayAdapter<XbmcConnection> items = new ArrayAdapter<XbmcConnection>(this, R.layout.list_item, connections);
     	
     	AlertDialog.Builder builder = new AlertDialog.Builder(this);
-    	builder.setIcon(android.R.drawable.ic_menu_info_details);
-    	builder.setTitle("Select a connection");
+    	builder.setTitle("Select connection");
+    	builder.setCancelable(false);
     	builder.setNegativeButton(android.R.string.cancel, null);
     	builder.setSingleChoiceItems(items, -1, new DialogInterface.OnClickListener() {
     	    public void onClick(DialogInterface dialog, int item) {
-    	        Toast.makeText(getApplicationContext(), items.getItem(item).toString(), Toast.LENGTH_SHORT).show();
+    	    	dialog.dismiss();
+    	    	tryConnect(items.getItem(item));
     	    }
     	});
     	AlertDialog alert = builder.create();
     	alert.show();
+    }
+    
+    private void tryConnect(final XbmcConnection connection){
+		final ProgressDialog pd = new ProgressDialog(XbmcControllerMainActivity.this);
+        pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        pd.setMessage("Connecting " + connection.getConnectionName() + "...");
+        pd.setIndeterminate(true);
+        pd.setCancelable(false);
+        pd.show();
+
+        XbmcConnectionTester tester = new XbmcConnectionTester();
+        boolean isOk = tester.canConnect(connection);
+        
+        pd.dismiss();
+        
+        if (isOk){
+        	application.setCurrentConnection(connection);
+     	   	Intent i = new Intent(XbmcControllerMainActivity.this, HomeScreenActivity.class);
+     	   	startActivity(i);
+        } else {
+        	DialogUtility.showError(this, "unable to connect " + connection.getConnectionName(), "Connection failed");
+        }
     }
 }

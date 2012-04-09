@@ -44,12 +44,15 @@
         
         <activity
             android:name=".activities.musiclibrary.ArtistActivity"
-            android:label="Music Library" />
+            android:icon="@drawable/audioibrary"
+            android:label="@string/music_library" />
         <activity
             android:name=".activities.musiclibrary.AlbumActivity"
+            android:icon="@drawable/audioibrary"
             android:label="Album Activity" />
         <activity
             android:name=".activities.musiclibrary.SongActivity"
+            android:icon="@drawable/audioibrary"
             android:label="Song Activity" />
         <activity
             android:name=".preferences.ApplicationPreferenceActivity"

@@ -14,8 +14,6 @@ import ch.morefx.xbmc.activities.videolibrary.VideoActivity;
 
 /**
  * Defines the main activity for the Home Screen
- * @author stef
- *
  */
 public class HomeScreenActivity extends XbmcListActivity {
 	
