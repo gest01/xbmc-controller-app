@@ -8,6 +8,8 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -84,17 +86,22 @@ public class XbmcControllerMainActivity extends Activity {
         pd.setCancelable(false);
         pd.show();
 
+        Handler handler = new Handler(){
+        	@Override
+        	public void handleMessage(Message msg) {
+                pd.dismiss();
+                if (msg.what == XbmcConnectionTester.CONNECTION_OK){
+                	application.setCurrentConnection(connection);
+             	   	Intent i = new Intent(XbmcControllerMainActivity.this, HomeScreenActivity.class);
+             	   	startActivity(i);
+                } else {
+                	DialogUtility.showError(XbmcControllerMainActivity.this, "unable to connect " + connection.getConnectionName(), "Connection failed");
+                }
+        	}
+        };
+        
         XbmcConnectionTester tester = new XbmcConnectionTester();
-        boolean isOk = tester.canConnect(connection);
+        tester.canConnect(connection, handler);
         
-        pd.dismiss();
-        
-        if (isOk){
-        	application.setCurrentConnection(connection);
-     	   	Intent i = new Intent(XbmcControllerMainActivity.this, HomeScreenActivity.class);
-     	   	startActivity(i);
-        } else {
-        	DialogUtility.showError(this, "unable to connect " + connection.getConnectionName(), "Connection failed");
-        }
     }
 }
