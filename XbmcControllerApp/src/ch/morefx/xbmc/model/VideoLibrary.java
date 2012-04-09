@@ -17,7 +17,7 @@ public class VideoLibrary extends XbmcLibrary {
 	public VideoLibrary(XbmcConnection connection) {
 		super(connection);
 		
-		this.videoplayer = new VideoPlayer();
+		this.videoplayer = new VideoPlayer(connection);
 	}
 	
 	

@@ -1,7 +1,5 @@
 package ch.morefx.xbmc.activities.home;
 
-import java.util.ArrayList;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,8 +13,8 @@ public class HomeScreenMenuItemAdapter extends ArrayAdapter<HomeScreenMenuItem> 
 
 	private LayoutInflater inflater;
 	
-	public HomeScreenMenuItemAdapter(Context context, int textViewResourceId, ArrayList<HomeScreenMenuItem> items) {
-		super(context, textViewResourceId, items);
+	public HomeScreenMenuItemAdapter(Context context, int textViewResourceId) {
+		super(context, textViewResourceId);
 		
 		this.inflater = LayoutInflater.from(context);
 	}

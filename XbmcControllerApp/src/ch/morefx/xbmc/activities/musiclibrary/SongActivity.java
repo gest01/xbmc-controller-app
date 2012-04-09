@@ -35,10 +35,10 @@ public final class SongActivity
 		album = (Album)getIntent().getExtras().getSerializable(EXTRA_ALBUM);
 		Check.notNull(album, "Album object missing from Intent extras");
 		
+		setTitle(album.getLabel());
+		
 		this.adapter = new SongArrayAdapter(this, android.R.layout.simple_list_item_1);
 		setListAdapter(this.adapter);
-		
-		getListView().setTextFilterEnabled(true);
 		
 		loadSongs();
 	}

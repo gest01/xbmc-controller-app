@@ -13,18 +13,17 @@
         android:hardwareAccelerated="true"
         android:label="@string/app_name"
         android:permission="android.permission.INTERNET" >
-        
         <service android:name=".services.PlayerService" />
-        
+
         <activity
             android:name=".activities.XbmcControllerMainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
         <activity
             android:name=".activities.XbmcConnectionEditActivity"
             android:label="" />
@@ -37,11 +36,9 @@
         <activity
             android:name=".activities.sourcebrowser.DirectoryBrowserActivity"
             android:label="DirectoryBrowserActivity" />
-
         <activity
-         android:name=".activities.videolibrary.VideoActivity"
-         android:label="VideoActivity" />
-        
+            android:name=".activities.videolibrary.VideoActivity"
+            android:label="VideoActivity" />
         <activity
             android:name=".activities.musiclibrary.ArtistActivity"
             android:icon="@drawable/audioibrary"
@@ -54,6 +51,10 @@
             android:name=".activities.musiclibrary.SongActivity"
             android:icon="@drawable/audioibrary"
             android:label="Song Activity" />
+        <activity
+            android:name=".activities.players.AudioPlayerActivity"
+            android:icon="@drawable/audioibrary"
+            android:label="Audio Player" />
         <activity
             android:name=".preferences.ApplicationPreferenceActivity"
             android:label="" />

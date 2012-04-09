@@ -23,6 +23,14 @@ public class XbmcRemoteControlApplication extends Application {
 	}
 	
 	/**
+	 * Gets a flag that indicates whether a connection is established or not.
+	 * @return True when connected, false otherwise
+	 */
+	public boolean isConnected(){
+		return getCurrentConnection() != null;
+	}
+	
+	/**
 	 * Sets the current active connection.
 	 * @param connection
 	 */

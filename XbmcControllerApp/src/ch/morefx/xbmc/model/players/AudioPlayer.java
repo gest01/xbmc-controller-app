@@ -1,5 +1,6 @@
 package ch.morefx.xbmc.model.players;
 
+import ch.morefx.xbmc.XbmcConnection;
 import ch.morefx.xbmc.model.Album;
 import ch.morefx.xbmc.model.Artist;
 import ch.morefx.xbmc.model.Song;
@@ -9,7 +10,8 @@ public class AudioPlayer extends MediaPlayer {
 	
 	private Song playingSong;
 	
-	public AudioPlayer() {
+	public AudioPlayer(XbmcConnection connection) {
+		super(connection);
 	}
 	
 	public void setPlaying(Song song){
