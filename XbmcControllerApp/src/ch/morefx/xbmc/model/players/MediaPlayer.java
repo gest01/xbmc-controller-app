@@ -1,13 +1,13 @@
 package ch.morefx.xbmc.model.players;
 
 import android.util.Log;
-import ch.morefx.xbmc.command.PlayerGoNextCommand;
-import ch.morefx.xbmc.command.PlayerGoPreviousCommand;
-import ch.morefx.xbmc.command.PlayerPlayPauseCommand;
-import ch.morefx.xbmc.command.PlayerStopCommand;
 import ch.morefx.xbmc.net.CommandExecutorAdapter;
 import ch.morefx.xbmc.net.JsonCommandExecutor;
 import ch.morefx.xbmc.net.XbmcConnector;
+import ch.morefx.xbmc.net.commands.PlayerGoNextCommand;
+import ch.morefx.xbmc.net.commands.PlayerGoPreviousCommand;
+import ch.morefx.xbmc.net.commands.PlayerPlayPauseCommand;
+import ch.morefx.xbmc.net.commands.PlayerStopCommand;
 import ch.morefx.xbmc.util.Check;
 
 public class MediaPlayer {

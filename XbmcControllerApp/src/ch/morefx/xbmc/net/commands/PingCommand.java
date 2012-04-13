@@ -1,4 +1,4 @@
-package ch.morefx.xbmc.command;
+package ch.morefx.xbmc.net.commands;
 
 /**
  * Implements the Ping command by using the JSONRPC.Ping method. Returns 'pong' when connection is succesfull

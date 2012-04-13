@@ -1,11 +1,11 @@
 package ch.morefx.xbmc;
 
 import android.os.Handler;
-import ch.morefx.xbmc.command.PingCommand;
 import ch.morefx.xbmc.net.CommandExecutor;
 import ch.morefx.xbmc.net.CommandExecutorException;
 import ch.morefx.xbmc.net.JsonCommandExecutor;
 import ch.morefx.xbmc.net.XbmcConnector;
+import ch.morefx.xbmc.net.commands.PingCommand;
 import ch.morefx.xbmc.util.Check;
 
 public class XbmcConnectionTester {

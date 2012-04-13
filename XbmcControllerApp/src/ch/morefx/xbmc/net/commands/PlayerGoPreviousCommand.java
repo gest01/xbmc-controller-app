@@ -1,18 +1,18 @@
-package ch.morefx.xbmc.command;
+package ch.morefx.xbmc.net.commands;
 
 import ch.morefx.xbmc.model.players.MediaPlayer;
 import ch.morefx.xbmc.util.Check;
 
 /**
- * Implements the Player.GoNext json command
- * See http://wiki.xbmc.org/index.php?title=JSON-RPC_API/v3#Player.GoNext
+ * Implements the Player.GoPrevious json command
+ * See http://wiki.xbmc.org/index.php?title=JSON-RPC_API/v3#Player.GoPrevious
  */
-public class PlayerGoNextCommand extends JsonCommand{
+public class PlayerGoPreviousCommand extends JsonCommand {
 
 	private MediaPlayer player;
 	
-	public PlayerGoNextCommand(MediaPlayer player) {
-		super("Player.GoNext");
+	public PlayerGoPreviousCommand(MediaPlayer player) {
+		super("Player.GoPrevious");
 		
 		Check.argumentNotNull(player, "player");
 		this.player = player;

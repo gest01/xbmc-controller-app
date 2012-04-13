@@ -1,7 +1,7 @@
 package ch.morefx.xbmc.net;
 
 import ch.morefx.xbmc.XbmcExceptionHandler;
-import ch.morefx.xbmc.command.JsonCommand;
+import ch.morefx.xbmc.net.commands.JsonCommand;
 import ch.morefx.xbmc.util.Check;
 
 public class CommandExecutorAdapter {

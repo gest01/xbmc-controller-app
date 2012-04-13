@@ -7,9 +7,6 @@ import android.content.Intent;
 import android.os.IBinder;
 import ch.morefx.xbmc.XbmcConnection;
 import ch.morefx.xbmc.XbmcExceptionHandler;
-import ch.morefx.xbmc.command.PlayerGetActivePlayersCommand;
-import ch.morefx.xbmc.command.PlayerGetPropertiesCommand;
-import ch.morefx.xbmc.command.PlaylistGetItemsCommand;
 import ch.morefx.xbmc.model.PlayerInfo;
 import ch.morefx.xbmc.model.Playlist;
 import ch.morefx.xbmc.model.Song;
@@ -17,6 +14,9 @@ import ch.morefx.xbmc.model.players.AudioPlayer;
 import ch.morefx.xbmc.net.CommandExecutor;
 import ch.morefx.xbmc.net.CommandExecutorException;
 import ch.morefx.xbmc.net.JsonCommandExecutor;
+import ch.morefx.xbmc.net.commands.PlayerGetActivePlayersCommand;
+import ch.morefx.xbmc.net.commands.PlayerGetPropertiesCommand;
+import ch.morefx.xbmc.net.commands.PlaylistGetItemsCommand;
 
 // http://stackoverflow.com/questions/2463175/how-to-have-android-service-communicate-with-activity
 

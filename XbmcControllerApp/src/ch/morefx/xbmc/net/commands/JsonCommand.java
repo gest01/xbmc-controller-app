@@ -1,4 +1,4 @@
-package ch.morefx.xbmc.command;
+package ch.morefx.xbmc.net.commands;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

@@ -2,12 +2,12 @@ package ch.morefx.xbmc.model;
 
 import java.util.List;
 
-import ch.morefx.xbmc.command.GetMoviesCommand;
-import ch.morefx.xbmc.command.PlayerOpenCommandAdapter;
-import ch.morefx.xbmc.command.PlaylistAddCommand;
-import ch.morefx.xbmc.command.PlaylistClearCommand;
 import ch.morefx.xbmc.model.players.VideoPlayer;
 import ch.morefx.xbmc.net.XbmcConnector;
+import ch.morefx.xbmc.net.commands.GetMoviesCommand;
+import ch.morefx.xbmc.net.commands.PlayerOpenCommandAdapter;
+import ch.morefx.xbmc.net.commands.PlaylistAddCommand;
+import ch.morefx.xbmc.net.commands.PlaylistClearCommand;
 import ch.morefx.xbmc.util.Check;
 
 public class VideoLibrary extends XbmcLibrary {

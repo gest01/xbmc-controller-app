@@ -5,9 +5,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.util.Log;
-import ch.morefx.xbmc.command.JsonCommand;
-import ch.morefx.xbmc.command.JsonCommandResponse;
-import ch.morefx.xbmc.command.JsonCommandResponseHandler;
+import ch.morefx.xbmc.net.commands.JsonCommand;
+import ch.morefx.xbmc.net.commands.JsonCommandResponse;
+import ch.morefx.xbmc.net.commands.JsonCommandResponseHandler;
 import ch.morefx.xbmc.util.Check;
 
 public final class JsonCommandExecutor 

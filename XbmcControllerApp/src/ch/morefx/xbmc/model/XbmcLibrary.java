@@ -1,9 +1,9 @@
 package ch.morefx.xbmc.model;
 
-import ch.morefx.xbmc.command.JsonCommand;
 import ch.morefx.xbmc.net.CommandExecutorAdapter;
 import ch.morefx.xbmc.net.JsonCommandExecutor;
 import ch.morefx.xbmc.net.XbmcConnector;
+import ch.morefx.xbmc.net.commands.JsonCommand;
 import ch.morefx.xbmc.util.Check;
 
 /**

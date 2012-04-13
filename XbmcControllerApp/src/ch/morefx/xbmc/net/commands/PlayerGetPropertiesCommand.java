@@ -1,4 +1,4 @@
-package ch.morefx.xbmc.command;
+package ch.morefx.xbmc.net.commands;
 
 import ch.morefx.xbmc.model.PlayerInfo;
 import ch.morefx.xbmc.model.PlayerProperties;

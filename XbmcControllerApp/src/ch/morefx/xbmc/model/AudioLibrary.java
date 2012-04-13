@@ -2,14 +2,14 @@ package ch.morefx.xbmc.model;
 
 import java.util.List;
 
-import ch.morefx.xbmc.command.GetAlbumsCommand;
-import ch.morefx.xbmc.command.GetArtistsCommand;
-import ch.morefx.xbmc.command.GetSongsCommand;
-import ch.morefx.xbmc.command.PlayerOpenCommandAdapter;
-import ch.morefx.xbmc.command.PlaylistAddCommand;
-import ch.morefx.xbmc.command.PlaylistClearCommand;
 import ch.morefx.xbmc.model.players.AudioPlayer;
 import ch.morefx.xbmc.net.XbmcConnector;
+import ch.morefx.xbmc.net.commands.GetAlbumsCommand;
+import ch.morefx.xbmc.net.commands.GetArtistsCommand;
+import ch.morefx.xbmc.net.commands.GetSongsCommand;
+import ch.morefx.xbmc.net.commands.PlayerOpenCommandAdapter;
+import ch.morefx.xbmc.net.commands.PlaylistAddCommand;
+import ch.morefx.xbmc.net.commands.PlaylistClearCommand;
 import ch.morefx.xbmc.util.Check;
 
 public final class AudioLibrary extends XbmcLibrary {

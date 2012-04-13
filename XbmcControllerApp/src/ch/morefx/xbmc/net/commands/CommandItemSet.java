@@ -1,4 +1,4 @@
-package ch.morefx.xbmc.command;
+package ch.morefx.xbmc.net.commands;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
