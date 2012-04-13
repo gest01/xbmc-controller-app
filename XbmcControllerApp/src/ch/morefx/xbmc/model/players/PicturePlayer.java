@@ -1,9 +1,9 @@
 package ch.morefx.xbmc.model.players;
 
-import ch.morefx.xbmc.XbmcConnection;
+import ch.morefx.xbmc.net.XbmcConnector;
 
 public class PicturePlayer extends MediaPlayer {
-	public PicturePlayer(XbmcConnection connection) {
-		super(connection);
+	public PicturePlayer(XbmcConnector connector) {
+		super(connector);
 	}
 }

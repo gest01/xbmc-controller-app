@@ -1,6 +1,7 @@
-package ch.morefx.xbmc.command;
+package ch.morefx.xbmc.net;
 
 import ch.morefx.xbmc.XbmcExceptionHandler;
+import ch.morefx.xbmc.command.JsonCommand;
 import ch.morefx.xbmc.util.Check;
 
 final class AsyncJsonCommandExecutor {

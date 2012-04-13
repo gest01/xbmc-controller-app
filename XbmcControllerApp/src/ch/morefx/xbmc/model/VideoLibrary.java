@@ -2,22 +2,22 @@ package ch.morefx.xbmc.model;
 
 import java.util.List;
 
-import ch.morefx.xbmc.XbmcConnection;
 import ch.morefx.xbmc.command.GetMoviesCommand;
 import ch.morefx.xbmc.command.PlayerOpenCommandAdapter;
 import ch.morefx.xbmc.command.PlaylistAddCommand;
 import ch.morefx.xbmc.command.PlaylistClearCommand;
 import ch.morefx.xbmc.model.players.VideoPlayer;
+import ch.morefx.xbmc.net.XbmcConnector;
 import ch.morefx.xbmc.util.Check;
 
 public class VideoLibrary extends XbmcLibrary {
 	
 	private VideoPlayer videoplayer;
 	
-	public VideoLibrary(XbmcConnection connection) {
-		super(connection);
+	public VideoLibrary(XbmcConnector connector) {
+		super(connector);
 		
-		this.videoplayer = new VideoPlayer(connection);
+		this.videoplayer = new VideoPlayer(connector);
 	}
 	
 	

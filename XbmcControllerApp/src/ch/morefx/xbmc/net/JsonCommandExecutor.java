@@ -1,33 +1,26 @@
-package ch.morefx.xbmc.command;
+package ch.morefx.xbmc.net;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicHeader;
-import org.apache.http.protocol.HTTP;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.util.Log;
-import ch.morefx.xbmc.XbmcConnection;
+import ch.morefx.xbmc.command.JsonCommand;
+import ch.morefx.xbmc.command.JsonCommandResponse;
+import ch.morefx.xbmc.command.JsonCommandResponseHandler;
+import ch.morefx.xbmc.util.Check;
 
 public final class JsonCommandExecutor 
 	implements CommandExecutor {
 
 	private static final String TAG = "JsonCommandExecutor";
 
-	private XbmcConnection connection;
+	private XbmcConnector connector;
 
-	public JsonCommandExecutor(XbmcConnection connection) {
-		this.connection = connection;
+	public JsonCommandExecutor(XbmcConnector connector) {
+		Check.argumentNotNull(connector, "connector");
+		
+		this.connector = connector;
 	}
 	
 	public void executeAsync(JsonCommand command) {
@@ -41,13 +34,10 @@ public final class JsonCommandExecutor
 	}
 
 	public final void execute(JsonCommand command) throws CommandExecutorException{
-
-		DefaultHttpClient client = initializeHttpClient(this.connection);
-
 		try {
 			
 			String jsonCommand = command.prepareCommand();
-			String responseString = executeJsonCommand(jsonCommand, client);
+			String responseString = connector.send(jsonCommand);
 			
 			if (responseString == null){
 				Log.w(TAG, "responseString is null");
@@ -90,48 +80,5 @@ public final class JsonCommandExecutor
 			((JsonCommandResponseHandler)command).handleResponse(commandResponse);
 				
 		}
-	}
-
-	/**
-	 * 
-	 * @param jsonCommand
-	 * @param httpClient
-	 * @return
-	 * @throws IOException 
-	 * @throws ClientProtocolException 
-	 */
-	private String executeJsonCommand(String jsonCommand, DefaultHttpClient httpClient) throws ClientProtocolException, IOException{
-		
-		String uri = this.connection.getXbmcConnectionUri();
-		HttpPost post = new HttpPost(uri);
-		
-		StringEntity entity = new StringEntity(jsonCommand);
-		entity.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
-		post.setEntity(entity);
-		
-		HttpResponse response = httpClient.execute(post);
-		InputStream in = response.getEntity().getContent();
-		BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-		String responseString = reader.readLine();
-		
-		Log.d(TAG, "RESPONSE: " + responseString);
-		return responseString;
-			
-	}
-	
-	
-	private DefaultHttpClient _client;
-	
-	/**
-	 * 
-	 * @param connection
-	 * @return
-	 */
-	private DefaultHttpClient initializeHttpClient(XbmcConnection connection){
-		
-		if (_client == null)
-			_client = connection.createHttpClient();
-		
-		return _client;
 	}
 }

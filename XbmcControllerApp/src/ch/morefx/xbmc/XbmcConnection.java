@@ -2,14 +2,10 @@ package ch.morefx.xbmc;
 
 import java.io.Serializable;
 
-import org.apache.http.auth.AuthScope;
-import org.apache.http.auth.UsernamePasswordCredentials;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.HttpConnectionParams;
-
-import ch.morefx.xbmc.command.HttpRequestRetryHandlerImpl;
 import ch.morefx.xbmc.model.AudioLibrary;
 import ch.morefx.xbmc.model.VideoLibrary;
+import ch.morefx.xbmc.net.XbmcConnector;
+import ch.morefx.xbmc.net.XbmcConnectorFactory;
 import ch.morefx.xbmc.util.DrawableManager;
 
 
@@ -33,6 +29,8 @@ public class XbmcConnection implements Serializable {
 	private AudioLibrary audioLibrary;
 	private VideoLibrary videoLibrary;
 	
+	private XbmcConnector connector;
+	
 	public XbmcConnection() {
 		setPort(DEFAULT_PORT);
 		setUsername(DEFAULT_USERNAME);
@@ -42,26 +40,21 @@ public class XbmcConnection implements Serializable {
 	}
 	
 	/**
-	 * Creates a HttpClient with this connections credentials
-	 * @return DefaultHttpClient
+	 * 
+	 * @return
 	 */
-	public DefaultHttpClient createHttpClient(){
-		DefaultHttpClient client = new DefaultHttpClient();
-		client.setHttpRequestRetryHandler(new HttpRequestRetryHandlerImpl());
-		client.getCredentialsProvider().setCredentials(
-				new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT),
-				new UsernamePasswordCredentials(getUsername(), getPassword()));
-		
-		HttpConnectionParams.setConnectionTimeout(client.getParams(), 10000); // Timeout Limit
-		return client;
+	public synchronized XbmcConnector getConnector(){
+		if (connector == null){
+			connector = XbmcConnectorFactory.create(this);
+		}
+		return connector;
 	}
 	
 	private DrawableManager drawableManager;
 	
 	public synchronized DrawableManager getDrawableManager(){
 		if (this.drawableManager == null){
-			DefaultHttpClient httpClient = createHttpClient();
-			this.drawableManager = new DrawableManager(httpClient);
+			this.drawableManager = new DrawableManager(getConnector());
 		}
 		
 		return this.drawableManager;
@@ -75,9 +68,10 @@ public class XbmcConnection implements Serializable {
 	/**
 	 * Gets the AudioLibrary connected by this Connection.
 	 * @return AudioLibrary
-	 */public synchronized AudioLibrary getAudioLibrary(){
+	 */
+	public synchronized AudioLibrary getAudioLibrary(){
 		if (this.audioLibrary == null){
-			this.audioLibrary = new AudioLibrary(this);
+			this.audioLibrary = new AudioLibrary(getConnector());
 		}
 		
 		return this.audioLibrary;
@@ -89,7 +83,7 @@ public class XbmcConnection implements Serializable {
 	 */
 	public synchronized VideoLibrary getVideoLibrary(){
 		if (this.videoLibrary == null){
-			this.videoLibrary = new VideoLibrary(this);
+			this.videoLibrary = new VideoLibrary(getConnector());
 		}
 		
 		return this.videoLibrary;
@@ -156,7 +150,7 @@ public class XbmcConnection implements Serializable {
 		return this.id;
 	}
 	
-	void setId(){
+	void initializeId(){
 		this.id = System.currentTimeMillis();
 	}
 }

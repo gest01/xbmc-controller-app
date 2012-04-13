@@ -72,7 +72,7 @@ public class XbmcConnectionManager {
 		}
 		
 		Log.d(TAG, "New Connection added : " + connection.getConnectionName());
-		connection.setId();
+		connection.initializeId();
 		this.connections.add(connection);
 	}
 	

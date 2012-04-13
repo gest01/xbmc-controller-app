@@ -1,29 +1,26 @@
 package ch.morefx.xbmc.util;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.widget.ImageView;
+import ch.morefx.xbmc.net.XbmcConnector;
 
 public class DrawableManager {
     private final Map<String, Drawable> drawableMap;
     private static final String TAG = "DrawableManager";
     
-    private final DefaultHttpClient httpClient;
+    private final XbmcConnector connector;
     
-    public DrawableManager(DefaultHttpClient httpClient) {
+    public DrawableManager(XbmcConnector connector) {
+    	Check.argumentNotNull(connector, "connector");
+    	
         drawableMap = new HashMap<String, Drawable>();
-        this.httpClient = httpClient;
+        this.connector = connector;
     }
 
     /**
@@ -42,7 +39,7 @@ public class DrawableManager {
     	return drawable;
     }
     
-    public Drawable fetchDrawable(String urlString) {
+    private Drawable fetchDrawable(String urlString) {
         if (drawableMap.containsKey(urlString)) {
             return drawableMap.get(urlString);
         }
@@ -50,8 +47,7 @@ public class DrawableManager {
         Log.d(TAG, "image url:" + urlString);
         try {
         	
-            InputStream is = fetch(urlString);
-            Drawable drawable = Drawable.createFromStream(is, "src");
+            Drawable drawable = connector.downloadImage(urlString);
             if (drawable != null) {
                 drawableMap.put(urlString, drawable);
             } else {
@@ -59,10 +55,7 @@ public class DrawableManager {
             }
 
             return drawable;
-        } catch (MalformedURLException e) {
-            Log.e(TAG, "fetchDrawable failed", e);
-            return null;
-        } catch (IOException e) {
+        }  catch (IOException e) {
             Log.e(TAG, "fetchDrawable failed", e);
             return null;
         }
@@ -91,12 +84,4 @@ public class DrawableManager {
         };
         thread.start();
     }
-
-    private InputStream fetch(String urlString) throws MalformedURLException, IOException {
-        DefaultHttpClient httpClient = this.httpClient;
-        HttpGet request = new HttpGet(urlString);
-        HttpResponse response = httpClient.execute(request);
-        return response.getEntity().getContent();
-    }
-
 }

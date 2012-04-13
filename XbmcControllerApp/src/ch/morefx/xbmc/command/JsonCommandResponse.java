@@ -28,11 +28,11 @@ public class JsonCommandResponse {
 		this.builder = new GsonBuilder();
 	}
 
-	JsonCommandResponse(String result) {
+	public JsonCommandResponse(String result) {
 		 this.rawResult = result;
 	}
 	
-	JsonCommandResponse(JSONObject jsonResult) {
+	public JsonCommandResponse(JSONObject jsonResult) {
 		this.rawResult = jsonResult.toString();
 		this.jsonResult = jsonResult;
 		this.builder = new GsonBuilder();

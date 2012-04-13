@@ -15,6 +15,7 @@ import ch.morefx.xbmc.activities.musiclibrary.ArtistActivity;
 import ch.morefx.xbmc.activities.players.AudioPlayerActivity;
 import ch.morefx.xbmc.activities.sourcebrowser.SourceBrowserActivity;
 import ch.morefx.xbmc.activities.videolibrary.VideoActivity;
+import ch.morefx.xbmc.model.Song;
 import ch.morefx.xbmc.services.PlayerService;
 
 /**
@@ -71,12 +72,13 @@ public class HomeScreenActivity extends XbmcListActivity {
 		items.add(new HomeScreenMenuItem(R.drawable.videolibrary, "Video Library", "Watch your Movies", new Intent(this, VideoActivity.class)));
 		items.add(new HomeScreenMenuItem(R.drawable.filebrowser, "File Browser", "Browse your Media Files", new Intent(this, SourceBrowserActivity.class)));
 		
-		if (getXbmcApplication().isConnected()) {
-			items.add(new HomeScreenMenuItem(R.drawable.filebrowser, "RemoteControl", "Control Xbmc", new Intent(this, SourceBrowserActivity.class)));	
-		}
 		
-		if (getXbmcApplication().getCurrentConnection().getAudioLibrary().getPlayer().isActive()) {
-			items.add(new HomeScreenMenuItem(R.drawable.filebrowser, "Audio Player", "----", new Intent(this, AudioPlayerActivity.class)));	
+		if (getAudioLibrary().getPlayer().isActive()) {
+			Song sucker = getAudioLibrary().getPlayer().getCurrentSong();
+			
+			String s = sucker.getArtistString() + " - " + sucker.getAlbumString() + " - " + sucker.getLabel();
+			
+			items.add(new HomeScreenMenuItem(R.drawable.filebrowser, "Audio Player", s, new Intent(this, AudioPlayerActivity.class)));	
 		}
 		
 		this.adapter.clear();

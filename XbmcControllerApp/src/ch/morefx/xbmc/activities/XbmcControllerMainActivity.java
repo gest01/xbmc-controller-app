@@ -101,7 +101,7 @@ public class XbmcControllerMainActivity extends Activity {
         };
         
         XbmcConnectionTester tester = new XbmcConnectionTester();
-        tester.canConnect(connection, handler);
+        tester.canConnect(connection.getConnector(), handler);
         
     }
 }

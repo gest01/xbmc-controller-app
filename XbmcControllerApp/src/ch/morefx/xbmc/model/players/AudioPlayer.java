@@ -1,17 +1,17 @@
 package ch.morefx.xbmc.model.players;
 
-import ch.morefx.xbmc.XbmcConnection;
 import ch.morefx.xbmc.model.Album;
 import ch.morefx.xbmc.model.Artist;
 import ch.morefx.xbmc.model.Song;
+import ch.morefx.xbmc.net.XbmcConnector;
 import ch.morefx.xbmc.util.Check;
 
 public class AudioPlayer extends MediaPlayer {
 	
 	private Song playingSong;
 	
-	public AudioPlayer(XbmcConnection connection) {
-		super(connection);
+	public AudioPlayer(XbmcConnector connector) {
+		super(connector);
 	}
 	
 	public void setPlaying(Song song){

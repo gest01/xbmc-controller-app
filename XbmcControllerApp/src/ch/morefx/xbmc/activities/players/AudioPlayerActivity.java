@@ -9,7 +9,15 @@ public class AudioPlayerActivity extends XbmcActivity{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		super.getAudioLibrary().getPlayer().next();
 		
+		// F:\Programs\Android\android-sdk\platforms\android-15\data\res\drawable-hdpi
+		// android.R.drawable.ic_media_next
+		// android.R.drawable.ic_media_previous
+		
+		// android.R.drawable.ic_media_pause
+		// android.R.drawable.ic_media_play
+		//android.R.drawable.ic_me
+		
+		//getAudioLibrary().getPlayer().next();
 	}
 }

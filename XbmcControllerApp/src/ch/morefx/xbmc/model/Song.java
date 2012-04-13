@@ -15,7 +15,14 @@ public class Song extends LibraryItem implements Serializable {
 	private String file;
 	private int artistid;
 	
+	private String artist;
+	private String album;
+	
 	private Album relatedAlbum;
+	
+	
+	public String getAlbumString() { return this.album; }
+	public String getArtistString() { return this.artist; }
 	
 	
 	public Song(int position, Album relatedAlbum) {

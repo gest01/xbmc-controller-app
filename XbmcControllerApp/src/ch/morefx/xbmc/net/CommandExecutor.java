@@ -1,4 +1,6 @@
-package ch.morefx.xbmc.command;
+package ch.morefx.xbmc.net;
+
+import ch.morefx.xbmc.command.JsonCommand;
 
 
 public interface CommandExecutor {

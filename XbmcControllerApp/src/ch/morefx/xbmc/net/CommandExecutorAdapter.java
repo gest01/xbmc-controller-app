@@ -1,6 +1,7 @@
-package ch.morefx.xbmc.command;
+package ch.morefx.xbmc.net;
 
 import ch.morefx.xbmc.XbmcExceptionHandler;
+import ch.morefx.xbmc.command.JsonCommand;
 import ch.morefx.xbmc.util.Check;
 
 public class CommandExecutorAdapter {
@@ -30,6 +31,10 @@ public class CommandExecutorAdapter {
 		this.executor.executeAsync(commands);
 	}
 	
+	/**
+	 * Fire and forget :-)
+	 * @param command Command to be executed async
+	 */
 	public void executeAsync(JsonCommand command){
 		this.executor.executeAsync(command);
 	}

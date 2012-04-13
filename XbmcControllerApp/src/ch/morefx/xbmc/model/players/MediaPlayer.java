@@ -1,13 +1,13 @@
 package ch.morefx.xbmc.model.players;
 
 import android.util.Log;
-import ch.morefx.xbmc.XbmcConnection;
-import ch.morefx.xbmc.command.CommandExecutorAdapter;
-import ch.morefx.xbmc.command.JsonCommandExecutor;
 import ch.morefx.xbmc.command.PlayerGoNextCommand;
 import ch.morefx.xbmc.command.PlayerGoPreviousCommand;
 import ch.morefx.xbmc.command.PlayerPlayPauseCommand;
 import ch.morefx.xbmc.command.PlayerStopCommand;
+import ch.morefx.xbmc.net.CommandExecutorAdapter;
+import ch.morefx.xbmc.net.JsonCommandExecutor;
+import ch.morefx.xbmc.net.XbmcConnector;
 import ch.morefx.xbmc.util.Check;
 
 public class MediaPlayer {
@@ -17,11 +17,12 @@ public class MediaPlayer {
 	private static final int DISABLED_PLAYER_ID = -1;
 	
 	private int playerId;
-	private XbmcConnection connection;
+	private XbmcConnector connector;
 	
-	public MediaPlayer(XbmcConnection connection) {
-		Check.argumentNotNull(connection, "connection");
-		this.connection = connection;
+	public MediaPlayer(XbmcConnector connector) {
+		Check.argumentNotNull(connector, "connector");
+		
+		this.connector = connector;
 		this.playerId = DISABLED_PLAYER_ID;
 	}
 	
@@ -45,28 +46,28 @@ public class MediaPlayer {
 	}
 	
 	public void next(){
-		CommandExecutorAdapter adapter = new CommandExecutorAdapter(new JsonCommandExecutor(connection));
-		adapter.execute(new PlayerGoNextCommand(this));
+		CommandExecutorAdapter adapter = new CommandExecutorAdapter(new JsonCommandExecutor(connector));
+		adapter.executeAsync(new PlayerGoNextCommand(this));
 	}
 	
 	public void previous(){
-		CommandExecutorAdapter adapter = new CommandExecutorAdapter(new JsonCommandExecutor(connection));
-		adapter.execute(new PlayerGoPreviousCommand(this));
+		CommandExecutorAdapter adapter = new CommandExecutorAdapter(new JsonCommandExecutor(connector));
+		adapter.executeAsync(new PlayerGoPreviousCommand(this));
 	}
 	
 	public void suspend(){
-		CommandExecutorAdapter adapter = new CommandExecutorAdapter(new JsonCommandExecutor(connection));
-		adapter.execute(new PlayerPlayPauseCommand(this));
+		CommandExecutorAdapter adapter = new CommandExecutorAdapter(new JsonCommandExecutor(connector));
+		adapter.executeAsync(new PlayerPlayPauseCommand(this));
 	}
 	
 	public void resume(){
-		CommandExecutorAdapter adapter = new CommandExecutorAdapter(new JsonCommandExecutor(connection));
-		adapter.execute(new PlayerPlayPauseCommand(this));
+		CommandExecutorAdapter adapter = new CommandExecutorAdapter(new JsonCommandExecutor(connector));
+		adapter.executeAsync(new PlayerPlayPauseCommand(this));
 	}
 	
 	public void stop(){
-		CommandExecutorAdapter adapter = new CommandExecutorAdapter(new JsonCommandExecutor(connection));
-		adapter.execute(new PlayerStopCommand(this));
+		CommandExecutorAdapter adapter = new CommandExecutorAdapter(new JsonCommandExecutor(connector));
+		adapter.executeAsync(new PlayerStopCommand(this));
 		
 		disable();
 	}

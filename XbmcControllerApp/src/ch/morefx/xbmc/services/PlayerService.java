@@ -5,12 +5,8 @@ import java.util.TimerTask;
 
 import android.content.Intent;
 import android.os.IBinder;
-import android.util.Log;
 import ch.morefx.xbmc.XbmcConnection;
 import ch.morefx.xbmc.XbmcExceptionHandler;
-import ch.morefx.xbmc.command.CommandExecutor;
-import ch.morefx.xbmc.command.CommandExecutorException;
-import ch.morefx.xbmc.command.JsonCommandExecutor;
 import ch.morefx.xbmc.command.PlayerGetActivePlayersCommand;
 import ch.morefx.xbmc.command.PlayerGetPropertiesCommand;
 import ch.morefx.xbmc.command.PlaylistGetItemsCommand;
@@ -18,6 +14,9 @@ import ch.morefx.xbmc.model.PlayerInfo;
 import ch.morefx.xbmc.model.Playlist;
 import ch.morefx.xbmc.model.Song;
 import ch.morefx.xbmc.model.players.AudioPlayer;
+import ch.morefx.xbmc.net.CommandExecutor;
+import ch.morefx.xbmc.net.CommandExecutorException;
+import ch.morefx.xbmc.net.JsonCommandExecutor;
 
 // http://stackoverflow.com/questions/2463175/how-to-have-android-service-communicate-with-activity
 
@@ -38,8 +37,7 @@ public class PlayerService extends XbmcService {
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 
-		Log.i(TAG, "onStartCommand");
-		startService();
+		//startService();
 		return START_STICKY;
 	}
 
@@ -47,19 +45,6 @@ public class PlayerService extends XbmcService {
 	public IBinder onBind(Intent intent) {
 		return null;
 	}
-
-
-//	@Override
-//	public void onDestroy() {
-//		Log.i(TAG, "onDestroy");
-//
-//		if (this.timer != null){
-//			this.timer.cancel();	
-//		}
-//		
-//		super.onDestroy();
-//	}
-	
 
 	private void startService() {
 
@@ -69,7 +54,7 @@ public class PlayerService extends XbmcService {
 
 					connection = getXbmcApplication().getCurrentConnection();				
 					if (connection != null) {
-						executor = new JsonCommandExecutor(connection);
+						executor = new JsonCommandExecutor(connection.getConnector());
 						
 						PlayerGetActivePlayersCommand command = new PlayerGetActivePlayersCommand();
 						executor.execute(command); 
