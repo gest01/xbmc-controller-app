@@ -9,12 +9,12 @@ import ch.morefx.xbmc.model.Song;
 
 import com.google.gson.InstanceCreator;
 
-public class GetSongsCommand extends JsonCommand
+public class AudioLibraryGetSongsCommand extends JsonCommand
 	implements JsonCommandResponseHandler {
 	
 	private Album album;
 	
-	public GetSongsCommand(Album album) {
+	public AudioLibraryGetSongsCommand(Album album) {
 		super("AudioLibrary.GetSongs");
 		
 		this.album = album;

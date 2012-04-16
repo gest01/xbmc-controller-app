@@ -81,6 +81,11 @@ public class JsonCommandResponse {
 		return null;
 	}
 	
+	/**
+	 * Returns an Object from the Json Response
+	 * @param typeOfResultClass Type of Object to create
+	 * @return New instance of typeOfResultClass
+	 */
 	public <T> T asObjectResult(Class<T> typeOfResultClass) {
 		try {
 			
@@ -89,6 +94,27 @@ public class JsonCommandResponse {
 			
 		} catch (JsonSyntaxException e) {
 			XbmcExceptionHandler.handleException(TAG, "json deserialization error", e);
+		}
+		
+		return null;
+	}
+	
+	/**
+	 * Returns an Object from the Json Response
+	 * @param typeOfResultClass Type of Object to create
+	 * @param jsonField Name of the JsonField containing the object information
+	 * @return New instance of typeOfResultClass
+	 */
+	public <T> T asObjectResult(Class<T> typeOfResultClass, String jsonField) {
+		try {
+			
+			Gson g = this.builder.create();
+			return g.fromJson(jsonResult.getJSONObject(jsonField).toString(), typeOfResultClass);
+			
+		} catch (JsonSyntaxException e) {
+			XbmcExceptionHandler.handleException(TAG, "json deserialization error", e);
+		} catch (JSONException e) {
+			XbmcExceptionHandler.handleException(TAG, "JSONException", e);
 		}
 		
 		return null;

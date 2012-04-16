@@ -16,7 +16,7 @@ import ch.morefx.xbmc.activities.players.AudioPlayerActivity;
 import ch.morefx.xbmc.activities.sourcebrowser.SourceBrowserActivity;
 import ch.morefx.xbmc.activities.videolibrary.VideoActivity;
 import ch.morefx.xbmc.model.Song;
-import ch.morefx.xbmc.services.PlayerService;
+import ch.morefx.xbmc.net.notifications.Notification;
 
 /**
  * Defines the main activity for the Home Screen
@@ -57,7 +57,7 @@ public class HomeScreenActivity extends XbmcListActivity {
 			}
  		};
 		
-		this.registerReceiver(receiver, new IntentFilter(PlayerService.REFRESH_AUDIO_LIBRARY));
+		this.registerReceiver(receiver, new IntentFilter(Notification.PLAYER_UPDATE));
 	}
 	
 	@Override

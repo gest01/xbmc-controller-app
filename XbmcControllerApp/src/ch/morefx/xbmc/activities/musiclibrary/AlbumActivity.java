@@ -14,7 +14,7 @@ import ch.morefx.xbmc.model.Album;
 import ch.morefx.xbmc.model.Artist;
 import ch.morefx.xbmc.model.loaders.AlbumLoader;
 import ch.morefx.xbmc.model.loaders.PostExecuteHandler;
-import ch.morefx.xbmc.services.PlayerService;
+import ch.morefx.xbmc.net.notifications.Notification;
 import ch.morefx.xbmc.util.Check;
 
 public class AlbumActivity 
@@ -53,7 +53,7 @@ public class AlbumActivity
 			}
  		};
 		
-		this.registerReceiver(receiver, new IntentFilter(PlayerService.REFRESH_AUDIO_LIBRARY));
+		this.registerReceiver(receiver, new IntentFilter(Notification.PLAYER_UPDATE));
 	}
 	
 	@Override

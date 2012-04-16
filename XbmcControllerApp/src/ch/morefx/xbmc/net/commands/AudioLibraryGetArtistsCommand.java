@@ -5,10 +5,15 @@ import java.util.List;
 
 import ch.morefx.xbmc.model.Artist;
 
-public class GetArtistsCommand extends JsonCommand 
+
+/**
+ * Implements the AudioLibrary.GetArtists json command
+ * See http://wiki.xbmc.org/index.php?title=JSON-RPC_API/v3#AudioLibrary.GetArtists
+ */
+public class AudioLibraryGetArtistsCommand extends JsonCommand 
 	implements JsonCommandResponseHandler {
 
-	public GetArtistsCommand() {
+	public AudioLibraryGetArtistsCommand() {
 		super("AudioLibrary.GetArtists");
 	}
 

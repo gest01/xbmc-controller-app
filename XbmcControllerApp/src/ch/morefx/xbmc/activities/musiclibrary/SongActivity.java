@@ -16,7 +16,7 @@ import ch.morefx.xbmc.model.Song;
 import ch.morefx.xbmc.model.loaders.PostExecuteHandler;
 import ch.morefx.xbmc.model.loaders.SongLoader;
 import ch.morefx.xbmc.model.players.AudioPlayer;
-import ch.morefx.xbmc.services.PlayerService;
+import ch.morefx.xbmc.net.notifications.Notification;
 import ch.morefx.xbmc.util.Check;
 
 public final class SongActivity 
@@ -57,7 +57,7 @@ public final class SongActivity
 			}
  		};
 		
-		this.registerReceiver(receiver, new IntentFilter(PlayerService.REFRESH_AUDIO_LIBRARY));
+		this.registerReceiver(receiver, new IntentFilter(Notification.PLAYER_UPDATE));
 	}
 
 	@Override

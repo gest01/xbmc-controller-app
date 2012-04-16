@@ -6,7 +6,7 @@ import java.util.List;
 import ch.morefx.xbmc.model.Movie;
 import ch.morefx.xbmc.model.Playlist;
 import ch.morefx.xbmc.model.Song;
-import ch.morefx.xbmc.net.commands.GetSongsCommand.SongInstanceCreator;
+import ch.morefx.xbmc.net.commands.AudioLibraryGetSongsCommand.SongInstanceCreator;
 
 /**
  * Implements the Playlist.GetItems json command

@@ -25,6 +25,10 @@ public class Song extends LibraryItem implements Serializable {
 	public String getArtistString() { return this.artist; }
 	
 	
+	public Song() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	public Song(int position, Album relatedAlbum) {
 		this.position = position;
 		this.relatedAlbum = relatedAlbum;
@@ -90,6 +94,7 @@ public class Song extends LibraryItem implements Serializable {
 		return getAlbumId() ^ getArtistId() ^ getId();
 	}
 	
+
 	
 	public static String[] getSongFields() {
 		
