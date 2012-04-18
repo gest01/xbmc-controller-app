@@ -7,6 +7,7 @@ import java.net.Socket;
 import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
+import ch.morefx.xbmc.Globals;
 import ch.morefx.xbmc.net.notifications.Notification;
 import ch.morefx.xbmc.net.notifications.NotificationParser;
 
@@ -22,7 +23,10 @@ public class NotificationsService extends XbmcService{
 	
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		Log.d(TAG, "Starting Service...");
+		if (Globals.DEBUG){
+			Log.d(TAG, "Starting Service...");
+		}
+		
 		startService();
 		return START_STICKY;
 	}
@@ -46,7 +50,9 @@ public class NotificationsService extends XbmcService{
 			
 			public void run() {
 				
-				Log.d(TAG, "Starting Service Thread...");
+				if (Globals.DEBUG){
+					Log.d(TAG, "Starting Service Thread...");
+				}
 				
 				int port = 9090;
 				String host = "192.168.1.25";
@@ -64,28 +70,17 @@ public class NotificationsService extends XbmcService{
 							int read = in.read(buffer);
 							String msg = new String(buffer, 0, read);
 							
-							Log.d(TAG, "RECV : " + msg);
-							
-							Notification notification = NotificationParser.parse(msg);
-							String action = notification.handle(getXbmcApplication().getCurrentConnection());
-							if (!Notification.NONE.equals(action)){
-								sendBroadcast(new Intent(action));
+							if (Globals.DEBUG){
+								Log.d(TAG, "RECV : " + msg);	
 							}
 							
 							
-							
-							//JSONObject jo = new JSONObject(msg);
-							//JSONObject o =  (JSONObject)jo.get("params");
-							//System.out.println("o = " + o);
-							
-							//JSONObject o1 = (JSONObject)o.get("data");
-							//System.out.println("o1 = " + o1);
-							
-							//JSONObject o2 = (JSONObject)o1.get("item");
-							//System.out.println("o2 = " + o2);
-							
-							//int songid = o2.getInt("id");
-							//System.out.println("songid = " + songid);
+							Notification notification = NotificationParser.parse(msg);
+							String action = notification.handle(getXbmcApplication());
+							if (!Notification.NONE.equals(action)){
+								sendBroadcast(new Intent(action));
+							}
+
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -97,5 +92,4 @@ public class NotificationsService extends XbmcService{
 			}
 		}).start();
 	}
-	
 }

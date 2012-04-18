@@ -1,6 +1,5 @@
 package ch.morefx.xbmc.model.players;
 
-import android.util.Log;
 import ch.morefx.xbmc.net.CommandExecutorAdapter;
 import ch.morefx.xbmc.net.JsonCommandExecutor;
 import ch.morefx.xbmc.net.XbmcConnector;
@@ -12,8 +11,6 @@ import ch.morefx.xbmc.util.Check;
 
 public class MediaPlayer {
 
-	private static final String TAG = "MediaPlayer";
-	
 	private static final int DISABLED_PLAYER_ID = -1;
 	
 	private int playerId;
@@ -27,16 +24,20 @@ public class MediaPlayer {
 	}
 	
 	public void updatePlayer(int playerid){
-		
-		Log.i(TAG, "Old playerID : " + this.playerId + "; new playerId :" + playerid);
-		
 		this.playerId = playerid;
 	}
 	
+	/**
+	 * Disables the player and stops all.
+	 */
 	public void disable(){
 		updatePlayer(DISABLED_PLAYER_ID);
 	}
 	
+	/**
+	 * Gets a flag that indicates wether this player is running and active or not.
+	 * @return True when player is active and running (playing something), false otherwise.
+	 */
 	public boolean isActive(){
 		return this.playerId != DISABLED_PLAYER_ID;
 	}

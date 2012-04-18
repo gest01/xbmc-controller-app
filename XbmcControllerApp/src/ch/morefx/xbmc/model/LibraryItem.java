@@ -25,9 +25,7 @@ public abstract class LibraryItem
 	public String toString() {
 		return getLabel();
 	}
-	
-
-	
+		
 	public void printDebugString(){
 		printDebugString(getClass());
 	}

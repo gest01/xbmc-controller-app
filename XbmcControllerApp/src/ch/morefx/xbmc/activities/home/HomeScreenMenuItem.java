@@ -1,6 +1,7 @@
 package ch.morefx.xbmc.activities.home;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 
 public class HomeScreenMenuItem {
 	
@@ -8,17 +9,17 @@ public class HomeScreenMenuItem {
     private String description;
     private Intent intent;
     
-    private int iconResourceId;
+    private Drawable iconDrawable;
     
-    public HomeScreenMenuItem(int iconResourceId, String title, String description, Intent intent) {
+    public HomeScreenMenuItem(Drawable iconDrawable, String title, String description, Intent intent) {
         this.title = title;
         this.description = description;
         this.intent = intent;
-        this.iconResourceId = iconResourceId;
+        this.iconDrawable = iconDrawable;
     }
     
-    public int getIconResourceId(){
-    	return this.iconResourceId;
+    public Drawable getIconDrawable(){
+    	return this.iconDrawable;
     }
     
     public String getTitle() {

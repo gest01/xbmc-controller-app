@@ -3,7 +3,6 @@ package ch.morefx.xbmc.model.loaders;
 import java.util.List;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import ch.morefx.xbmc.XbmcConnection;
 import ch.morefx.xbmc.XbmcRemoteControlApplication;
@@ -48,15 +47,7 @@ public abstract class AsyncTaskLoader<Params, Progress, Result>
 	}
 	
 	protected void loadThumbnail(ThumbnailHolder holder){
-		if (holder.getThumbnail() != null)
-			return;
-		
-		XbmcConnection connection = getConnection();
-		Drawable fallback = getContext().getResources().getDrawable(holder.getThumbnailFallbackResourceId());
-		
-		String thumbnailUrl = connection.formatThumbnailUrl(holder.getThumbnailUri());
-		Drawable drawableThumbnail = connection.getDrawableManager().fetchDrawableWithFallback(thumbnailUrl, fallback);
-		holder.setThumbnail(drawableThumbnail);
+		((XbmcRemoteControlApplication)this.context.getApplicationContext()).loadThumbnail(holder);
 	}
 	
 	protected XbmcConnection getConnection(){

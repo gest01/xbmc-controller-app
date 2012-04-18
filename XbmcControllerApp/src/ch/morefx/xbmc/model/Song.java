@@ -3,7 +3,10 @@ package ch.morefx.xbmc.model;
 import java.io.File;
 import java.io.Serializable;
 
-public class Song extends LibraryItem implements Serializable {
+import android.graphics.drawable.Drawable;
+
+public class Song extends LibraryItem 
+	implements Serializable, ThumbnailHolder {
 
 	private static final long serialVersionUID = 1L;
 
@@ -24,9 +27,8 @@ public class Song extends LibraryItem implements Serializable {
 	public String getAlbumString() { return this.album; }
 	public String getArtistString() { return this.artist; }
 	
-	
 	public Song() {
-		// TODO Auto-generated constructor stub
+		
 	}
 	
 	public Song(int position, Album relatedAlbum) {
@@ -50,11 +52,7 @@ public class Song extends LibraryItem implements Serializable {
 	public String getLabel() {
 		return this.title;
 	}
-	
-	public String getThumbnail(){
-		return this.thumbnail;
-	}
-	
+
 	public Album getAlbum(){
 		return this.relatedAlbum;
 	}
@@ -75,6 +73,25 @@ public class Song extends LibraryItem implements Serializable {
 		return this.position;
 	}
 	
+    public int getThumbnailFallbackResourceId() {
+    	return ch.morefx.xbmc.R.drawable.cdicon;
+    }
+    
+    public String getThumbnailUri() {
+    	return this.thumbnail;
+    }
+    
+    public void setThumbnail(Drawable drawable) {
+    	this.drawableThumbnail = drawable;
+    }
+    
+    // Marked as transient due activity transition
+    private transient Drawable drawableThumbnail;
+    
+    public Drawable getThumbnail(){
+    	return this.drawableThumbnail;
+    }
+	
 	@Override
 	public boolean equals(Object o) {
 		if (o == null) return false;
@@ -85,13 +102,13 @@ public class Song extends LibraryItem implements Serializable {
 		Song song = (Song)o;
 		return song.getAlbumId() == getAlbumId() &&
 				song.getArtistId() == getArtistId() &&
-				song.getPosition() == getPosition();
+				song.getTrack().equals(getTrack());
 		
 	}
 	
 	@Override
 	public int hashCode() {
-		return getAlbumId() ^ getArtistId() ^ getId();
+		return getAlbumId() ^ getArtistId() ^ getTrack().hashCode();
 	}
 	
 

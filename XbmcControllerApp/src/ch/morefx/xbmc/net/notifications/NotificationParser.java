@@ -39,6 +39,12 @@ public class NotificationParser {
 		if (method.equals(PlayerOnStopNotification.METHOD))
 			notification = new PlayerOnStopNotification();
 		
+		if (method.equals(PlayerOnSeekNotification.METHOD))
+			notification = new PlayerOnSeekNotification();
+		
+		if (SystemNotification.isSystemNotification(method))
+			notification =  new SystemNotification();
+		
 		if (NothingToDoNotification.isNothingToDo(method))
 			return new NothingToDoNotification();
 

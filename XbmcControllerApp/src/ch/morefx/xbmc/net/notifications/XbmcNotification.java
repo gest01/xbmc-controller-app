@@ -3,8 +3,8 @@ package ch.morefx.xbmc.net.notifications;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import ch.morefx.xbmc.XbmcConnection;
 import ch.morefx.xbmc.XbmcExceptionHandler;
+import ch.morefx.xbmc.XbmcRemoteControlApplication;
 import ch.morefx.xbmc.util.Check;
 
 import com.google.gson.Gson;
@@ -82,7 +82,7 @@ public abstract class XbmcNotification
 	}
 
 		
-	public abstract String handle(XbmcConnection connection);
+	public abstract String handle(XbmcRemoteControlApplication application);
 	
 	@Override
 	public String toString() {

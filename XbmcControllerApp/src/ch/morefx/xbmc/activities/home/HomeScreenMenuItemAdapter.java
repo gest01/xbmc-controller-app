@@ -37,7 +37,7 @@ public class HomeScreenMenuItemAdapter extends ArrayAdapter<HomeScreenMenuItem> 
 		HomeScreenMenuItem mnuItem = getItem(position);
 		holder.title.setText(mnuItem.getTitle());
 		holder.detail.setText(mnuItem.getDescription());
-		holder.image.setImageDrawable(getContext().getResources().getDrawable(mnuItem.getIconResourceId()));
+		holder.image.setImageDrawable(mnuItem.getIconDrawable());
 		
 		return convertView;
 	}

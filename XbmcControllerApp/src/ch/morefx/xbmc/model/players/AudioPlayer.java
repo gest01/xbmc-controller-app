@@ -14,6 +14,12 @@ public class AudioPlayer extends MediaPlayer {
 		super(connector);
 	}
 	
+	@Override
+	public void disable() {
+		super.disable();
+		playingSong = null;
+	}
+	
 	public void setPlaying(Song song){
 		playingSong = song;
 	}

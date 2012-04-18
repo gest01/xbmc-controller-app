@@ -1,6 +1,6 @@
 package ch.morefx.xbmc.net.notifications;
 
-import ch.morefx.xbmc.XbmcConnection;
+import ch.morefx.xbmc.XbmcRemoteControlApplication;
 
 /**
  * Implements the Player.OnPause notification event
@@ -10,7 +10,7 @@ public class PlayerOnPauseNotification extends XbmcNotification{
 	public static final String METHOD = "Player.OnPause";
 	
 	@Override
-	public String handle(XbmcConnection connection) {
+	public String handle(XbmcRemoteControlApplication application) {
 		return PLAYER_UPDATE;
 	}
 }

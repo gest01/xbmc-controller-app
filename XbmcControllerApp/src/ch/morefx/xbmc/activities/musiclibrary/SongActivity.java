@@ -15,7 +15,6 @@ import ch.morefx.xbmc.model.AudioLibrary;
 import ch.morefx.xbmc.model.Song;
 import ch.morefx.xbmc.model.loaders.PostExecuteHandler;
 import ch.morefx.xbmc.model.loaders.SongLoader;
-import ch.morefx.xbmc.model.players.AudioPlayer;
 import ch.morefx.xbmc.net.notifications.Notification;
 import ch.morefx.xbmc.util.Check;
 
@@ -51,9 +50,6 @@ public final class SongActivity
 			@Override
 			public void onReceive(Context context, Intent intent) {
 				loadSongs();
-				
-				AudioPlayer player = getAudioLibrary().getPlayer();
-				getListView().setSelection(player.getCurrentSong().getPosition());
 			}
  		};
 		
