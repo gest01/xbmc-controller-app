@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import ch.morefx.xbmc.model.AudioLibrary;
 import ch.morefx.xbmc.model.VideoLibrary;
+import ch.morefx.xbmc.model.players.AudioPlayer;
+import ch.morefx.xbmc.model.players.VideoPlayer;
 import ch.morefx.xbmc.net.XbmcConnector;
 import ch.morefx.xbmc.net.XbmcConnectorFactory;
 import ch.morefx.xbmc.util.DrawableManager;
@@ -29,6 +31,9 @@ public class XbmcConnection implements Serializable {
 	private AudioLibrary audioLibrary;
 	private VideoLibrary videoLibrary;
 	
+	private AudioPlayer audioplayer;
+	private VideoPlayer videoplayer;
+	
 	private XbmcConnector connector;
 	
 	public XbmcConnection() {
@@ -43,7 +48,7 @@ public class XbmcConnection implements Serializable {
 	 * 
 	 * @return
 	 */
-	public synchronized XbmcConnector getConnector(){
+	public XbmcConnector getConnector(){
 		if (connector == null){
 			connector = XbmcConnectorFactory.create(this);
 		}
@@ -52,7 +57,7 @@ public class XbmcConnection implements Serializable {
 	
 	private DrawableManager drawableManager;
 	
-	public synchronized DrawableManager getDrawableManager(){
+	public DrawableManager getDrawableManager(){
 		if (this.drawableManager == null){
 			this.drawableManager = new DrawableManager(getConnector());
 		}
@@ -69,21 +74,43 @@ public class XbmcConnection implements Serializable {
 	 * Gets the AudioLibrary connected by this Connection.
 	 * @return AudioLibrary
 	 */
-	public synchronized AudioLibrary getAudioLibrary(){
+	public AudioLibrary getAudioLibrary(){
 		if (this.audioLibrary == null){
-			this.audioLibrary = new AudioLibrary(getConnector());
+			this.audioLibrary = new AudioLibrary(getAudioPlayer());
 		}
 		
 		return this.audioLibrary;
 	}
 	
 	/**
+	 * 
+	 * @return
+	 */
+	public AudioPlayer getAudioPlayer(){
+		if (this.audioplayer == null){
+			this.audioplayer = new AudioPlayer(getConnector());
+		}
+		return this.audioplayer;
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public VideoPlayer getVideoPlayer(){
+		if (this.videoplayer == null){
+			this.videoplayer = new VideoPlayer(getConnector());
+		}
+		return this.videoplayer;
+	}
+	
+	/**
 	 * Gets the VideoLibrary connected by this Connection.
 	 * @return VideoLibrary
 	 */
-	public synchronized VideoLibrary getVideoLibrary(){
+	public VideoLibrary getVideoLibrary(){
 		if (this.videoLibrary == null){
-			this.videoLibrary = new VideoLibrary(getConnector());
+			this.videoLibrary = new VideoLibrary(getVideoPlayer());
 		}
 		
 		return this.videoLibrary;

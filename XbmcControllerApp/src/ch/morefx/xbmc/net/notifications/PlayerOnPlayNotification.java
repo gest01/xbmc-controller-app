@@ -41,8 +41,8 @@ public class PlayerOnPlayNotification extends XbmcNotification {
 				application.loadThumbnail(song);	
 			}
 			
-			connection.getAudioLibrary().getPlayer().updatePlayer(info.getPlayerId());
-			connection.getAudioLibrary().getPlayer().setPlaying(song);	
+			connection.getAudioPlayer().updatePlayer(info.getPlayerId());
+			connection.getAudioPlayer().setPlaying(song);	
 			
 			return PLAYER_UPDATE;
 		}

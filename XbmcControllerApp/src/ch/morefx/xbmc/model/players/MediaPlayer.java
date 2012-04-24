@@ -23,6 +23,14 @@ public class MediaPlayer {
 		this.playerId = DISABLED_PLAYER_ID;
 	}
 	
+	/**
+	 * Gets the underlying xbmc connector.
+	 * @return An instance of an object that implements the XbmcConnector interface.
+	 */
+	public XbmcConnector getConnector(){
+		return this.connector;
+	}
+	
 	public void updatePlayer(int playerid){
 		this.playerId = playerid;
 	}

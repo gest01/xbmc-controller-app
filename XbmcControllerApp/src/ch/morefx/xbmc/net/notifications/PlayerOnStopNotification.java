@@ -14,7 +14,7 @@ public class PlayerOnStopNotification extends XbmcNotification {
 	public String handle(XbmcRemoteControlApplication application) {
 		
 		XbmcConnection connection = application.getCurrentConnection();
-		connection.getAudioLibrary().getPlayer().disable();
+		connection.getAudioPlayer().disable();
 		
 		return PLAYER_UPDATE;
 	}

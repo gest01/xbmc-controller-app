@@ -3,7 +3,6 @@ package ch.morefx.xbmc.model;
 import java.util.List;
 
 import ch.morefx.xbmc.model.players.AudioPlayer;
-import ch.morefx.xbmc.net.XbmcConnector;
 import ch.morefx.xbmc.net.commands.AudioLibraryGetAlbumsCommand;
 import ch.morefx.xbmc.net.commands.AudioLibraryGetArtistsCommand;
 import ch.morefx.xbmc.net.commands.AudioLibraryGetSongsCommand;
@@ -12,26 +11,28 @@ import ch.morefx.xbmc.net.commands.PlaylistAddCommand;
 import ch.morefx.xbmc.net.commands.PlaylistClearCommand;
 import ch.morefx.xbmc.util.Check;
 
+/**
+ * 
+ * @author stef + sibi
+ *
+ */
 public final class AudioLibrary extends XbmcLibrary {
 
 	
 	private AudioPlayer audioplayer;
-	
-	public AudioLibrary(XbmcConnector connector) {
-		super(connector);
-		
-		this.audioplayer = new AudioPlayer(connector);
-	}
-	
-	
+
 	/**
 	 * 
-	 * @return
+	 * @param player
 	 */
-	public AudioPlayer getPlayer(){
-		return this.audioplayer;
+	public AudioLibrary(AudioPlayer player) {
+		super(player);
+		
+		Check.argumentNotNull(player, "player");
+		this.audioplayer = player;
 	}
 	
+
 	/**
 	 * 
 	 * @param filesource
@@ -54,7 +55,7 @@ public final class AudioLibrary extends XbmcLibrary {
 					 new PlaylistAddCommand(song.getAlbum()),
 					 new PlayerOpenCommandAdapter(song));
 		
-		getPlayer().setPlaying(song);
+		this.audioplayer.setPlaying(song);
 	}
 	
 	/**

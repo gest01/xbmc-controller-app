@@ -1,8 +1,8 @@
 package ch.morefx.xbmc.model;
 
+import ch.morefx.xbmc.model.players.MediaPlayer;
 import ch.morefx.xbmc.net.CommandExecutorAdapter;
 import ch.morefx.xbmc.net.JsonCommandExecutor;
-import ch.morefx.xbmc.net.XbmcConnector;
 import ch.morefx.xbmc.net.commands.JsonCommand;
 import ch.morefx.xbmc.util.Check;
 
@@ -13,10 +13,10 @@ public class XbmcLibrary {
 	
 	private CommandExecutorAdapter executor;
 	
-	public XbmcLibrary(XbmcConnector connector) {
-		Check.argumentNotNull(connector, "connector");
+	public XbmcLibrary(MediaPlayer player) {
+		Check.argumentNotNull(player, "player");
 
-		this.executor = new CommandExecutorAdapter(new JsonCommandExecutor(connector));
+		this.executor = new CommandExecutorAdapter(new JsonCommandExecutor(player.getConnector()));
 	}
 	
 	protected void execute(JsonCommand command){

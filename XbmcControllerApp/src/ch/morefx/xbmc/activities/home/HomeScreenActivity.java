@@ -73,8 +73,8 @@ public class HomeScreenActivity extends XbmcListActivity {
 		items.add(new HomeScreenMenuItem(getResources().getDrawable(R.drawable.filebrowser), "File Browser", "Browse your Media Files", new Intent(this, SourceBrowserActivity.class)));
 		
 		
-		if (getAudioLibrary().getPlayer().isActive()) {
-			Song sucker = getAudioLibrary().getPlayer().getCurrentSong();
+		if (getAudioPlayer().isActive()) {
+			Song sucker = getAudioPlayer().getCurrentSong();
 			
 			String s = sucker.getArtistString() + " - " + sucker.getAlbumString() + " - " + sucker.getLabel();
 			

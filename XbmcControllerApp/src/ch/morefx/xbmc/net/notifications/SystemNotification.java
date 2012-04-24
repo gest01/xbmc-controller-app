@@ -19,8 +19,8 @@ public class SystemNotification extends XbmcNotification {
 	public String handle(XbmcRemoteControlApplication application) {
 		
 		XbmcConnection connection = application.getCurrentConnection();
-		if (connection.getAudioLibrary().getPlayer().isActive()){
-			connection.getAudioLibrary().getPlayer().disable();
+		if (connection.getAudioPlayer().isActive()){
+			connection.getAudioPlayer().disable();
 			return PLAYER_UPDATE;
 		}
 		

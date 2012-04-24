@@ -42,7 +42,7 @@ public class AlbumArrayAdapter extends ArrayAdapter<Album>{
 		
 		XbmcRemoteControlApplication app = (XbmcRemoteControlApplication)getContext().getApplicationContext();
 		XbmcConnection connection = app.getCurrentConnection();
-		AudioPlayer player = connection.getAudioLibrary().getPlayer();
+		AudioPlayer player = connection.getAudioPlayer();
 		boolean isPlaying = player.isPlaying(album);
 		
 		holder.title.setTypeface(null, isPlaying ? Typeface.BOLD_ITALIC : Typeface.NORMAL);
