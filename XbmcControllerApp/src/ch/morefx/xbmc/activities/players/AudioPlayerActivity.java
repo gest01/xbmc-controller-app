@@ -1,14 +1,16 @@
 package ch.morefx.xbmc.activities.players;
 
 import android.os.Bundle;
+import ch.morefx.xbmc.R;
 import ch.morefx.xbmc.activities.XbmcActivity;
 
-public class AudioPlayerActivity extends XbmcActivity{
+public class AudioPlayerActivity extends XbmcActivity {
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
+		setContentView(R.layout.player_activity_layout);
 		
 		// F:\Programs\Android\android-sdk\platforms\android-15\data\res\drawable-hdpi
 		// android.R.drawable.ic_media_next

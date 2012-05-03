@@ -1,8 +1,8 @@
 package ch.morefx.xbmc.net.notifications;
 
 import ch.morefx.xbmc.Globals;
+import ch.morefx.xbmc.ResourceProvider;
 import ch.morefx.xbmc.XbmcConnection;
-import ch.morefx.xbmc.XbmcRemoteControlApplication;
 import ch.morefx.xbmc.model.Song;
 import ch.morefx.xbmc.net.CommandExecutorAdapter;
 import ch.morefx.xbmc.net.JsonCommandExecutor;
@@ -16,21 +16,19 @@ public class PlayerOnPlayNotification extends XbmcNotification {
 	public static final String METHOD = "Player.OnPlay";
 	
 	@Override
-	public String handle(XbmcRemoteControlApplication application) {
+	public String handle(XbmcConnection connection, ResourceProvider resourceprovider) {
 
 		if (isSong()){
-			return handleSongNortification(application);
+			return handleSongNortification(connection, resourceprovider);
 		}
 		
 		return NONE;
 	}
 	
-	private String handleSongNortification(XbmcRemoteControlApplication application){
+	private String handleSongNortification(XbmcConnection connection, ResourceProvider resourceprovider){
 
 		PlayerInfo info = getPlayerInfo();
 		if (info != null){
-			
-			XbmcConnection connection = application.getCurrentConnection();
 			
 			CommandExecutorAdapter executor = new CommandExecutorAdapter(new JsonCommandExecutor(connection.getConnector()));
 			AudioLibraryGetSongDetailsCommand command = new AudioLibraryGetSongDetailsCommand(getIdFromItem());
@@ -38,7 +36,7 @@ public class PlayerOnPlayNotification extends XbmcNotification {
 			Song song = command.getSong();
 			
 			if (Globals.NOTIFICATION_SERVICE_LOAD_SONG_THUMBNAILS){
-				application.loadThumbnail(song);	
+				connection.loadThumbnail(song, resourceprovider);
 			}
 			
 			connection.getAudioPlayer().updatePlayer(info.getPlayerId());

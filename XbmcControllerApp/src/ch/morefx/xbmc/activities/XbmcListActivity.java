@@ -7,6 +7,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import ch.morefx.xbmc.R;
 import ch.morefx.xbmc.XbmcRemoteControlApplication;
+import ch.morefx.xbmc.activities.home.HomeScreenActivity;
 import ch.morefx.xbmc.model.AudioLibrary;
 import ch.morefx.xbmc.model.VideoLibrary;
 import ch.morefx.xbmc.model.players.AudioPlayer;
@@ -27,8 +28,10 @@ public class XbmcListActivity extends ListActivity{
     public boolean onOptionsItemSelected(MenuItem item) {
       switch (item.getItemId()) {
 	      case R.id.mnu_connections:
-        	   Intent intent = new Intent(XbmcListActivity.this, ApplicationPreferenceActivity.class);
-        	   startActivity(intent);
+	    	  startActivity(new Intent(this, ApplicationPreferenceActivity.class));
+	        return true;
+	      case R.id.mnu_home:
+	       	   startActivity(new Intent(this, HomeScreenActivity.class));
 	        return true;
 	      default:
 	        return super.onOptionsItemSelected(item);

@@ -2,12 +2,15 @@ package ch.morefx.xbmc;
 
 import java.io.Serializable;
 
+import android.graphics.drawable.Drawable;
 import ch.morefx.xbmc.model.AudioLibrary;
+import ch.morefx.xbmc.model.ThumbnailHolder;
 import ch.morefx.xbmc.model.VideoLibrary;
 import ch.morefx.xbmc.model.players.AudioPlayer;
 import ch.morefx.xbmc.model.players.VideoPlayer;
 import ch.morefx.xbmc.net.XbmcConnector;
 import ch.morefx.xbmc.net.XbmcConnectorFactory;
+import ch.morefx.xbmc.util.Check;
 import ch.morefx.xbmc.util.DrawableManager;
 
 
@@ -19,14 +22,17 @@ public class XbmcConnection implements Serializable {
 	private static final String THUMBNAIL_URL = "http://%s:%s/vfs/%s";
 	
 	public static final int DEFAULT_PORT = 8080;
+	public static final int DEFAULT_JSON_RPC_PORT = 9090;
 	public static final long DEFAULT_NOID = -1;
 	
 	public static final String DEFAULT_USERNAME = "xbmc";
 	
 	
 	private String username, password, host, connectionName;
-	private int port;
+	private int port, jsonTcpPort;
 	private long id;
+	
+	private DrawableManager drawableManager;
 	
 	private AudioLibrary audioLibrary;
 	private VideoLibrary videoLibrary;
@@ -38,6 +44,7 @@ public class XbmcConnection implements Serializable {
 	
 	public XbmcConnection() {
 		setPort(DEFAULT_PORT);
+		setJsonTcpPort(DEFAULT_JSON_RPC_PORT);
 		setUsername(DEFAULT_USERNAME);
 		id = DEFAULT_NOID;
 		this.audioLibrary = null;
@@ -54,15 +61,29 @@ public class XbmcConnection implements Serializable {
 		}
 		return connector;
 	}
-	
-	private DrawableManager drawableManager;
-	
-	public DrawableManager getDrawableManager(){
+
+	/**
+	 * Loads a Drawable into an instance of an object that implements the ThumbnailHolder interface.
+	 * @param holder The ThumbnailHolder
+	 * @param resourceprovider A Source that provides access to the resource system.
+	 */
+	public void loadThumbnail(ThumbnailHolder holder, ResourceProvider resourceprovider){
+		Check.notNull(resourceprovider, "resourceprovider");
+		Check.notNull(holder, "holder");
+		
+		if (holder.getThumbnail() != null)
+			return;
+		
+		Drawable fallback = resourceprovider.getDrawable(holder.getThumbnailFallbackResourceId());
+		
+		String thumbnailUrl = String.format(THUMBNAIL_URL, getHost(), getPort(), holder.getThumbnailUri());
+		
 		if (this.drawableManager == null){
 			this.drawableManager = new DrawableManager(getConnector());
 		}
 		
-		return this.drawableManager;
+		Drawable drawableThumbnail = this.drawableManager.fetchDrawableWithFallback(thumbnailUrl, fallback);
+		holder.setThumbnail(drawableThumbnail);
 	}
 	
 	public void close(){
@@ -119,10 +140,7 @@ public class XbmcConnection implements Serializable {
 	public String getXbmcConnectionUri() {
 		return String.format(JSONRPC_URL, getHost(), getPort());
 	}
-	
-	public String formatThumbnailUrl(String thumbnail) {
-		return String.format(THUMBNAIL_URL, getHost(), getPort(), thumbnail);
-	}
+
 	
 	@Override
 	public String toString() {
@@ -169,6 +187,14 @@ public class XbmcConnection implements Serializable {
 		this.port = port;
 	}
 		
+	public void setJsonTcpPort(int jsonTcpPort){
+		this.jsonTcpPort = jsonTcpPort;
+	}
+	
+	public int getJsonTcpPort(){
+		return DEFAULT_JSON_RPC_PORT;
+	}
+	
 	public boolean isNew(){
 		return this.id == DEFAULT_NOID;
 	}

@@ -32,6 +32,9 @@
             android:name=".activities.home.HomeScreenActivity"
             android:label="HomeScreenActivity" />
         <activity
+            android:name=".activities.home.RemoteControlActivity"
+            android:label="RemoteControlActivity" />
+        <activity
             android:name=".activities.sourcebrowser.SourceBrowserActivity"
             android:label="SourceBrowserActivity" />
         <activity

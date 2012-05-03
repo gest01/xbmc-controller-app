@@ -1,9 +1,7 @@
 package ch.morefx.xbmc;
 
 import android.app.Application;
-import android.graphics.drawable.Drawable;
 import android.util.Log;
-import ch.morefx.xbmc.model.ThumbnailHolder;
 
 public class XbmcRemoteControlApplication extends Application {
 	
@@ -46,24 +44,7 @@ public class XbmcRemoteControlApplication extends Application {
 		
 		Log.d("XbmcRemoteControlApplication", "Current XbmcConnection : " + connection.toString() + "(" + connection.getXbmcConnectionUri() + ")");
 	}
-	
-	
-	/**
-	 * Loads a thumbnail into a ThumbnailHolder instance
-	 * @param holder ThumbnailHolder to load.
-	 */
-	public void loadThumbnail(ThumbnailHolder holder){
-		if (holder.getThumbnail() != null)
-			return;
 		
-		XbmcConnection connection = getCurrentConnection();
-		Drawable fallback = getResources().getDrawable(holder.getThumbnailFallbackResourceId());
-		
-		String thumbnailUrl = connection.formatThumbnailUrl(holder.getThumbnailUri());
-		Drawable drawableThumbnail = connection.getDrawableManager().fetchDrawableWithFallback(thumbnailUrl, fallback);
-		holder.setThumbnail(drawableThumbnail);
-	}
-	
 	/**
 	 * Get the connection manager
 	 * @return

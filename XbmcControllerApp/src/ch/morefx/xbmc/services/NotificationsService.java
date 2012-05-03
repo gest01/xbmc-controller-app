@@ -5,13 +5,17 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.IBinder;
 import android.util.Log;
 import ch.morefx.xbmc.Globals;
+import ch.morefx.xbmc.ResourceProvider;
+import ch.morefx.xbmc.XbmcConnection;
 import ch.morefx.xbmc.net.notifications.Notification;
 import ch.morefx.xbmc.net.notifications.NotificationParser;
 
-public class NotificationsService extends XbmcService{
+public class NotificationsService extends XbmcService
+	implements ResourceProvider {
 	
 	private static final String TAG = NotificationsService.class.getName();
 
@@ -43,6 +47,7 @@ public class NotificationsService extends XbmcService{
 	 * {"jsonrpc":"2.0","method":"Player.OnSeek","params":{"data":{"item":{"id":2430,"type":"song"},"player":{"playerid":0,"seekoffset":{"hours":0,"milliseconds":-640,"minutes":0,"seconds":-7},"speed":1,"time":{"hours":0,"milliseconds":0,"minutes":0,"seconds":0}}},"sender":"xbmc"}}
 	 * 
 	 */
+
 	
 	private void startService(){
 		
@@ -54,8 +59,10 @@ public class NotificationsService extends XbmcService{
 					Log.d(TAG, "Starting Service Thread...");
 				}
 				
-				int port = 9090;
-				String host = "192.168.1.25";
+				XbmcConnection connection = getXbmcApplication().getCurrentConnection();
+				
+				int port = connection.getJsonTcpPort();
+				String host = connection.getHost();
 				
 				try{
 					
@@ -74,9 +81,8 @@ public class NotificationsService extends XbmcService{
 								Log.d(TAG, "RECV : " + msg);	
 							}
 							
-							
 							Notification notification = NotificationParser.parse(msg);
-							String action = notification.handle(getXbmcApplication());
+							String action = notification.handle(connection, NotificationsService.this);
 							if (!Notification.NONE.equals(action)){
 								sendBroadcast(new Intent(action));
 							}
@@ -91,5 +97,10 @@ public class NotificationsService extends XbmcService{
 				}
 			}
 		}).start();
+	}
+	
+	
+	public Drawable getDrawable(int resourceId){
+		return getResources().getDrawable(resourceId);
 	}
 }

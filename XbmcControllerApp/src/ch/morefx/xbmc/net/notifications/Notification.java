@@ -1,6 +1,7 @@
 package ch.morefx.xbmc.net.notifications;
 
-import ch.morefx.xbmc.XbmcRemoteControlApplication;
+import ch.morefx.xbmc.ResourceProvider;
+import ch.morefx.xbmc.XbmcConnection;
 
 public interface Notification {
 	
@@ -8,5 +9,5 @@ public interface Notification {
 	public static final String PLAYER_UPDATE = "ch.morefx.xbmc.net.notifications.PLAYER_UPDATE";
 	
 	
-	String handle(XbmcRemoteControlApplication application);
+	String handle(XbmcConnection connection, ResourceProvider resourceprovider);
 }

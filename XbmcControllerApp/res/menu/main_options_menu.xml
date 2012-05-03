@@ -6,5 +6,11 @@
         android:icon="@android:drawable/ic_menu_preferences"
         android:showAsAction="ifRoom|withText"
         android:title="Settings"/>
+    
+      <item
+        android:id="@+id/mnu_home"
+        android:icon="@drawable/ic_menu_home"
+        android:showAsAction="ifRoom|withText"
+        android:title="Home"/>
    
 </menu>

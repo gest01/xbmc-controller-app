@@ -1,7 +1,7 @@
 package ch.morefx.xbmc.net.notifications;
 
+import ch.morefx.xbmc.ResourceProvider;
 import ch.morefx.xbmc.XbmcConnection;
-import ch.morefx.xbmc.XbmcRemoteControlApplication;
 
 /**
  * Generic notification handler for System.XXX events
@@ -16,9 +16,7 @@ public class SystemNotification extends XbmcNotification {
 	}
 	
 	@Override
-	public String handle(XbmcRemoteControlApplication application) {
-		
-		XbmcConnection connection = application.getCurrentConnection();
+	public String handle(XbmcConnection connection, ResourceProvider resourceprovider) {
 		if (connection.getAudioPlayer().isActive()){
 			connection.getAudioPlayer().disable();
 			return PLAYER_UPDATE;

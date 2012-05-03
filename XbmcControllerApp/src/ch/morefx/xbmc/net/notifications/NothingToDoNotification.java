@@ -1,6 +1,7 @@
 package ch.morefx.xbmc.net.notifications;
 
-import ch.morefx.xbmc.XbmcRemoteControlApplication;
+import ch.morefx.xbmc.ResourceProvider;
+import ch.morefx.xbmc.XbmcConnection;
 
 /**
  * Handles all Notifications from XBMC which doesnt required any further actions .
@@ -21,7 +22,7 @@ public class NothingToDoNotification extends XbmcNotification{
 	}
 	
 	@Override
-	public String handle(XbmcRemoteControlApplication application) {
+	public String handle(XbmcConnection connection, ResourceProvider resourceprovider) {
 		return NONE;
 	}
 }

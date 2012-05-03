@@ -1,7 +1,7 @@
 package ch.morefx.xbmc.net.notifications;
 
+import ch.morefx.xbmc.ResourceProvider;
 import ch.morefx.xbmc.XbmcConnection;
-import ch.morefx.xbmc.XbmcRemoteControlApplication;
 
 /**
  * Implements the Player.OnStop notification event
@@ -11,11 +11,8 @@ public class PlayerOnStopNotification extends XbmcNotification {
 	public static final String METHOD = "Player.OnStop";
 	
 	@Override
-	public String handle(XbmcRemoteControlApplication application) {
-		
-		XbmcConnection connection = application.getCurrentConnection();
+	public String handle(XbmcConnection connection, ResourceProvider resourceprovider) {
 		connection.getAudioPlayer().disable();
-		
 		return PLAYER_UPDATE;
 	}
 }
