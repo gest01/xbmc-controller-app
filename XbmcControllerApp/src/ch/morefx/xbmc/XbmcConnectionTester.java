@@ -27,7 +27,8 @@ public class XbmcConnectionTester {
 					PingCommand ping = new PingCommand();
 					e.execute(ping);
 					isOk = ping.isConnectionOk();
-				} catch (CommandExecutorException e1) {
+				} catch (CommandExecutorException ex) {
+					XbmcExceptionHandler.handleException("XbmcConnectionTester", ex);
 					isOk = false;
 				}
 				

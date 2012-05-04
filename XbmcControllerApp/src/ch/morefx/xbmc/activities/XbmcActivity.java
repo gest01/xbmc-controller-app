@@ -9,6 +9,7 @@ import ch.morefx.xbmc.R;
 import ch.morefx.xbmc.XbmcRemoteControlApplication;
 import ch.morefx.xbmc.activities.home.HomeScreenActivity;
 import ch.morefx.xbmc.model.AudioLibrary;
+import ch.morefx.xbmc.model.remotecontrol.RemoteController;
 import ch.morefx.xbmc.preferences.ApplicationPreferenceActivity;
 import ch.morefx.xbmc.services.NotificationsService;
 
@@ -47,6 +48,10 @@ public class XbmcActivity extends Activity{
     
     protected XbmcRemoteControlApplication getXbmcApplication(){
 		return (XbmcRemoteControlApplication)getApplicationContext();
+    }
+    
+    protected RemoteController getRemoteController(){
+    	return getXbmcApplication().getCurrentConnection().getRemoteControl();
     }
     
     protected AudioLibrary getAudioLibrary(){

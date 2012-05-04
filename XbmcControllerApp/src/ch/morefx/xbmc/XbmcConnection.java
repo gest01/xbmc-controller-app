@@ -8,6 +8,7 @@ import ch.morefx.xbmc.model.ThumbnailHolder;
 import ch.morefx.xbmc.model.VideoLibrary;
 import ch.morefx.xbmc.model.players.AudioPlayer;
 import ch.morefx.xbmc.model.players.VideoPlayer;
+import ch.morefx.xbmc.model.remotecontrol.RemoteController;
 import ch.morefx.xbmc.net.XbmcConnector;
 import ch.morefx.xbmc.net.XbmcConnectorFactory;
 import ch.morefx.xbmc.util.Check;
@@ -39,6 +40,8 @@ public class XbmcConnection implements Serializable {
 	
 	private AudioPlayer audioplayer;
 	private VideoPlayer videoplayer;
+	
+	private RemoteController remotecontrol;
 	
 	private XbmcConnector connector;
 	
@@ -123,6 +126,19 @@ public class XbmcConnection implements Serializable {
 			this.videoplayer = new VideoPlayer(getConnector());
 		}
 		return this.videoplayer;
+	}
+	
+	
+	/**
+	 * Gets the Remote Control Object for this xbmc connection
+	 * @return RemoteController
+	 */
+	public RemoteController getRemoteControl(){
+		if (this.remotecontrol == null){
+			this.remotecontrol = new RemoteController(getConnector());
+		}
+		
+		return this.remotecontrol;
 	}
 	
 	/**

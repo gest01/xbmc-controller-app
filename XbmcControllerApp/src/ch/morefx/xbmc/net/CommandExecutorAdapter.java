@@ -4,6 +4,10 @@ import ch.morefx.xbmc.XbmcExceptionHandler;
 import ch.morefx.xbmc.net.commands.JsonCommand;
 import ch.morefx.xbmc.util.Check;
 
+/**
+ * Implements an adapter class for an object that implements the CommandExecutor interface.
+ * This class caughts all error
+ */
 public class CommandExecutorAdapter {
 	private CommandExecutor executor;
 	
@@ -23,7 +27,6 @@ public class CommandExecutorAdapter {
 			
 		} catch (CommandExecutorException ex) {
 			XbmcExceptionHandler.handleException(TAG, ex);
-		 
 		}
 	}
 	

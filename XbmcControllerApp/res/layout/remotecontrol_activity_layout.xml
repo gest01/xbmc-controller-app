@@ -1,43 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<GridView xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:id="@+id/gridview"
     android:layout_width="fill_parent" 
-    android:layout_height="wrap_content"
-    android:layout_centerHorizontal="true">
-        
-                <Button
-            android:id="@+id/allow"
-            android:layout_width="0.0dip" 
-            android:layout_height="wrap_content"
-            android:background="@android:drawable/ic_media_next"
-            android:layout_weight="1.0" />
-        
-       <Button
-            android:id="@+id/deny"
-            android:layout_width="0.0dip" 
-            android:layout_height="wrap_content"
-            android:background="@android:drawable/ic_media_previous"
-            android:layout_weight="1.0" />
-
-        <Button
-            android:id="@+id/allow"
-            android:layout_width="0.0dip" 
-            android:layout_height="wrap_content"
-            android:background="@android:drawable/ic_media_next"
-            android:layout_weight="1.0" />
-        
-       <Button
-            android:id="@+id/deny"
-            android:layout_width="0.0dip" 
-            android:layout_height="wrap_content"
-            android:background="@android:drawable/ic_media_previous"
-            android:layout_weight="1.0" />
-
-        <Button
-            android:id="@+id/deny"
-            android:layout_width="0.0dip" 
-            android:layout_height="wrap_content"
-            android:background="@android:drawable/ic_media_previous"
-            android:layout_weight="1.0" />
-
-</RelativeLayout>
+    android:layout_height="fill_parent"
+    android:columnWidth="90dp"
+    android:numColumns="3"
+    android:verticalSpacing="10dp"
+    android:horizontalSpacing="10dp"
+    android:stretchMode="columnWidth"
+    android:gravity="center"
+/>
