@@ -68,11 +68,7 @@ public class ApplicationPreferenceFragment extends PreferenceFragment {
         lpDelete.setEnabled(connections.length > 0);
         lpDelete.setEntries(entries);
         lpDelete.setEntryValues(entriesKeys);
-        
-        ListPreference lp = (ListPreference)getPreferenceManager().findPreference("defaultconnection");
-        lp.setEnabled(connections.length > 0);
-        lp.setEntries(entries);
-        lp.setEntryValues(entriesKeys);
+
 	}
 	
 	private XbmcConnectionManager getConnectionManager(){

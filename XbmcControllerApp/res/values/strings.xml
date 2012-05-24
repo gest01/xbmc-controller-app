@@ -28,5 +28,8 @@
     <string name="connection_port_is_required">Port is required</string>
     <string name="connection_name_is_required">Name is required</string>
     <string name="music_library">Music Library</string>
+    <string name="connection_error">connection error</string>
+    <string name="connection_lost">Xbmc connection lost</string>
+    <string name="notification_parser_error">An error occured while parsing a notification (%s) Close the current connection ?</string>
     
 </resources>

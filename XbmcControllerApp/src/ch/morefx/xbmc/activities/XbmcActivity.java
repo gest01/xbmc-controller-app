@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import ch.morefx.xbmc.NotificationBroadcastReceiver;
+import ch.morefx.xbmc.NotificationListener;
 import ch.morefx.xbmc.R;
 import ch.morefx.xbmc.XbmcRemoteControlApplication;
 import ch.morefx.xbmc.activities.home.HomeScreenActivity;
@@ -14,7 +16,8 @@ import ch.morefx.xbmc.preferences.ApplicationPreferenceActivity;
 import ch.morefx.xbmc.services.NotificationsService;
 
 
-public class XbmcActivity extends Activity{
+public class XbmcActivity extends Activity
+	implements NotificationListener {
 	
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -36,6 +39,26 @@ public class XbmcActivity extends Activity{
 	      default:
 	        return super.onOptionsItemSelected(item);
        }
+    }
+    
+    private NotificationBroadcastReceiver receiver;
+        
+    @Override
+    protected void onResume() {
+    	super.onResume();
+    	receiver = NotificationBroadcastReceiver.registerWithDefaultFilters(this);
+    }
+    
+    @Override
+    protected void onPause() {
+    	super.onPause();
+    	unregisterReceiver(receiver);
+    }
+    
+    public void onConnectionLost() { }
+    
+    public void onPlayerUpdate() { 
+    	
     }
     
     protected void startPlayerService(){

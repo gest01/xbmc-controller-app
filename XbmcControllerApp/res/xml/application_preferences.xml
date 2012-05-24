@@ -4,11 +4,6 @@
     <PreferenceCategory android:title="XBMC Connections">
         
         <ListPreference
-            android:key="defaultconnection"
-            android:summary="Set the default connection"
-            android:title="Default Connection" />
-        
-        <ListPreference
             android:key="deleteConnection"
             android:summary="Delete a connection"
             android:title="Delete Connection" />

@@ -48,6 +48,12 @@ public class XbmcConnectionEditActivity extends XbmcActivity {
 				} 
 			}
 		});
+		
+		((Button)findViewById(R.id.btncancel)).setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				XbmcConnectionEditActivity.this.finish();
+			}
+		});
 	}
 
 	private void bindConnection(){

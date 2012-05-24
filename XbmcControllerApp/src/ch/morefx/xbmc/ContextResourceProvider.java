@@ -3,12 +3,12 @@ package ch.morefx.xbmc;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 
-public class ResourceProviderAdapter 
-	implements ResourceProvider{
+public class ContextResourceProvider 
+	implements ResourceProvider {
 
 	private Context _context;
 	
-	public ResourceProviderAdapter(Context context) {
+	public ContextResourceProvider(Context context) {
 		_context = context;
 	}
 	

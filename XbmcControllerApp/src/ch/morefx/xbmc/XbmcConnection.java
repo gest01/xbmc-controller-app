@@ -89,9 +89,15 @@ public class XbmcConnection implements Serializable {
 		holder.setThumbnail(drawableThumbnail);
 	}
 	
+	/**
+	 * Closes the current connection and releases all resources held by this connection.
+	 */
 	public void close(){
 		this.drawableManager = null;
 		this.audioLibrary = null;
+		this.videoLibrary = null;
+		this.audioplayer = null;
+		this.videoplayer = null;
 	}
 	
 	/**

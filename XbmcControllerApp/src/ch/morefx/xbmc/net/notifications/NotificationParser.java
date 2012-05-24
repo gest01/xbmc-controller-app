@@ -15,7 +15,8 @@ public class NotificationParser {
 	 * @return Notification
 	 * @throws Exception
 	 */
-	public static Notification parse(String json) throws Exception{
+	public static Notification parse(String json) 
+			throws NotificationParserException {
 
 		String method = null;
 		JSONObject jsonObject = null;
@@ -49,10 +50,14 @@ public class NotificationParser {
 			return new NothingToDoNotification();
 
 		if (notification != null) {
-			notification.setJSONObject(jsonObject);
-			return notification;
+			try {
+				notification.setJSONObject(jsonObject);
+				return notification;
+			} catch (JSONException jsonex) {
+				throw new NotificationParserException("Json Exception", jsonex);
+			}
 		}
 		
-		throw new Exception("Unable to create Notification from method : " + method);
+		throw new NotificationParserException("Unable to create Notification from method " + method);
 	}
 }

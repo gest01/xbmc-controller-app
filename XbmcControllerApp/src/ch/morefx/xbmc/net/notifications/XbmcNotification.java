@@ -30,10 +30,13 @@ public abstract class XbmcNotification
 		this.jsonrpc = jsonObject.getString("jsonrpc");
 		
 		this.paramsSection = (JSONObject)jsonObject.get("params");
-		this.dataSection = (JSONObject)this.paramsSection.get("data");
 		
-		JSONObject item = (JSONObject)this.dataSection.get("item");
-		type = item.getString("type");
+		if (!this.paramsSection.isNull("data")) {
+			this.dataSection = (JSONObject)this.paramsSection.get("data");
+			
+			JSONObject item = (JSONObject)this.dataSection.get("item");
+			type = item.getString("type");
+		}
 	}
 	
 	protected int getIdFromItem(){

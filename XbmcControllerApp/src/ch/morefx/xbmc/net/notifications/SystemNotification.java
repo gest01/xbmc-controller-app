@@ -19,7 +19,7 @@ public class SystemNotification extends XbmcNotification {
 	public String handle(XbmcConnection connection, ResourceProvider resourceprovider) {
 		if (connection.getAudioPlayer().isActive()){
 			connection.getAudioPlayer().disable();
-			return PLAYER_UPDATE;
+			return CONNECTION_LOST;
 		}
 		
 		return NONE;

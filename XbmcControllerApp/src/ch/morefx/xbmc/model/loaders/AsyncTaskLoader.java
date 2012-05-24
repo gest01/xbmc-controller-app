@@ -4,7 +4,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import ch.morefx.xbmc.ResourceProviderAdapter;
+import ch.morefx.xbmc.ContextResourceProvider;
 import ch.morefx.xbmc.XbmcConnection;
 import ch.morefx.xbmc.XbmcRemoteControlApplication;
 import ch.morefx.xbmc.model.AudioLibrary;
@@ -49,7 +49,7 @@ public abstract class AsyncTaskLoader<Params, Progress, Result>
 	
 	protected void loadThumbnail(ThumbnailHolder holder){
 		XbmcConnection connection = getConnection();
-		connection.loadThumbnail(holder, new ResourceProviderAdapter(context));
+		connection.loadThumbnail(holder, new ContextResourceProvider(context));
 	}
 	
 	protected XbmcConnection getConnection(){

@@ -2,10 +2,6 @@ package ch.morefx.xbmc.activities.musiclibrary;
 
 import java.util.List;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
@@ -15,7 +11,6 @@ import ch.morefx.xbmc.model.AudioLibrary;
 import ch.morefx.xbmc.model.Song;
 import ch.morefx.xbmc.model.loaders.PostExecuteHandler;
 import ch.morefx.xbmc.model.loaders.SongLoader;
-import ch.morefx.xbmc.net.notifications.Notification;
 import ch.morefx.xbmc.util.Check;
 
 public final class SongActivity 
@@ -25,7 +20,6 @@ public final class SongActivity
 	
 	private Album album;
 	private SongArrayAdapter adapter;
-	private BroadcastReceiver receiver;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,25 +35,10 @@ public final class SongActivity
 		
 		loadSongs();
 	}
-	
-	@Override
-	protected void onResume() {
-		super.onResume();
-		
-		receiver = new BroadcastReceiver() {
-			@Override
-			public void onReceive(Context context, Intent intent) {
-				loadSongs();
-			}
- 		};
-		
-		this.registerReceiver(receiver, new IntentFilter(Notification.PLAYER_UPDATE));
-	}
 
 	@Override
-	protected void onPause() {
-		super.onPause();
-		this.unregisterReceiver(receiver);
+	public void onPlayerUpdate() {
+		loadSongs();
 	}
 
 	private void loadSongs(){

@@ -5,6 +5,8 @@ import android.util.Log;
 
 public class XbmcRemoteControlApplication extends Application {
 	
+	private static final String TAG = XbmcRemoteControlApplication.class.getName();
+	
 	private XbmcConnectionManager connectionManager;
 	private XbmcConnection currentConnection;
 	
@@ -42,7 +44,19 @@ public class XbmcRemoteControlApplication extends Application {
 		
 		this.currentConnection = connection;
 		
-		Log.d("XbmcRemoteControlApplication", "Current XbmcConnection : " + connection.toString() + "(" + connection.getXbmcConnectionUri() + ")");
+		Log.d(TAG, "Current XbmcConnection : " + connection.toString() + "(" + connection.getXbmcConnectionUri() + ")");
+	}
+	
+	/**
+	 * Closes the current connection.
+	 */
+	public void closeCurrentConnection(){
+		if (this.currentConnection != null){
+			this.currentConnection.close();
+			this.currentConnection = null;
+			
+			Log.i(TAG, "Connection closed!");
+		}
 	}
 		
 	/**

@@ -1,0 +1,20 @@
+
+
+* Kontext Menus
+	- Play Album, Artist, 
+	- Song Info, Album Info, Artist Info
+	- Exclude/ReScan from Library
+	
+	
+* UI
+	- Grössere Albenansicht
+	- Grösserer HomeScreen
+	
+	
+* Notification Service
+	- Connection Lost 
+	- Song / Album / Artist Update Event geht nicht so richtig
+	
+	
+	
+* Hauptmenu

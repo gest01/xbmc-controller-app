@@ -2,10 +2,7 @@ package ch.morefx.xbmc.activities.home;
 
 import java.util.ArrayList;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
@@ -16,14 +13,12 @@ import ch.morefx.xbmc.activities.players.AudioPlayerActivity;
 import ch.morefx.xbmc.activities.sourcebrowser.SourceBrowserActivity;
 import ch.morefx.xbmc.activities.videolibrary.VideoActivity;
 import ch.morefx.xbmc.model.Song;
-import ch.morefx.xbmc.net.notifications.Notification;
 
 /**
  * Defines the main activity for the Home Screen
  */
 public class HomeScreenActivity extends XbmcListActivity {
 	
-	private BroadcastReceiver receiver;
 	private HomeScreenMenuItemAdapter adapter;
 	
 	
@@ -47,18 +42,10 @@ public class HomeScreenActivity extends XbmcListActivity {
 	}
 	
 	@Override
-	protected void onResume() {
-		super.onResume();
-		
-		receiver = new BroadcastReceiver() {
-			@Override
-			public void onReceive(Context context, Intent intent) {
-				populateMenuItem();
-			}
- 		};
-		
-		this.registerReceiver(receiver, new IntentFilter(Notification.PLAYER_UPDATE));
+	public void onPlayerUpdate() {
+		populateMenuItem();
 	}
+	
 	
 	@Override
 	protected void onDestroy() {

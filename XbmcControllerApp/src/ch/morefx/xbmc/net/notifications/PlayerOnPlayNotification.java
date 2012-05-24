@@ -1,6 +1,5 @@
 package ch.morefx.xbmc.net.notifications;
 
-import ch.morefx.xbmc.Globals;
 import ch.morefx.xbmc.ResourceProvider;
 import ch.morefx.xbmc.XbmcConnection;
 import ch.morefx.xbmc.model.Song;
@@ -35,10 +34,7 @@ public class PlayerOnPlayNotification extends XbmcNotification {
 			executor.execute(command);
 			Song song = command.getSong();
 			
-			if (Globals.NOTIFICATION_SERVICE_LOAD_SONG_THUMBNAILS){
-				connection.loadThumbnail(song, resourceprovider);
-			}
-			
+			connection.loadThumbnail(song, resourceprovider);
 			connection.getAudioPlayer().updatePlayer(info.getPlayerId());
 			connection.getAudioPlayer().setPlaying(song);	
 			

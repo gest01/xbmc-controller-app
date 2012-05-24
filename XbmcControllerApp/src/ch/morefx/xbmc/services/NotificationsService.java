@@ -8,46 +8,32 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.IBinder;
 import android.util.Log;
-import ch.morefx.xbmc.Globals;
+import ch.morefx.xbmc.BuildConfig;
 import ch.morefx.xbmc.ResourceProvider;
 import ch.morefx.xbmc.XbmcConnection;
+import ch.morefx.xbmc.XbmcExceptionHandler;
 import ch.morefx.xbmc.net.notifications.Notification;
 import ch.morefx.xbmc.net.notifications.NotificationParser;
+import ch.morefx.xbmc.net.notifications.NotificationParserException;
 
 public class NotificationsService extends XbmcService
 	implements ResourceProvider {
 	
 	private static final String TAG = NotificationsService.class.getName();
-
-	@Override
-	public IBinder onBind(Intent arg0) {
-		return null;
-	}
-
+	
+	private boolean running;
 	
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		if (Globals.DEBUG){
+		if (BuildConfig.DEBUG){
 			Log.d(TAG, "Starting Service...");
 		}
+		
+		running = true;
 		
 		startService();
 		return START_STICKY;
 	}
-	
-	/*
-	 * {"jsonrpc":"2.0","method":"Player.OnPlay","params":{"data":{"item":{"id":3430,"type":"song"},"player":{"playerid":0,"speed":1}},"sender":"xbmc"}}
-	 * {"jsonrpc":"2.0","method":"Player.OnStop","params":{"data":{"item":{"id":3429,"type":"song"}},"sender":"xbmc"}}
-	 * {"jsonrpc":"2.0","method":"Player.OnSpeedChanged","params":{"data":{"item":{"id":3433,"type":"song"},"player":{"playerid":0,"speed":2}},"sender":"xbmc"}}
-	 * {"jsonrpc":"2.0","method":"Player.OnSpeedChanged","params":{"data":{"item":{"id":3433,"type":"song"},"player":{"playerid":0,"speed":1}},"sender":"xbmc"}}
-	 * {"jsonrpc":"2.0","method":"Player.OnPause","params":{"data":{"item":{"id":3433,"type":"song"},"player":{"playerid":0,"speed":0}},"sender":"xbmc"}}
-	 * {"jsonrpc":"2.0","method":"GUI.OnScreensaverActivated","params":{"data":null,"sender":"xbmc"}}
-	 * {"jsonrpc":"2.0","method":"GUI.OnScreensaverDeactivated","params":{"data":null,"sender":"xbmc"}}
-	 * {"jsonrpc":"2.0","method":"System.OnQuit","params":{"data":null,"sender":"xbmc"}}
-	 * {"jsonrpc":"2.0","method":"Player.OnSeek","params":{"data":{"item":{"id":2430,"type":"song"},"player":{"playerid":0,"seekoffset":{"hours":0,"milliseconds":-640,"minutes":0,"seconds":-7},"speed":1,"time":{"hours":0,"milliseconds":0,"minutes":0,"seconds":0}}},"sender":"xbmc"}}
-	 * 
-	 */
-
 	
 	private void startService(){
 		
@@ -55,7 +41,7 @@ public class NotificationsService extends XbmcService
 			
 			public void run() {
 				
-				if (Globals.DEBUG){
+				if (BuildConfig.DEBUG){
 					Log.d(TAG, "Starting Service Thread...");
 				}
 				
@@ -69,7 +55,7 @@ public class NotificationsService extends XbmcService
 					Socket socket = new Socket(host, port);
 					BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
-					while(true)
+					while(running)
 					{
 						try {
 							char[] buffer = new char[1024];
@@ -77,7 +63,7 @@ public class NotificationsService extends XbmcService
 							int read = in.read(buffer);
 							String msg = new String(buffer, 0, read);
 							
-							if (Globals.DEBUG){
+							if (BuildConfig.DEBUG){
 								Log.d(TAG, "RECV : " + msg);	
 							}
 							
@@ -85,20 +71,45 @@ public class NotificationsService extends XbmcService
 							String action = notification.handle(connection, NotificationsService.this);
 							if (!Notification.NONE.equals(action)){
 								sendBroadcast(new Intent(action));
+								
+								running = !Notification.CONNECTION_LOST.equals(action);
 							}
 
-						} catch (Exception e) {
-							e.printStackTrace();
+						} catch (NotificationParserException e) {
+							XbmcExceptionHandler.handleException(TAG, e);
+							Intent intent = new Intent(Notification.NOTIFICATION_PARSER_ERROR);
+							intent.putExtra(Notification.NOTIFICATION_PARSER_ERROR,  e);
+							sendBroadcast(intent);
+						} catch (Exception ex){
+							running = false;
+							XbmcExceptionHandler.handleException(TAG, ex);
+							Intent intent = new Intent(Notification.CONNECTION_LOST);
+							sendBroadcast(intent);
 						}
 					}
 					
+					if (BuildConfig.DEBUG){
+						Log.d(TAG, "Exiting Notification Thread...");
+					}
+					
+					if (in != null) { in.close(); }
+					if (socket != null){ socket.close(); }
+					
 				} catch (Exception ex){
-					ex.printStackTrace();
+					
+					// Unable to create connection
+					XbmcExceptionHandler.handleException(TAG, ex);
+					running = false;
 				}
 			}
 		}).start();
 	}
 	
+
+	@Override
+	public IBinder onBind(Intent arg0) {
+		return null;
+	}
 	
 	public Drawable getDrawable(int resourceId){
 		return getResources().getDrawable(resourceId);

@@ -2,9 +2,12 @@ package ch.morefx.xbmc.activities;
 
 import android.app.ListActivity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import ch.morefx.xbmc.NotificationBroadcastReceiver;
+import ch.morefx.xbmc.NotificationListener;
 import ch.morefx.xbmc.R;
 import ch.morefx.xbmc.XbmcRemoteControlApplication;
 import ch.morefx.xbmc.activities.home.HomeScreenActivity;
@@ -14,7 +17,14 @@ import ch.morefx.xbmc.model.players.AudioPlayer;
 import ch.morefx.xbmc.preferences.ApplicationPreferenceActivity;
 import ch.morefx.xbmc.services.NotificationsService;
 
-public class XbmcListActivity extends ListActivity{
+public class XbmcListActivity extends ListActivity
+	implements NotificationListener {
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+	}
 	
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -22,11 +32,33 @@ public class XbmcListActivity extends ListActivity{
         inflater.inflate(R.menu.main_options_menu, menu);
         return true;
     }
+
+    private NotificationBroadcastReceiver receiver;
     
+    @Override
+    protected void onResume() {
+    	super.onResume();
+    	receiver = NotificationBroadcastReceiver.registerWithDefaultFilters(this);
+    }
     
+    @Override
+    protected void onPause() {
+    	super.onPause();
+    	unregisterReceiver(receiver);
+    }
+    
+    public void onConnectionLost() { }
+    
+    public void onPlayerUpdate() { }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
       switch (item.getItemId()) {
+      
+      case android.R.id.home:
+    	  System.out.println("GOOGLE !!!");
+    	  return true;
+      
 	      case R.id.mnu_connections:
 	    	  startActivity(new Intent(this, ApplicationPreferenceActivity.class));
 	        return true;

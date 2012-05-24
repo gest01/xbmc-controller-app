@@ -40,7 +40,7 @@ public class InputCommand extends JsonCommand {
 	 * @return an InputCommand 
 	 */
 	public static InputCommand rightCommand(){
-		return new InputCommand("Input.Down");
+		return new InputCommand("Input.Right");
 	}
 	
 	/**
@@ -48,7 +48,7 @@ public class InputCommand extends JsonCommand {
 	 * @return an InputCommand 
 	 */
 	public static InputCommand backCommand(){
-		return new InputCommand("Input.Right");
+		return new InputCommand("Input.Back");
 	}
 	
 	/**
@@ -56,7 +56,7 @@ public class InputCommand extends JsonCommand {
 	 * @return an InputCommand 
 	 */
 	public static InputCommand homeCommand(){
-		return new InputCommand("Input.Back");
+		return new InputCommand("Input.Home");
 	}
 	
 	/**
