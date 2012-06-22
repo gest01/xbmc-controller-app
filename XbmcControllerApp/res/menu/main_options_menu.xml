@@ -2,15 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
-        android:id="@+id/mnu_connections"
+        android:id="@+id/mnu_settings"
         android:icon="@android:drawable/ic_menu_preferences"
-        android:showAsAction="ifRoom|withText"
-        android:title="Settings"/>
+        android:title="@string/mnu_settings"/>
+    
+    <item
+        android:id="@+id/mnu_close_connection"
+        android:icon="@android:drawable/ic_menu_preferences"
+        android:title="@string/mnu_close_connection"/>
     
       <item
         android:id="@+id/mnu_home"
         android:icon="@drawable/ic_menu_home"
-        android:showAsAction="ifRoom|withText"
-        android:title="Home"/>
+        android:title="@string/mnu_home"/>
    
 </menu>

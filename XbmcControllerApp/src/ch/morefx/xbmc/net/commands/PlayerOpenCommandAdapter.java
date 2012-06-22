@@ -1,5 +1,7 @@
 package ch.morefx.xbmc.net.commands;
 
+import ch.morefx.xbmc.model.Album;
+import ch.morefx.xbmc.model.Artist;
 import ch.morefx.xbmc.model.FileSource;
 import ch.morefx.xbmc.model.Movie;
 import ch.morefx.xbmc.model.Playlist;
@@ -21,6 +23,20 @@ public class PlayerOpenCommandAdapter extends JsonCommand{
 		this.commandImpl = new PlayerOpenCommandForMovie(movie);
 	}
 	
+	public PlayerOpenCommandAdapter(Artist artist){
+		super("Player.Open");
+		
+		Check.argumentNotNull(artist, "artist");
+		this.commandImpl = new PlayerOpenCommandForArtist(artist);
+	}
+	
+	public PlayerOpenCommandAdapter(Album album){
+		super("Player.Open");
+		
+		Check.argumentNotNull(album, "album");
+		this.commandImpl = new PlayerOpenCommandForAlbum(album);
+	}
+	
 	public PlayerOpenCommandAdapter(FileSource filesource) {
 		super("Player.Open");
 		
@@ -38,6 +54,36 @@ public class PlayerOpenCommandAdapter extends JsonCommand{
 	@Override
 	void prepareCommand(JsonCommandBuilder builder) {
 		this.commandImpl.prepareCommand(builder);
+	}
+	
+	private static class PlayerOpenCommandForAlbum extends PlayerOpenCommandAdapter{
+		private Album album;
+		public PlayerOpenCommandForAlbum(Album album) {
+			Check.argumentNotNull(album, "album");
+			this.album = album;
+		}
+		
+		@Override
+		void prepareCommand(JsonCommandBuilder builder) {
+			CommandItemSet itemSet = new CommandItemSet();
+			itemSet.add("albumid", this.album.getAlbumId());
+			builder.addParams(itemSet);		}		
+	}
+	
+	private static class PlayerOpenCommandForArtist extends PlayerOpenCommandAdapter{
+		private Artist artist;
+		
+		public PlayerOpenCommandForArtist(Artist artist) {
+			Check.argumentNotNull(artist, "artist");
+			this.artist = artist;
+		}
+		
+		@Override
+		void prepareCommand(JsonCommandBuilder builder) {
+			CommandItemSet itemSet = new CommandItemSet();
+			itemSet.add("artistid", this.artist.getArtistId());
+			builder.addParams(itemSet);
+		}
 	}
 
 	private static class PlayerOpenCommandForMovie extends PlayerOpenCommandAdapter {

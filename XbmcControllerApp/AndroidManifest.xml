@@ -27,6 +27,10 @@
         <activity
             android:name=".activities.XbmcConnectionEditActivity"
             android:label="" />
+        
+        <activity
+            android:name=".activities.testing.MytestActivity"
+            android:label="" />
         <activity
             android:name=".activities.home.HomeScreenActivity"
             android:label="HomeScreenActivity" />

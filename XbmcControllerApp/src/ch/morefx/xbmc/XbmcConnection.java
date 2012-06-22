@@ -30,10 +30,10 @@ public class XbmcConnection implements Serializable {
 	
 	
 	private String username, password, host, connectionName;
-	private int port, jsonTcpPort;
+	private int port;
 	private long id;
 	
-	private DrawableManager drawableManager;
+	private transient DrawableManager drawableManager;
 	
 	private AudioLibrary audioLibrary;
 	private VideoLibrary videoLibrary;
@@ -47,7 +47,6 @@ public class XbmcConnection implements Serializable {
 	
 	public XbmcConnection() {
 		setPort(DEFAULT_PORT);
-		setJsonTcpPort(DEFAULT_JSON_RPC_PORT);
 		setUsername(DEFAULT_USERNAME);
 		id = DEFAULT_NOID;
 		this.audioLibrary = null;
@@ -207,10 +206,6 @@ public class XbmcConnection implements Serializable {
 
 	public void setPort(int port) {
 		this.port = port;
-	}
-		
-	public void setJsonTcpPort(int jsonTcpPort){
-		this.jsonTcpPort = jsonTcpPort;
 	}
 	
 	public int getJsonTcpPort(){

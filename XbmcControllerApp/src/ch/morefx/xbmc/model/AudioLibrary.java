@@ -12,8 +12,6 @@ import ch.morefx.xbmc.net.commands.PlaylistClearCommand;
 import ch.morefx.xbmc.util.Check;
 
 /**
- * 
- * @author stef + sibi
  *
  */
 public final class AudioLibrary extends XbmcLibrary {
@@ -32,7 +30,40 @@ public final class AudioLibrary extends XbmcLibrary {
 		this.audioplayer = player;
 	}
 	
+	
+	/**
+	 * Starts playing all albums and songs of a specific artist without adding into a new Playlist.
+	 * @param artist The Artist to play.
+	 */
+	public void play(Artist artist){
+		Check.argumentNotNull(artist, "artist");
+		
+		executeAsync(new PlayerOpenCommandAdapter(artist));
+	}
+	
+	/**
+	 * Starts playing all songs from a specific album without adding into a new Playlist.
+	 * @param album The album to play.
+	 */
+	public void play(Album album){
+		Check.argumentNotNull(album, "album");
+		
+		executeAsync(new PlayerOpenCommandAdapter(album));
+	}
 
+	/**
+	 * Starts playing a specific song
+	 * @param song The song to play
+	 */
+	public void play(Song song){
+		Check.argumentNotNull(song, "song");
+		executeAsync(new PlaylistClearCommand(Playlist.Audio),
+					 new PlaylistAddCommand(song.getAlbum()),
+					 new PlayerOpenCommandAdapter(song));
+		
+		this.audioplayer.setPlaying(song);
+	}
+	
 	/**
 	 * 
 	 * @param filesource
@@ -44,19 +75,7 @@ public final class AudioLibrary extends XbmcLibrary {
 				     new PlaylistAddCommand(filesource),
 				     new PlayerOpenCommandAdapter(filesource));
 	}
-	
-	/**
-	 * 
-	 * @param song
-	 */
-	public void playSong(Song song){
-		Check.argumentNotNull(song, "song");
-		executeAsync(new PlaylistClearCommand(Playlist.Audio),
-					 new PlaylistAddCommand(song.getAlbum()),
-					 new PlayerOpenCommandAdapter(song));
-		
-		this.audioplayer.setPlaying(song);
-	}
+
 	
 	/**
 	 * 

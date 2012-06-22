@@ -62,7 +62,7 @@ public final class SongActivity
 	public void onListItemClick(ListView listView, View v, int position, long id) {
 		Song song = this.adapter.getItem(position);
 		AudioLibrary library = getAudioLibrary();
-		library.playSong(song);
+		library.play(song);
 		
 		loadSongs();
 	}

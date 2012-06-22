@@ -1,6 +1,7 @@
 package ch.morefx.xbmc.services;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 
@@ -22,89 +23,118 @@ public class NotificationsService extends XbmcService
 	private static final String TAG = NotificationsService.class.getName();
 	
 	private boolean running;
+	private Thread workerThread;
+	private Object sync = new Object();
+	private Socket socket;
+	private BufferedReader reader; 
+	
+	@Override
+	public void onCreate() {
+		super.onCreate();
+		
+		workerThread = new Thread(new Runnable() {
+			public void run() {
+				doWork();
+			}
+		});
+	}
+	
 	
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		if (BuildConfig.DEBUG){
-			Log.d(TAG, "Starting Service...");
+		synchronized(sync){
+			if (!running){
+				running = true;
+				workerThread.start();
+			}
+			
+			return START_STICKY;
 		}
-		
-		running = true;
-		
-		startService();
-		return START_STICKY;
 	}
 	
-	private void startService(){
+	private void doWork(){
 		
-		new Thread(new Runnable() {
+		try{
 			
-			public void run() {
-				
-				if (BuildConfig.DEBUG){
-					Log.d(TAG, "Starting Service Thread...");
-				}
-				
-				XbmcConnection connection = getXbmcApplication().getCurrentConnection();
-				
-				int port = connection.getJsonTcpPort();
-				String host = connection.getHost();
-				
-				try{
+			XbmcConnection connection = getXbmcApplication().getCurrentConnection();
+			socket = new Socket(connection.getHost(), connection.getJsonTcpPort());
+			reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
+			while(running)
+			{
+				try {
+					char[] buffer = new char[1024];
 					
-					Socket socket = new Socket(host, port);
-					BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-
-					while(running)
-					{
-						try {
-							char[] buffer = new char[1024];
-							
-							int read = in.read(buffer);
-							String msg = new String(buffer, 0, read);
-							
-							if (BuildConfig.DEBUG){
-								Log.d(TAG, "RECV : " + msg);	
-							}
-							
-							Notification notification = NotificationParser.parse(msg);
-							String action = notification.handle(connection, NotificationsService.this);
-							if (!Notification.NONE.equals(action)){
-								sendBroadcast(new Intent(action));
-								
-								running = !Notification.CONNECTION_LOST.equals(action);
-							}
-
-						} catch (NotificationParserException e) {
-							XbmcExceptionHandler.handleException(TAG, e);
-							Intent intent = new Intent(Notification.NOTIFICATION_PARSER_ERROR);
-							intent.putExtra(Notification.NOTIFICATION_PARSER_ERROR,  e);
-							sendBroadcast(intent);
-						} catch (Exception ex){
-							running = false;
-							XbmcExceptionHandler.handleException(TAG, ex);
-							Intent intent = new Intent(Notification.CONNECTION_LOST);
-							sendBroadcast(intent);
-						}
-					}
+					int read = reader.read(buffer);
+					String msg = new String(buffer, 0, read);
 					
 					if (BuildConfig.DEBUG){
-						Log.d(TAG, "Exiting Notification Thread...");
+						Log.d(TAG, "RECV : " + msg);	
 					}
 					
-					if (in != null) { in.close(); }
-					if (socket != null){ socket.close(); }
-					
-				} catch (Exception ex){
-					
-					// Unable to create connection
-					XbmcExceptionHandler.handleException(TAG, ex);
+					Notification notification = NotificationParser.parse(msg);
+					String action = notification.handle(connection, NotificationsService.this);
+					if (!Notification.NONE.equals(action)){
+						sendBroadcast(new Intent(action));
+						
+						running = !Notification.CONNECTION_LOST.equals(action);
+					}
+
+				} catch (NotificationParserException e) {
+					XbmcExceptionHandler.handleException(TAG, e);
+					Intent intent = new Intent(Notification.NOTIFICATION_PARSER_ERROR);
+					intent.putExtra(Notification.NOTIFICATION_PARSER_ERROR,  e);
+					sendBroadcast(intent);
+				} catch(IOException ioex){
 					running = false;
+				} catch (Exception ex){
+					running = false;
+					XbmcExceptionHandler.handleException(TAG, ex);
+					Intent intent = new Intent(Notification.CONNECTION_LOST);
+					sendBroadcast(intent);
 				}
 			}
-		}).start();
+			
+			closeSocket();
+			
+		} catch (Exception ex){
+			// Unable to create connection
+			XbmcExceptionHandler.handleException(TAG, ex);
+			running = false;
+			
+			closeSocket(); // Clean up socket...
+		}
 	}
 	
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		synchronized(sync){
+			if (running){
+				running = false;
+				workerThread.interrupt();
+				workerThread = null;
+				closeSocket();
+			}
+		}
+	}
+	
+	private void closeSocket(){
+		try {
+			
+			if (socket != null){ 
+				socket.close(); 
+			}
+			
+			if (reader != null) { 
+				reader.close(); 
+			}
+			
+			reader = null;
+			socket = null;
+			
+		} catch (IOException ioex){ }
+	}
 
 	@Override
 	public IBinder onBind(Intent arg0) {

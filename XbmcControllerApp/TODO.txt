@@ -7,14 +7,28 @@
 	
 	
 * UI
+    - Ansicht wie bei Google Reader / Google Mail
 	- Grössere Albenansicht
 	- Grösserer HomeScreen
-	
+	- Logoff Funktion einbauen
+	- .. - Funktionalität
+	- Navigation ist nicht optimal
+		- http://developer.android.com/design/patterns/navigation.html
+	- Android icon als UP/Back Button
+		- http://developer.android.com/guide/topics/ui/actionbar.html
+	- Swipe
+		- http://developer.android.com/design/patterns/swipe-views.html
+		- http://android-developers.blogspot.com/2011/08/horizontal-view-swiping-with-viewpager.html
+		 
 	
 * Notification Service
 	- Connection Lost 
 	- Song / Album / Artist Update Event geht nicht so richtig
+	- Beim Start muss der aktuelle Song / album etc ausgelesen werden
 	
 	
-	
-* Hauptmenu
+* API
+	- Caching
+	- Exclude von Alben / Interpreten aus dem UI 
+		- Lokal abspeichern
+		- Was tun wenn aber auf XBMC genau so ein Song gespielt wird.

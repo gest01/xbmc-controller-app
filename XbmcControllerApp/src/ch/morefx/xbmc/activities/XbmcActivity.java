@@ -5,14 +5,14 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import ch.morefx.xbmc.NotificationBroadcastReceiver;
-import ch.morefx.xbmc.NotificationListener;
 import ch.morefx.xbmc.R;
 import ch.morefx.xbmc.XbmcRemoteControlApplication;
 import ch.morefx.xbmc.activities.home.HomeScreenActivity;
 import ch.morefx.xbmc.model.AudioLibrary;
 import ch.morefx.xbmc.model.remotecontrol.RemoteController;
 import ch.morefx.xbmc.preferences.ApplicationPreferenceActivity;
+import ch.morefx.xbmc.services.NotificationBroadcastReceiver;
+import ch.morefx.xbmc.services.NotificationListener;
 import ch.morefx.xbmc.services.NotificationsService;
 
 
@@ -30,12 +30,18 @@ public class XbmcActivity extends Activity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
       switch (item.getItemId()) {
-	      case R.id.mnu_connections:
-	    	  startActivity(new Intent(this, ApplicationPreferenceActivity.class));
-	        return true;
+	      case R.id.mnu_settings:
+	    	  startActivity(new Intent(this, ApplicationPreferenceActivity.class)); return true;
 	      case R.id.mnu_home:
-	       	   startActivity(new Intent(this, HomeScreenActivity.class));
-	        return true;
+	       	   startActivity(new Intent(this, HomeScreenActivity.class)); return true;
+	      case R.id.mnu_close_connection:
+				getXbmcApplication().closeCurrentConnection();
+				stopPlayerService();
+				  
+				Intent intent = new Intent(this, XbmcControllerMainActivity.class);
+				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				startActivity(intent);
+				return true;
 	      default:
 	        return super.onOptionsItemSelected(item);
        }

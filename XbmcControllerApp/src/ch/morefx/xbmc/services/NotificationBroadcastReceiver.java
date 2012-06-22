@@ -1,4 +1,4 @@
-package ch.morefx.xbmc;
+package ch.morefx.xbmc.services;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -8,6 +8,9 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.util.Log;
+import ch.morefx.xbmc.BuildConfig;
+import ch.morefx.xbmc.R;
+import ch.morefx.xbmc.XbmcRemoteControlApplication;
 import ch.morefx.xbmc.activities.XbmcControllerMainActivity;
 import ch.morefx.xbmc.net.notifications.Notification;
 import ch.morefx.xbmc.util.Check;

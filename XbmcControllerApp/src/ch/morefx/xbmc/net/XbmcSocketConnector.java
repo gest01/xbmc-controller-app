@@ -65,7 +65,7 @@ class XbmcSocketConnector implements XbmcConnector {
 	
 	private void createSocket() throws Exception {
 		if (in == null || out == null) {
-			Socket socket = new Socket(connection.getHost(), 9090);
+			Socket socket = new Socket(connection.getHost(), XbmcConnection.DEFAULT_JSON_RPC_PORT);
 			in = new InputStreamReader(socket.getInputStream());
 			out = new OutputStreamWriter(socket.getOutputStream());
 		}

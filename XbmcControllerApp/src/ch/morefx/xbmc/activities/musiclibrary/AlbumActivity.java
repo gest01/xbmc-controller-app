@@ -25,18 +25,17 @@ public class AlbumActivity
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		getListView().setTextFilterEnabled(true);
-		
 		artist = (Artist)getIntent().getExtras().getSerializable(EXTRA_ARTIST);
 		Check.notNull(artist, "Artist object missing from Intent extras");
 		
 		setTitle(artist.getLabel());
 		
 		this.adapter = new AlbumArrayAdapter(this, android.R.layout.simple_list_item_1);
-		setListAdapter(adapter);
+		setListAdapter(adapter);		
+		
 		loadAlbums();
 	}
-
+	
 	@Override
 	public void onPlayerUpdate() {
 		loadAlbums();
