@@ -34,5 +34,7 @@
     <string name="mnu_close_connection">Close connection</string>
     <string name="mnu_settings">Settings</string>
     <string name="mnu_home">Home</string>
+    <string name="connection_mac_hint">MAC address</string>
+    <string name="connection_mac_address">MAC Address</string>
     
 </resources>

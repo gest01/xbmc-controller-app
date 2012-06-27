@@ -2,15 +2,19 @@ package ch.morefx.xbmc.model.loaders;
 
 import java.util.List;
 
-import android.content.Context;
+import ch.morefx.xbmc.activities.musiclibrary.AlbumArrayAdapter;
 import ch.morefx.xbmc.model.Album;
 import ch.morefx.xbmc.model.Artist;
 import ch.morefx.xbmc.util.Check;
 
 public class AlbumLoader extends AsyncTaskLoader<Artist, Void, List<Album>>{
 	
-	public AlbumLoader(Context context) {
-		super(context);
+	private AlbumArrayAdapter adapter;
+	
+	public AlbumLoader(AlbumArrayAdapter adapter){ 
+		super(adapter.getContext());
+		
+		this.adapter = adapter;
 	}
 	
 	@Override
@@ -24,5 +28,12 @@ public class AlbumLoader extends AsyncTaskLoader<Artist, Void, List<Album>>{
 		loadThumbnails(albums);
 		return albums;
 	}
-
+	
+	@Override
+	protected void onPostExecute(List<Album> result) {
+		this.adapter.clear();
+		if (result != null){
+			this.adapter.addAll(result);
+		}
+	}
 }

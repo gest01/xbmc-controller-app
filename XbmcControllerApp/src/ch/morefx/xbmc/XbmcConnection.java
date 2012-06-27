@@ -29,7 +29,7 @@ public class XbmcConnection implements Serializable {
 	public static final String DEFAULT_USERNAME = "xbmc";
 	
 	
-	private String username, password, host, connectionName;
+	private String username, password, host, connectionName, macAddress;
 	private int port;
 	private long id;
 	
@@ -162,6 +162,22 @@ public class XbmcConnection implements Serializable {
 		return String.format(JSONRPC_URL, getHost(), getPort());
 	}
 
+	
+	/**
+	 * Gets the mac address for the host.
+	 * @return The mac address
+	 */
+	public String getMacAddress(){
+		return  this.macAddress;
+	}
+	
+	/**
+	 * Sets the mac address for the host.
+	 * @param macAddress The mac address
+	 */
+	public void setMacAddress(String macAddress){
+		this.macAddress = macAddress;
+	}
 	
 	@Override
 	public String toString() {

@@ -1,14 +1,14 @@
-package ch.morefx.xbmc;
+package ch.morefx.xbmc.util;
 
 import android.os.Handler;
+import ch.morefx.xbmc.XbmcExceptionHandler;
 import ch.morefx.xbmc.net.CommandExecutor;
 import ch.morefx.xbmc.net.CommandExecutorException;
 import ch.morefx.xbmc.net.JsonCommandExecutor;
 import ch.morefx.xbmc.net.XbmcConnector;
 import ch.morefx.xbmc.net.commands.PingCommand;
-import ch.morefx.xbmc.util.Check;
 
-public class XbmcConnectionTester {
+public class ConnectionTester {
 
 	public static final int CONNECTION_OK = 1;
 	public static final int CONNECTION_NOK = 0;
@@ -23,10 +23,10 @@ public class XbmcConnectionTester {
 		Thread connectionThread = new Thread(new Runnable() {
 			public void run() {
 				try {
-					CommandExecutor e = new JsonCommandExecutor(connector);
+					CommandExecutor executor = new JsonCommandExecutor(connector);
 					PingCommand ping = new PingCommand();
-					e.execute(ping);
-					isOk = ping.isConnectionOk();
+					executor.execute(ping);
+					isOk = ping.isConnectionOk();					
 				} catch (CommandExecutorException ex) {
 					XbmcExceptionHandler.handleException("XbmcConnectionTester", ex);
 					isOk = false;

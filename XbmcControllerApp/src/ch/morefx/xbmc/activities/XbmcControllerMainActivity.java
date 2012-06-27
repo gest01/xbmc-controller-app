@@ -16,10 +16,10 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import ch.morefx.xbmc.R;
 import ch.morefx.xbmc.XbmcConnection;
-import ch.morefx.xbmc.XbmcConnectionTester;
 import ch.morefx.xbmc.XbmcRemoteControlApplication;
 import ch.morefx.xbmc.activities.home.HomeScreenActivity;
 import ch.morefx.xbmc.util.DialogUtility;
+import ch.morefx.xbmc.util.ConnectionTester;
 
 public class XbmcControllerMainActivity extends Activity {
 	
@@ -90,7 +90,7 @@ public class XbmcControllerMainActivity extends Activity {
         	@Override
         	public void handleMessage(Message msg) {
                 pd.dismiss();
-                if (msg.what == XbmcConnectionTester.CONNECTION_OK){
+                if (msg.what == ConnectionTester.CONNECTION_OK){
                 	application.setCurrentConnection(connection);
              	   	Intent i = new Intent(XbmcControllerMainActivity.this, HomeScreenActivity.class);
              	   	startActivity(i);
@@ -100,8 +100,7 @@ public class XbmcControllerMainActivity extends Activity {
         	}
         };
         
-        XbmcConnectionTester tester = new XbmcConnectionTester();
+        ConnectionTester tester = new ConnectionTester();
         tester.canConnect(connection.getConnector(), handler);
-        
     }
 }
