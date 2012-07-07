@@ -10,11 +10,21 @@ public class XbmcRemoteControlApplication extends Application {
 	private XbmcConnectionManager connectionManager;
 	private XbmcConnection currentConnection;
 	
+	private static XbmcRemoteControlApplication _instance;
+	
 	public void onCreate() {
 		super.onCreate();
 
+		_instance = this;
+		
 		Thread.setDefaultUncaughtExceptionHandler(new XbmcExceptionHandler());
 	}
+	
+	/**
+	 * Gets the application
+	 * @return XbmcRemoteControlApplication
+	 */
+	public static XbmcRemoteControlApplication getInstance() { return _instance; }
 	
 	/**
 	 * Gets the current active connection or null when no connection was selected
@@ -22,14 +32,6 @@ public class XbmcRemoteControlApplication extends Application {
 	 */
 	public XbmcConnection getCurrentConnection(){
 		return this.currentConnection;
-	}
-	
-	/**
-	 * Gets a flag that indicates whether a connection is established or not.
-	 * @return True when connected, false otherwise
-	 */
-	public boolean isConnected(){
-		return getCurrentConnection() != null;
 	}
 	
 	/**

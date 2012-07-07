@@ -20,6 +20,7 @@ public class Song extends LibraryItem
 	
 	private String artist;
 	private String album;
+	private int songid;
 	
 	private Album relatedAlbum;
 	
@@ -67,6 +68,10 @@ public class Song extends LibraryItem
 	
 	public int getArtistId(){
 		return this.artistid;
+	}
+	
+	public int getSongId(){
+		return this.songid;
 	}
 	
 	public int getPosition(){

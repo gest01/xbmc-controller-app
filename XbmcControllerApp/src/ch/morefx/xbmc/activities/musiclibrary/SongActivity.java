@@ -1,13 +1,18 @@
 package ch.morefx.xbmc.activities.musiclibrary;
 
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View;
 import android.widget.ListView;
+import ch.morefx.xbmc.activities.ContextMenuAdapter;
+import ch.morefx.xbmc.activities.ContextMenuAddToPlaylistActionCommand;
+import ch.morefx.xbmc.activities.ContextMenuPlayItemActionCommand;
 import ch.morefx.xbmc.activities.XbmcListActivity;
 import ch.morefx.xbmc.model.Album;
-import ch.morefx.xbmc.model.AudioLibrary;
 import ch.morefx.xbmc.model.Song;
 import ch.morefx.xbmc.model.loaders.SongLoader;
+import ch.morefx.xbmc.model.players.AudioPlayer;
 import ch.morefx.xbmc.util.Check;
 
 public final class SongActivity 
@@ -30,14 +35,23 @@ public final class SongActivity
 		this.adapter = new SongArrayAdapter(this, android.R.layout.simple_list_item_1);
 		setListAdapter(this.adapter);
 		
+		registerForContextMenu();
+		
 		onPlayerUpdate();
+	}
+	
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+		ContextMenuAdapter cmadapter = new ContextMenuAdapter(menu, this);
+		cmadapter.add("Play song", new ContextMenuPlayItemActionCommand());
+		cmadapter.add("Add to playlist", new ContextMenuAddToPlaylistActionCommand());
 	}
 	
 	@Override
 	public void onListItemClick(ListView listView, View v, int position, long id) {
 		Song song = this.adapter.getItem(position);
-		AudioLibrary library = getAudioLibrary();
-		library.play(song);
+		AudioPlayer player = getAudioPlayer();
+		player.play(song);
 		
 		onPlayerUpdate();
 	}

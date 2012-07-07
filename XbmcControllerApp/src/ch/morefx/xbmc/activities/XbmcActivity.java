@@ -1,14 +1,18 @@
 package ch.morefx.xbmc.activities;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import ch.morefx.xbmc.R;
+import ch.morefx.xbmc.XbmcConnection;
 import ch.morefx.xbmc.XbmcRemoteControlApplication;
 import ch.morefx.xbmc.activities.home.HomeScreenActivity;
 import ch.morefx.xbmc.model.AudioLibrary;
+import ch.morefx.xbmc.model.VideoLibrary;
+import ch.morefx.xbmc.model.players.AudioPlayer;
 import ch.morefx.xbmc.model.remotecontrol.RemoteController;
 import ch.morefx.xbmc.preferences.ApplicationPreferenceActivity;
 import ch.morefx.xbmc.services.NotificationBroadcastReceiver;
@@ -17,7 +21,7 @@ import ch.morefx.xbmc.services.NotificationsService;
 
 
 public class XbmcActivity extends Activity
-	implements NotificationListener {
+	implements NotificationListener, IXbmcActivity {
 	
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -35,7 +39,7 @@ public class XbmcActivity extends Activity
 	      case R.id.mnu_home:
 	       	   startActivity(new Intent(this, HomeScreenActivity.class)); return true;
 	      case R.id.mnu_close_connection:
-				getXbmcApplication().closeCurrentConnection();
+	    	  	XbmcRemoteControlApplication.getInstance().closeCurrentConnection();
 				stopPlayerService();
 				  
 				Intent intent = new Intent(this, XbmcControllerMainActivity.class);
@@ -75,16 +79,33 @@ public class XbmcActivity extends Activity
 		stopService(new Intent(this, NotificationsService.class));
 	}
     
-    protected XbmcRemoteControlApplication getXbmcApplication(){
+	public XbmcRemoteControlApplication getXbmcApplication(){
 		return (XbmcRemoteControlApplication)getApplicationContext();
     }
     
-    protected RemoteController getRemoteController(){
-    	return getXbmcApplication().getCurrentConnection().getRemoteControl();
+    public RemoteController getRemoteController(){
+    	return XbmcRemoteControlApplication.getInstance().getCurrentConnection().getRemoteControl();
     }
     
-    protected AudioLibrary getAudioLibrary(){
-		XbmcRemoteControlApplication app = getXbmcApplication();
-		return app.getCurrentConnection().getAudioLibrary();
+    public AudioLibrary getAudioLibrary(){
+		return XbmcRemoteControlApplication.getInstance().getCurrentConnection().getAudioLibrary();
     }
+
+
+	public XbmcConnection getConnection() {
+		return XbmcRemoteControlApplication.getInstance().getCurrentConnection();
+	}
+
+	public AudioPlayer getAudioPlayer() {
+		return XbmcRemoteControlApplication.getInstance().getCurrentConnection().getAudioPlayer();
+	}
+
+
+	public VideoLibrary getVideoLibrary() {
+		return XbmcRemoteControlApplication.getInstance().getCurrentConnection().getVideoLibrary();
+	}
+
+	public Context getContext() {
+		return this;
+	}
 }

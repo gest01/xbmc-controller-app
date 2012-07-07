@@ -3,6 +3,7 @@ package ch.morefx.xbmc.model.players;
 import ch.morefx.xbmc.net.CommandExecutorAdapter;
 import ch.morefx.xbmc.net.JsonCommandExecutor;
 import ch.morefx.xbmc.net.XbmcConnector;
+import ch.morefx.xbmc.net.commands.JsonCommand;
 import ch.morefx.xbmc.net.commands.PlayerGoNextCommand;
 import ch.morefx.xbmc.net.commands.PlayerGoPreviousCommand;
 import ch.morefx.xbmc.net.commands.PlayerPlayPauseCommand;
@@ -79,5 +80,20 @@ public class MediaPlayer {
 		adapter.executeAsync(new PlayerStopCommand(this));
 		
 		disable();
+	}
+	
+	protected void execute(JsonCommand command){
+		CommandExecutorAdapter adapter = new CommandExecutorAdapter(new JsonCommandExecutor(connector));
+		adapter.execute(command);
+	}
+	
+	protected void executeAsync(JsonCommand ... commands){
+		CommandExecutorAdapter adapter = new CommandExecutorAdapter(new JsonCommandExecutor(connector));
+		adapter.executeAsync(commands);
+	}
+	
+	protected void executeAsync(JsonCommand command){
+		CommandExecutorAdapter adapter = new CommandExecutorAdapter(new JsonCommandExecutor(connector));
+		adapter.executeAsync(command);
 	}
 }
