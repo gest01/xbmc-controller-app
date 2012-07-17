@@ -30,5 +30,4 @@ public class GetMoviesCommand extends JsonCommand
 	public List<Movie> getMovies(){
 		return this.movies;
 	}
-	
 }

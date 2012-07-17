@@ -4,6 +4,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 import ch.morefx.xbmc.ContextResourceProvider;
 import ch.morefx.xbmc.XbmcConnection;
 import ch.morefx.xbmc.XbmcRemoteControlApplication;
@@ -42,6 +43,12 @@ public abstract class AsyncTaskLoader<Params, Progress, Result>
 	}
 	
 	protected void loadThumbnails(List<? extends ThumbnailHolder> holders){
+		
+		if (holders == null) {
+			Log.e("AsyncTaskLoader", "holders is NULL");
+			return;
+		}
+		
 		for(ThumbnailHolder holder : holders){
 			loadThumbnail(holder);
 		}

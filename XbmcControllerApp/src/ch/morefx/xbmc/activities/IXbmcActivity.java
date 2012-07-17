@@ -1,7 +1,7 @@
 package ch.morefx.xbmc.activities;
 
-import ch.morefx.xbmc.XbmcConnection;
 import android.content.Context;
+import ch.morefx.xbmc.XbmcConnection;
 
 public interface IXbmcActivity {
 

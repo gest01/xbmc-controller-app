@@ -7,8 +7,8 @@ import ch.morefx.xbmc.util.Check;
 
 public class ContextMenuAdapter {
 
-	private ContextMenu menu;
-	private IXbmcActivity activity;
+	private final ContextMenu menu;
+	private final IXbmcActivity activity;
 	
 	public ContextMenuAdapter(ContextMenu menu, IXbmcActivity activity) {
 		Check.argumentNotNull(menu, "menu");
@@ -18,11 +18,11 @@ public class ContextMenuAdapter {
 		this.activity = activity;
 	}
 	
-	public void setTitle(String menuTitle){
+	public void setTitle(final String menuTitle){
 		this.menu.setHeaderTitle(menuTitle);
 	}
 	
-	public void add(String title, final ContextMenuAction action){
+	public void add(final String title, final ContextMenuAction action){
 		this.menu.add(title).setOnMenuItemClickListener(new OnMenuItemClickListener() {
 			public boolean onMenuItemClick(MenuItem item) {
 				return action.execute(item, activity);

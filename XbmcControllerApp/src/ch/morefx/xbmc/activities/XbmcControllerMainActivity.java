@@ -18,8 +18,8 @@ import ch.morefx.xbmc.R;
 import ch.morefx.xbmc.XbmcConnection;
 import ch.morefx.xbmc.XbmcRemoteControlApplication;
 import ch.morefx.xbmc.activities.home.HomeScreenActivity;
-import ch.morefx.xbmc.util.DialogUtility;
 import ch.morefx.xbmc.util.ConnectionTester;
+import ch.morefx.xbmc.util.DialogUtility;
 
 public class XbmcControllerMainActivity extends Activity {
 	

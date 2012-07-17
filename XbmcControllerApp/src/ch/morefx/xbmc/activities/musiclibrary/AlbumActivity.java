@@ -3,13 +3,13 @@ package ch.morefx.xbmc.activities.musiclibrary;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
-import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.View;
 import android.widget.ListView;
-import ch.morefx.xbmc.activities.ContextMenuAddToPlaylistActionCommand;
 import ch.morefx.xbmc.activities.ContextMenuAdapter;
+import ch.morefx.xbmc.activities.ContextMenuAddToPlaylistActionCommand;
 import ch.morefx.xbmc.activities.ContextMenuPlayItemActionCommand;
-import ch.morefx.xbmc.activities.ShowArtistInfoActionCommand;
+import ch.morefx.xbmc.activities.ContextMenuShowArtistInfoActionCommand;
 import ch.morefx.xbmc.activities.XbmcListActivity;
 import ch.morefx.xbmc.model.Album;
 import ch.morefx.xbmc.model.Artist;
@@ -44,7 +44,7 @@ public class AlbumActivity
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 		ContextMenuAdapter cmadapter = new ContextMenuAdapter(menu, this);
-		cmadapter.add("Show album info", new ShowArtistInfoActionCommand());
+		cmadapter.add("Show album info", new ContextMenuShowArtistInfoActionCommand());
 		cmadapter.add("Play all songs", new ContextMenuPlayItemActionCommand());
 		cmadapter.add("Add to playlist", new ContextMenuAddToPlaylistActionCommand());
 	}
