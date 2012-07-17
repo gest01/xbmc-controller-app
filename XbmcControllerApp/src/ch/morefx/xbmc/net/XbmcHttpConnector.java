@@ -25,8 +25,7 @@ import ch.morefx.xbmc.util.Check;
  */
 class XbmcHttpConnector implements XbmcConnector {
 
-	private DefaultHttpClient httpClient;
-	private String connectionUri;
+	private XbmcConnection connection;
 	
 	/**
 	 * Defines the connection timeout in miliseconds
@@ -35,19 +34,18 @@ class XbmcHttpConnector implements XbmcConnector {
 	
 	public XbmcHttpConnector(XbmcConnection connection) {
 		Check.argumentNotNull(connection, "connection");
-		this.httpClient = createHttpClient(connection);
-		this.connectionUri = connection.getXbmcConnectionUri();
+		this.connection = connection;
 	}
 	
 	public String send(String jsonCommand) throws Exception {
 		
-		HttpPost post = new HttpPost(this.connectionUri);
+		HttpPost post = new HttpPost(this.connection.getXbmcConnectionUri());
 		
 		StringEntity entity = new StringEntity(jsonCommand);
 		entity.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
 		post.setEntity(entity);
 		
-		HttpResponse response = this.httpClient.execute(post);
+		HttpResponse response = createHttpClient().execute(post);
 		InputStream in = response.getEntity().getContent();
 		BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 		return reader.readLine();
@@ -55,7 +53,7 @@ class XbmcHttpConnector implements XbmcConnector {
 	
 	public Drawable downloadImage(String url) throws IOException {
 		
-        DefaultHttpClient httpClient = this.httpClient;
+        DefaultHttpClient httpClient = createHttpClient();
         HttpGet request = new HttpGet(url);
         HttpResponse response = httpClient.execute(request);
         InputStream is = response.getEntity().getContent();
@@ -64,12 +62,12 @@ class XbmcHttpConnector implements XbmcConnector {
         return drawable;
 	}
 	
-	private DefaultHttpClient createHttpClient(XbmcConnection connection){
+	private DefaultHttpClient createHttpClient(){
 		DefaultHttpClient client = new DefaultHttpClient();
 		client.setHttpRequestRetryHandler(new HttpRequestRetryHandlerImpl());
 		client.getCredentialsProvider().setCredentials(
 				new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT),
-				new UsernamePasswordCredentials(connection.getUsername(), connection.getPassword()));
+				new UsernamePasswordCredentials(this.connection.getUsername(), this.connection.getPassword()));
 		
 		HttpConnectionParams.setConnectionTimeout(client.getParams(), CONNECTION_TIMEOUT);
 		return client;

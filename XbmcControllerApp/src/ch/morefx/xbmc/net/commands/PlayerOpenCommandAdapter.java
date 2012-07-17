@@ -4,7 +4,6 @@ import ch.morefx.xbmc.model.Album;
 import ch.morefx.xbmc.model.Artist;
 import ch.morefx.xbmc.model.FileSource;
 import ch.morefx.xbmc.model.Movie;
-import ch.morefx.xbmc.model.Playlist;
 import ch.morefx.xbmc.model.Song;
 import ch.morefx.xbmc.util.Check;
 
@@ -125,8 +124,7 @@ public class PlayerOpenCommandAdapter extends JsonCommand{
 		@Override
 		void prepareCommand(JsonCommandBuilder builder) {
 			CommandItemSet itemSet = new CommandItemSet();
-			itemSet.add("playlistid", Playlist.Audio.getPlaylistId());
-			itemSet.add("position", song.getPosition());
+			itemSet.add("songid", song.getSongId());
 			builder.addParams(itemSet);
 		}
 	}
