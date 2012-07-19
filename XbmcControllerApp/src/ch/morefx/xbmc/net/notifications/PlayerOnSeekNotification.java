@@ -1,6 +1,5 @@
 package ch.morefx.xbmc.net.notifications;
 
-import ch.morefx.xbmc.ResourceProvider;
 import ch.morefx.xbmc.XbmcConnection;
 
 /**
@@ -12,7 +11,7 @@ public class PlayerOnSeekNotification extends XbmcNotification{
 	public static final String METHOD = "Player.OnSeek";
 	
 	@Override
-	public String handle(XbmcConnection connection, ResourceProvider resourceprovider) {
+	public String handle(XbmcConnection connection) {
 		return PLAYER_UPDATE;
 	}
 }

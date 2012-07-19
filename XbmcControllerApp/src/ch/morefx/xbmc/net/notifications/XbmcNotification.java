@@ -3,7 +3,6 @@ package ch.morefx.xbmc.net.notifications;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import ch.morefx.xbmc.ResourceProvider;
 import ch.morefx.xbmc.XbmcConnection;
 import ch.morefx.xbmc.XbmcExceptionHandler;
 import ch.morefx.xbmc.util.Check;
@@ -86,7 +85,7 @@ public abstract class XbmcNotification
 	}
 
 		
-	public abstract String handle(XbmcConnection connection, ResourceProvider resourceprovider);
+	public abstract String handle(XbmcConnection connection);
 	
 	@Override
 	public String toString() {

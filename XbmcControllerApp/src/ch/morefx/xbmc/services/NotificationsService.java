@@ -6,19 +6,16 @@ import java.io.InputStreamReader;
 import java.net.Socket;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.IBinder;
 import android.util.Log;
 import ch.morefx.xbmc.BuildConfig;
-import ch.morefx.xbmc.ResourceProvider;
 import ch.morefx.xbmc.XbmcConnection;
 import ch.morefx.xbmc.XbmcExceptionHandler;
 import ch.morefx.xbmc.net.notifications.Notification;
 import ch.morefx.xbmc.net.notifications.NotificationParser;
 import ch.morefx.xbmc.net.notifications.NotificationParserException;
 
-public class NotificationsService extends XbmcService
-	implements ResourceProvider {
+public class NotificationsService extends XbmcService {
 	
 	private static final String TAG = NotificationsService.class.getName();
 	
@@ -73,7 +70,7 @@ public class NotificationsService extends XbmcService
 					}
 					
 					Notification notification = NotificationParser.parse(msg);
-					String action = notification.handle(connection, NotificationsService.this);
+					String action = notification.handle(connection);
 					if (!Notification.NONE.equals(action)){
 						sendBroadcast(new Intent(action));
 						
@@ -139,9 +136,5 @@ public class NotificationsService extends XbmcService
 	@Override
 	public IBinder onBind(Intent arg0) {
 		return null;
-	}
-	
-	public Drawable getDrawable(int resourceId){
-		return getResources().getDrawable(resourceId);
 	}
 }

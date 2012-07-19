@@ -1,6 +1,5 @@
 package ch.morefx.xbmc.net.notifications;
 
-import ch.morefx.xbmc.ResourceProvider;
 import ch.morefx.xbmc.XbmcConnection;
 
 public interface Notification {
@@ -12,5 +11,5 @@ public interface Notification {
 	public static final String NOTIFICATION_PARSER_ERROR = "ch.morefx.xbmc.net.notifications.NOTIFICATION_PARSER_ERROR";
 	
 	
-	String handle(XbmcConnection connection, ResourceProvider resourceprovider);
+	String handle(XbmcConnection connection);
 }

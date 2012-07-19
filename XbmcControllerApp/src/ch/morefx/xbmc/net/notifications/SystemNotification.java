@@ -1,6 +1,5 @@
 package ch.morefx.xbmc.net.notifications;
 
-import ch.morefx.xbmc.ResourceProvider;
 import ch.morefx.xbmc.XbmcConnection;
 
 /**
@@ -16,7 +15,7 @@ public class SystemNotification extends XbmcNotification {
 	}
 	
 	@Override
-	public String handle(XbmcConnection connection, ResourceProvider resourceprovider) {
+	public String handle(XbmcConnection connection) {
 		if (connection.getAudioPlayer().isActive()){
 			connection.getAudioPlayer().disable();
 			return CONNECTION_LOST;

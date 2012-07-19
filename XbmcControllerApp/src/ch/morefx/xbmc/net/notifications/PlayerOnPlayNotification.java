@@ -1,6 +1,5 @@
 package ch.morefx.xbmc.net.notifications;
 
-import ch.morefx.xbmc.ResourceProvider;
 import ch.morefx.xbmc.XbmcConnection;
 import ch.morefx.xbmc.model.Song;
 import ch.morefx.xbmc.net.CommandExecutorAdapter;
@@ -15,16 +14,16 @@ public class PlayerOnPlayNotification extends XbmcNotification {
 	public static final String METHOD = "Player.OnPlay";
 	
 	@Override
-	public String handle(XbmcConnection connection, ResourceProvider resourceprovider) {
+	public String handle(XbmcConnection connection) {
 
 		if (isSong()){
-			return handleSongNortification(connection, resourceprovider);
+			return handleSongNortification(connection);
 		}
 		
 		return NONE;
 	}
 	
-	private String handleSongNortification(XbmcConnection connection, ResourceProvider resourceprovider){
+	private String handleSongNortification(XbmcConnection connection){
 
 		PlayerInfo info = getPlayerInfo();
 		if (info != null){
@@ -34,7 +33,6 @@ public class PlayerOnPlayNotification extends XbmcNotification {
 			executor.execute(command);
 			Song song = command.getSong();
 			
-			connection.loadThumbnail(song, resourceprovider);
 			connection.getAudioPlayer().updatePlayer(info.getPlayerId());
 			connection.getAudioPlayer().setPlaying(song);	
 			

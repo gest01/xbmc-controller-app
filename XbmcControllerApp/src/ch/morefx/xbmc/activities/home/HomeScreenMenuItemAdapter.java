@@ -8,6 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import ch.morefx.xbmc.R;
+import ch.morefx.xbmc.model.ThumbnailHolder;
+import ch.morefx.xbmc.util.ThumbnailLoader;
 
 public class HomeScreenMenuItemAdapter extends ArrayAdapter<HomeScreenMenuItem> {
 
@@ -37,9 +39,19 @@ public class HomeScreenMenuItemAdapter extends ArrayAdapter<HomeScreenMenuItem> 
 		HomeScreenMenuItem mnuItem = getItem(position);
 		holder.title.setText(mnuItem.getTitle());
 		holder.detail.setText(mnuItem.getDescription());
-		holder.image.setImageDrawable(mnuItem.getIconDrawable());
+		
+		if (mnuItem.getIconDrawable() != null){
+			holder.image.setImageDrawable(mnuItem.getIconDrawable());	
+		} else if (mnuItem.getThumbnailHolder() != null){
+			loadThumbail(mnuItem.getThumbnailHolder(), holder.image);
+		}
 		
 		return convertView;
+	}
+	
+	private void loadThumbail(ThumbnailHolder holder, ImageView view){		
+		ThumbnailLoader loader = new ThumbnailLoader(holder, getContext());
+		loader.loadIntoView(view);
 	}
 	
   	private static class ViewHolder {

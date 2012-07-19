@@ -61,17 +61,13 @@ public class HomeScreenActivity extends XbmcListActivity {
 		items.add(new HomeScreenMenuItem(getResources().getDrawable(R.drawable.videolibrary), "Video Library", "Watch your Movies", new Intent(this, VideoActivity.class)));
 		items.add(new HomeScreenMenuItem(getResources().getDrawable(R.drawable.filebrowser), "File Browser", "Browse your Media Files", new Intent(this, SourceBrowserActivity.class)));
 		items.add(new HomeScreenMenuItem(getResources().getDrawable(R.drawable.remotecontrol), "Remote Control", "Control Xbmc", new Intent(this, RemoteControlActivity.class)));
-		
-		
 		items.add(new HomeScreenMenuItem(getResources().getDrawable(R.drawable.remotecontrol), "TEST TEST TEST", "TEST TEST TEST", new Intent(this, MytestActivity.class)));
-		
 		
 		
 		if (getAudioPlayer().isActive()) {
 			Song sucker = getAudioPlayer().getCurrentSong();
 			String s =  sucker.getAlbumString() + " - " + sucker.getLabel();
-				
-			items.add(new HomeScreenMenuItem(sucker.getThumbnail(), sucker.getArtistString(), s, new Intent(this, AudioPlayerActivity.class)));	
+			items.add(new HomeScreenMenuItem(sucker, sucker.getArtistString(), s, new Intent(this, AudioPlayerActivity.class)));
 		}
 		
 		this.adapter.clear();

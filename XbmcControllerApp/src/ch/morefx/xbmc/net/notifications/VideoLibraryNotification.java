@@ -1,6 +1,5 @@
 package ch.morefx.xbmc.net.notifications;
 
-import ch.morefx.xbmc.ResourceProvider;
 import ch.morefx.xbmc.XbmcConnection;
 
 /**
@@ -17,7 +16,7 @@ public class VideoLibraryNotification extends XbmcNotification {
 	}
 	
 	@Override
-	public String handle(XbmcConnection connection, ResourceProvider resourceprovider) {
+	public String handle(XbmcConnection connection) {
 		return XbmcNotification.VIDEO_LIBRARY_UPDATE;
 	}
 }
