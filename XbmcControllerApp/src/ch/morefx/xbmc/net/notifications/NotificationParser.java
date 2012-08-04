@@ -43,6 +43,9 @@ public class NotificationParser {
 		if (method.equals(PlayerOnSeekNotification.METHOD))
 			notification = new PlayerOnSeekNotification();
 		
+		if (method.equals(PlayerOnSpeedChangedNotification.METHOD))
+			notification = new PlayerOnSpeedChangedNotification();
+		
 		if ((VideoLibraryNotification.isVideoLibraryNotification(method)))
 			notification = new VideoLibraryNotification();
 		
