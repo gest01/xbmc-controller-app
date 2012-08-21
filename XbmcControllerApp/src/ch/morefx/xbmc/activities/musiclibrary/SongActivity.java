@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import ch.morefx.xbmc.activities.ContextMenuAdapter;
 import ch.morefx.xbmc.activities.ContextMenuAddToPlaylistActionCommand;
@@ -13,7 +14,7 @@ import ch.morefx.xbmc.model.Album;
 import ch.morefx.xbmc.model.Song;
 import ch.morefx.xbmc.model.loaders.SongLoader;
 import ch.morefx.xbmc.model.players.AudioPlayer;
-import ch.morefx.xbmc.util.Check;
+import ch.morefx.xbmc.util.ExtrasHelper;
 
 public final class SongActivity 
 	extends XbmcListActivity {
@@ -27,8 +28,7 @@ public final class SongActivity
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		album = (Album)getIntent().getExtras().getSerializable(EXTRA_ALBUM);
-		Check.notNull(album, "Album object missing from Intent extras");
+		album = ExtrasHelper.getExtra(this, EXTRA_ALBUM, Album.class);
 		
 		setTitle(album.getLabel());
 		
@@ -42,7 +42,11 @@ public final class SongActivity
 	
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+		AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+		Song song = (Song)super.getListAdapter().getItem(info.position);
+		
 		ContextMenuAdapter cmadapter = new ContextMenuAdapter(menu, this);
+		cmadapter.setTitle(song.toString());
 		cmadapter.add("Play song", new ContextMenuPlayItemActionCommand());
 		cmadapter.add("Add to playlist", new ContextMenuAddToPlaylistActionCommand());
 	}

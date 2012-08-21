@@ -9,6 +9,7 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import ch.morefx.xbmc.R;
@@ -52,7 +53,6 @@ public class ArtistActivity
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-//	//	super.onCreateOptionsMenu(menu);
 		
 		MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.searchview_in_menu, menu);
@@ -75,7 +75,11 @@ public class ArtistActivity
 	
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+		AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+		Artist artist = (Artist)super.getListAdapter().getItem(info.position);
+		
 		ContextMenuAdapter cmadapter = new ContextMenuAdapter(menu, this);
+		cmadapter.setTitle(artist.toString());
 		cmadapter.add("Show artist info", new ContextMenuShowArtistInfoActionCommand());
 		cmadapter.add("Play all titles", new ContextMenuPlayItemActionCommand());
 		cmadapter.add("Add to playlist", new ContextMenuAddToPlaylistActionCommand());
