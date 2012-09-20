@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     
-    <fragment android:name="ch.morefx.xbmc.preferences.ApplicationPreferenceFragment"
+    <fragment android:name="ch.morefx.xbmc.activities.preferences.ApplicationPreferenceFragment"
             android:id="@+id/application_preference_fragment"
             android:layout_weight="1"
             android:layout_width="match_parent"

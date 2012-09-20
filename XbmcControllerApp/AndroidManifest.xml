@@ -63,7 +63,7 @@
             android:icon="@drawable/audioibrary"
             android:label="Audio Player" />
         <activity
-            android:name=".preferences.ApplicationPreferenceActivity"
+            android:name=".activities.preferences.ApplicationPreferenceActivity"
             android:label="" />
         
     </application>

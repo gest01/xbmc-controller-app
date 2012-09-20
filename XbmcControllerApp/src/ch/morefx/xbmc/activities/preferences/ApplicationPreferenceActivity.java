@@ -1,4 +1,4 @@
-package ch.morefx.xbmc.preferences;
+package ch.morefx.xbmc.activities.preferences;
 
 import android.app.Activity;
 import android.os.Bundle;
