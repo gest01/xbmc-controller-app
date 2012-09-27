@@ -34,6 +34,6 @@ public class VideoActivity
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		Movie movie = (Movie)super.getListAdapter().getItem(position);
-		getVideoLibrary().playMovie(movie);
+		getVideoPlayer().playMovie(movie);
 	}
 }

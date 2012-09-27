@@ -44,10 +44,10 @@ public final class JsonCommandExecutor
 				return;
 			}
 			
-			if (responseString.contains("error")) {
-				Log.e(TAG, "ERROR  : " + responseString);
-				return;
-			}
+//			if (responseString.trim().contains("error")) {
+//				Log.e(TAG, "ERROR  : " + responseString);
+//				return;
+//			}
 			
 			JSONObject jsonResponse = new JSONObject(responseString);		
 			if (!jsonResponse.isNull("result")) {

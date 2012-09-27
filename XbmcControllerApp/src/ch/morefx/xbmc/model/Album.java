@@ -13,6 +13,7 @@ public class Album extends LibraryItem
     private String thumbnail;
     private int albumid;
     private Artist relatedArtist;
+     
     
     public Album(Artist artist) {
     	this.relatedArtist = artist;

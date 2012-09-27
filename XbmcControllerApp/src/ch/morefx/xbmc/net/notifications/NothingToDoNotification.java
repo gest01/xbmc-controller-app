@@ -13,11 +13,14 @@ public class NothingToDoNotification extends XbmcNotification{
 	private static final String SystemOnSleep = "System.OnSleep";
 	private static final String SystemOnWake = "System.OnWake";
 	
+	private static final String AudioLibraryOnUpdate = "AudioLibrary.OnUpdate";
+	
 	public static boolean isNothingToDo(String method){
 		return method.equals(GUIOnScreensaverActivated)
 			|| method.equals(GUIOnScreensaverDeactivated)
 			|| method.equals(SystemOnSleep)
-			|| method.equals(SystemOnWake);
+			|| method.equals(SystemOnWake)
+			|| method.equals(AudioLibraryOnUpdate);
 	}
 	
 	@Override

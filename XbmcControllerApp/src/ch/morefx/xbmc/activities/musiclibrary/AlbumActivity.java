@@ -10,7 +10,7 @@ import android.widget.ListView;
 import ch.morefx.xbmc.activities.ContextMenuAdapter;
 import ch.morefx.xbmc.activities.ContextMenuAddToPlaylistActionCommand;
 import ch.morefx.xbmc.activities.ContextMenuPlayItemActionCommand;
-import ch.morefx.xbmc.activities.ContextMenuShowArtistInfoActionCommand;
+import ch.morefx.xbmc.activities.ContextMenuShowAlbumInfoActionCommand;
 import ch.morefx.xbmc.activities.XbmcListActivity;
 import ch.morefx.xbmc.model.Album;
 import ch.morefx.xbmc.model.Artist;
@@ -48,7 +48,7 @@ public class AlbumActivity
 		
 		ContextMenuAdapter cmadapter = new ContextMenuAdapter(menu, this);
 		cmadapter.setTitle(album.getArtist().toString() + " (" + album.toString() + ")");
-		cmadapter.add("Show album info", new ContextMenuShowArtistInfoActionCommand());
+		cmadapter.add("Show album info", new ContextMenuShowAlbumInfoActionCommand());
 		cmadapter.add("Play all songs", new ContextMenuPlayItemActionCommand());
 		cmadapter.add("Add to playlist", new ContextMenuAddToPlaylistActionCommand());
 	}

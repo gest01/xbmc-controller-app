@@ -105,7 +105,7 @@ public class XbmcConnection implements Serializable {
 	 */
 	public AudioLibrary getAudioLibrary(){
 		if (this.audioLibrary == null){
-			this.audioLibrary = new AudioLibrary(getAudioPlayer());
+			this.audioLibrary = new AudioLibrary(getConnector());
 		}
 		
 		return this.audioLibrary;
@@ -152,7 +152,7 @@ public class XbmcConnection implements Serializable {
 	 */
 	public VideoLibrary getVideoLibrary(){
 		if (this.videoLibrary == null){
-			this.videoLibrary = new VideoLibrary(getVideoPlayer());
+			this.videoLibrary = new VideoLibrary(getConnector());
 		}
 		
 		return this.videoLibrary;

@@ -1,17 +1,22 @@
 
 
 * Kontext Menus
-	- Play Album, Artist, 
 	- Song Info, Album Info, Artist Info
 	- Exclude/ReScan from Library
 	
+* Eigene Playlist zusammenstellen und lokal abspeichern 
+ 	- Playlist mit custom name erstellen
+ 	- Pro Playlist die dazugehörenden Albums / Songs anzeigen und löschen
+ 	- Pro Playlist neue Albums / Songs hinzufügen
+ 	- Hinzufügen über ContextMenu -> Playlist -> List aller Playlists anzeigen -> Auswählen
+	
+* Genre Tag Cloud Browser
+    - Filtern/Suchen nach Genre
 	
 * UI
     - Ansicht wie bei Google Reader / Google Mail
 	- Grössere Albenansicht
 	- Grösserer HomeScreen
-	- Logoff Funktion einbauen
-	- .. - Funktionalität
 	- Navigation ist nicht optimal
 		- http://developer.android.com/design/patterns/navigation.html
 	- Android icon als UP/Back Button
@@ -21,9 +26,9 @@
 		- http://android-developers.blogspot.com/2011/08/horizontal-view-swiping-with-viewpager.html
 		 
 	
+		 
+	
 * Notification Service
-	- Connection Lost 
-	- Song / Album / Artist Update Event geht nicht so richtig
 	- Beim Start muss der aktuelle Song / album etc ausgelesen werden
 	
 	

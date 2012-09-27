@@ -1,10 +1,11 @@
 package ch.morefx.xbmc.net;
 
+import android.os.Handler;
 import ch.morefx.xbmc.XbmcExceptionHandler;
 import ch.morefx.xbmc.net.commands.JsonCommand;
 import ch.morefx.xbmc.util.Check;
 
-final class AsyncJsonCommandExecutor {
+public final class AsyncJsonCommandExecutor {
 	
 	private static final String TAG ="AsyncJsonCommandExecutor";
 	
@@ -19,6 +20,24 @@ final class AsyncJsonCommandExecutor {
 		Check.argumentNotNull(command, "command");
 		
 		executeAsync(command, false);
+	}
+	
+	public void execute(final JsonCommand command, final Handler handler){
+		Check.argumentNotNull(command, "command");
+		Check.argumentNotNull(handler, "handler");
+		
+		Thread executionScope = new Thread(new Runnable() {
+			public void run() {
+				try {
+					executor.execute(command);
+					handler.sendEmptyMessage(0);
+				} catch(CommandExecutorException cex){
+					XbmcExceptionHandler.handleException(TAG, "*** InterruptedException ***", cex);
+				}
+			}
+		});
+		
+		executionScope.start();
 	}
 	
 	public void execute(JsonCommand ... commands){

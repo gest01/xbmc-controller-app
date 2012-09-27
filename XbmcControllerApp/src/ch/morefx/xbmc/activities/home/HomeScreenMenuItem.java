@@ -1,8 +1,8 @@
 package ch.morefx.xbmc.activities.home;
 
-import ch.morefx.xbmc.model.ThumbnailHolder;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import ch.morefx.xbmc.model.ThumbnailHolder;
 
 public class HomeScreenMenuItem {
 	

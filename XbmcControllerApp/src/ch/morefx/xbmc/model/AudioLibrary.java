@@ -2,13 +2,10 @@ package ch.morefx.xbmc.model;
 
 import java.util.List;
 
-import ch.morefx.xbmc.model.players.AudioPlayer;
+import ch.morefx.xbmc.net.XbmcConnector;
 import ch.morefx.xbmc.net.commands.AudioLibraryGetAlbumsCommand;
 import ch.morefx.xbmc.net.commands.AudioLibraryGetArtistsCommand;
 import ch.morefx.xbmc.net.commands.AudioLibraryGetSongsCommand;
-import ch.morefx.xbmc.net.commands.PlayerOpenCommandAdapter;
-import ch.morefx.xbmc.net.commands.PlaylistAddCommand;
-import ch.morefx.xbmc.net.commands.PlaylistClearCommand;
 import ch.morefx.xbmc.util.Check;
 
 /**
@@ -16,65 +13,14 @@ import ch.morefx.xbmc.util.Check;
  */
 public final class AudioLibrary extends XbmcLibrary {
 
-	
-	private AudioPlayer audioplayer;
-
 	/**
 	 * 
-	 * @param player
+	 * @param connector
 	 */
-	public AudioLibrary(AudioPlayer player) {
-		super(player);
-		
-		Check.argumentNotNull(player, "player");
-		this.audioplayer = player;
-	}
-	
-	
-	/**
-	 * Starts playing all albums and songs of a specific artist without adding into a new Playlist.
-	 * @param artist The Artist to play.
-	 */
-	public void play(Artist artist){
-		Check.argumentNotNull(artist, "artist");
-		
-		executeAsync(new PlayerOpenCommandAdapter(artist));
-	}
-	
-	/**
-	 * Starts playing all songs from a specific album without adding into a new Playlist.
-	 * @param album The album to play.
-	 */
-	public void play(Album album){
-		Check.argumentNotNull(album, "album");
-		
-		executeAsync(new PlayerOpenCommandAdapter(album));
+	public AudioLibrary(XbmcConnector connector) {
+		super(connector);
 	}
 
-	/**
-	 * Starts playing a specific song
-	 * @param song The song to play
-	 */
-	public void play(Song song){
-		Check.argumentNotNull(song, "song");
-		executeAsync(new PlaylistClearCommand(Playlist.Audio),
-					 new PlaylistAddCommand(song.getAlbum()),
-					 new PlayerOpenCommandAdapter(song));
-		
-		this.audioplayer.setPlaying(song);
-	}
-	
-	/**
-	 * 
-	 * @param filesource
-	 */
-	public void playSong(FileSource filesource) {
-		Check.argumentNotNull(filesource, "filesource");
-		
-		executeAsync(new PlaylistClearCommand(Playlist.Audio),
-				     new PlaylistAddCommand(filesource),
-				     new PlayerOpenCommandAdapter(filesource));
-	}
 
 	
 	/**

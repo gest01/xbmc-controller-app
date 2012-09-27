@@ -2,12 +2,23 @@ package ch.morefx.xbmc.model;
 
 import java.io.Serializable;
 
+import android.graphics.drawable.Drawable;
+
 public class Artist extends LibraryItem 
-	implements Serializable {
+	implements Serializable, ThumbnailHolder {
 
 	private static final long serialVersionUID = 1L;
 	
 	private int artistid;
+	private String thumbnail;
+	private String fanart;
+	private String formed;
+	private String description;
+	private String mood;
+	private String died;
+	private String instrument, style, genre;
+	
+	
 	
 	@Override
 	public int getId() {
@@ -18,9 +29,33 @@ public class Artist extends LibraryItem
 		return this.artistid;
 	}
 	
+	public String getDescription(){
+		return this.description;
+	}
+	
 	@Override
 	public String getLabel() {
 		return label;
+	}
+	
+    // Marked as transient due activity transition
+    private transient Drawable drawableThumbnail;
+	
+	public Drawable getThumbnail() {
+		return this.drawableThumbnail;
+	}
+	
+	public int getThumbnailFallbackResourceId() {
+		return ch.morefx.xbmc.R.drawable.cdicon;
+	}
+	
+	public String getThumbnailUri() {
+		return thumbnail;
+	}
+	
+	public void setThumbnail(Drawable thumbail) {
+		this.drawableThumbnail = thumbail;
+		
 	}
 	
 

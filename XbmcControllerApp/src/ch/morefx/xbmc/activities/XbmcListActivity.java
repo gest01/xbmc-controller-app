@@ -15,6 +15,7 @@ import ch.morefx.xbmc.activities.preferences.ApplicationPreferenceActivity;
 import ch.morefx.xbmc.model.AudioLibrary;
 import ch.morefx.xbmc.model.VideoLibrary;
 import ch.morefx.xbmc.model.players.AudioPlayer;
+import ch.morefx.xbmc.model.players.VideoPlayer;
 import ch.morefx.xbmc.model.remotecontrol.RemoteController;
 import ch.morefx.xbmc.services.NotificationBroadcastReceiver;
 import ch.morefx.xbmc.services.NotificationListener;
@@ -113,6 +114,10 @@ public class XbmcListActivity extends ListActivity
 
 	public VideoLibrary getVideoLibrary() {
 		return XbmcRemoteControlApplication.getInstance().getCurrentConnection().getVideoLibrary();
+	}
+	
+	public VideoPlayer getVideoPlayer() {
+		return XbmcRemoteControlApplication.getInstance().getCurrentConnection().getVideoPlayer();
 	}
 
 	public Context getContext() {
