@@ -3,6 +3,7 @@ package ch.morefx.xbmc.util;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
+import android.view.View;
 import android.widget.ImageView;
 import ch.morefx.xbmc.ContextResourceProvider;
 import ch.morefx.xbmc.XbmcConnection;
@@ -38,6 +39,21 @@ public final class ThumbnailLoader {
 		Handler handler = new Handler(){
 			@Override public void handleMessage(Message msg) {
 				view.setImageDrawable(holder.getThumbnail());
+			}
+		};
+		
+		loadThumbnailAsync(handler);
+	}
+	
+	
+	/**
+	 * Loads a thumbnail and set the result into the View as background 
+	 * @param view The View that holds the Thumbnailas background
+	 */
+	public void loadIntoView(final View view){
+		Handler handler = new Handler(){
+			@Override public void handleMessage(Message msg) {
+				view.setBackgroundDrawable(holder.getThumbnail());
 			}
 		};
 		

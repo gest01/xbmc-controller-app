@@ -6,4 +6,23 @@
          android:showAsAction="always" 
          android:enabled="true"
          android:actionViewClass="android.widget.SearchView" />
+    
+    
+    
+    <item
+        android:id="@+id/mnu_settings"
+        android:icon="@android:drawable/ic_menu_preferences"
+        android:title="@string/mnu_settings"/>
+    
+    <item
+        android:id="@+id/mnu_close_connection"
+        android:icon="@android:drawable/ic_menu_preferences"
+        android:title="@string/mnu_close_connection"/>
+    
+      <item
+        android:id="@+id/mnu_home"
+        android:icon="@drawable/ic_menu_home"
+        android:title="@string/mnu_home"/>
+      
+      
 </menu>

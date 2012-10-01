@@ -4,6 +4,11 @@
 	- Song Info, Album Info, Artist Info
 	- Exclude/ReScan from Library
 	
+	
+* Aktuelle Playlist anzeigen 
+	-> von KontextMenau -> Add to Playlisrt
+	
+	
 * Eigene Playlist zusammenstellen und lokal abspeichern 
  	- Playlist mit custom name erstellen
  	- Pro Playlist die dazugehörenden Albums / Songs anzeigen und löschen

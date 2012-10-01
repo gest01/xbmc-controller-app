@@ -1,9 +1,11 @@
 package ch.morefx.xbmc.activities;
 
 import android.app.ListActivity;
+import android.app.ListFragment;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
+import ch.morefx.xbmc.activities.testing.ListAdapterProvider;
 
 public abstract class ContextMenuListAdapterActionCommand implements ContextMenuAction{
 
@@ -20,8 +22,16 @@ public abstract class ContextMenuListAdapterActionCommand implements ContextMenu
 	
 	private ListAdapter getListAdapter(IXbmcActivity activity){
 		if (listadaper == null){
+			if (activity instanceof ListAdapterProvider){
+				listadaper = ((ListAdapterProvider)activity).getListAdapter();
+			}
+			
 			if (activity instanceof ListActivity){
-				listadaper =  ((ListActivity)activity).getListAdapter();
+				listadaper = ((ListActivity)activity).getListAdapter();
+			}
+			
+			if (activity instanceof ListFragment){
+				listadaper = ((ListFragment)activity).getListAdapter();
 			}
 		}
 		

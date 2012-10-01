@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:padding="6dip"
+  android:background="@drawable/my_border">
+  
+    <ImageView
+      android:id="@+id/image"
+      android:layout_width="180dip"
+      android:layout_height="180dip"
+      android:layout_centerInParent="true" />
+    
+    <TextView
+      android:id="@+id/title"
+      android:textSize="12sp"
+      android:textStyle="bold"
+      android:paddingTop="15dp"
+      android:layout_width="match_parent"
+      android:layout_height="fill_parent"
+      android:layout_below="@id/image"
+      android:singleLine="true"
+      android:gravity="center_horizontal"/>
+
+</RelativeLayout>

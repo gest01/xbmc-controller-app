@@ -11,7 +11,6 @@
     <string name="no_connection">No xbmc connection</string>
     <string name="no_connection_create_new">Do you want to create a new connection?</string>
     <string name="xbmc_connection_new">New Xbmc Connection</string>
-    
     <string name="connection_name">Name</string>
     <string name="connection_name_hint">User friendly name</string>
     <string name="connection_host">Host</string>
@@ -21,7 +20,6 @@
     <string name="connection_username">Username</string>
     <string name="connection_password">Password</string>
     <string name="connection_isdefault">Default xbmc connection</string>
-    
     <string name="connection_username_is_required">Username is required</string>
     <string name="connection_password_is_required">Password is required</string>
     <string name="connection_host_is_required">Host is required</string>
@@ -36,5 +34,9 @@
     <string name="mnu_home">Home</string>
     <string name="connection_mac_hint">MAC address</string>
     <string name="connection_mac_address">MAC Address</string>
-    
+    <string name="title_artist_detail">Artist Detail</string>
+    <string name="title_artist_list">Items</string>
+    <string name="title_testartist_detail">TestArtist Detail</string>
+    <string name="title_testartist_list">TestArtists</string>
+
 </resources>

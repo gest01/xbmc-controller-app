@@ -1,18 +1,49 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:id="@+id/layout_root"
-              android:orientation="horizontal"
-              android:layout_width="fill_parent"
-              android:layout_height="fill_parent"
-              android:padding="10dp"
-              >
-    <ImageView android:id="@+id/image"
-               android:layout_width="wrap_content"
-               android:layout_height="fill_parent"
-               android:layout_marginRight="10dp"
-               />
-    <TextView android:id="@+id/text"
-              android:layout_width="wrap_content"
-              android:layout_height="fill_parent"
-              android:textColor="#FFF"
-              />
+    android:id="@+id/layout_root"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal"
+    android:padding="10dp" >
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_marginRight="10dp"
+        android:maxHeight="250px"
+        android:maxWidth="250px"
+        
+        android:adjustViewBounds="true"
+        
+        android:scaleType="centerInside" />
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:textColor="#FFF" />
+
+    
+    
+    
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"  
+		    android:layout_width="fill_parent" android:layout_height="fill_parent"  
+		    android:orientation="vertical">  
+		    <TextView android:text="RED" android:id="@+id/TextView01"  
+		        android:layout_height="wrap_content" android:background="#f00"  
+		        android:layout_width="fill_parent" android:layout_weight=".14"  
+		        android:gravity="center" android:textColor="#000"></TextView>  
+		    <TextView android:text="ORANGE" android:id="@+id/TextView02"  
+		        android:layout_height="wrap_content" android:layout_width="fill_parent"  
+		        android:layout_weight=".15" android:background="#ffa500"  
+		        android:gravity="center" android:textColor="#000"></TextView>  
+		    <TextView android:text="YELLOW" android:id="@+id/TextView03"  
+		        android:layout_height="wrap_content" android:layout_width="fill_parent"  
+		        android:layout_weight=".14" android:background="#ffff00"  
+		        android:gravity="center" android:textColor="#000"></TextView>  
+		  
+		</LinearLayout>  
+		    
+    
+    
 </LinearLayout>
