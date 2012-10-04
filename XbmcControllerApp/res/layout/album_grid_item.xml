@@ -4,7 +4,7 @@
   android:layout_width="fill_parent"
   android:layout_height="fill_parent"
   android:padding="6dip"
-  android:background="@drawable/my_border">
+  android:background="@drawable/album_border">
   
     <ImageView
       android:id="@+id/image"

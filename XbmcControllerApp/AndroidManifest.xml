@@ -74,6 +74,15 @@
                 android:value="ch.morefx.xbmc.activities.testing.MytestActivity" />
         </activity>
         
+        
+        <activity
+            android:name=".activities.testing.MasterDetailActivity"
+            android:label="HELL WORLD" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ch.morefx.xbmc.activities.home.HomeScreenActivity" />
+        </activity>
+        
     </application>
 
 </manifest>

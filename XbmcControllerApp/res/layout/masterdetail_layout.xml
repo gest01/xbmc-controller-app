@@ -6,17 +6,14 @@
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     android:divider="?android:attr/dividerHorizontal"
-    android:showDividers="middle"
-    tools:context=".TestArtistListActivity">
+    android:showDividers="middle">
 
-    <fragment android:name="ch.morefx.xbmc.activities.testing.TestArtistListFragment"
-        android:id="@+id/testartist_list"
+    <FrameLayout android:id="@+id/master_container"
         android:layout_width="180dp"
         android:layout_height="match_parent"
         android:layout_weight="1" />
 
-
-    <FrameLayout android:id="@+id/testartist_detail_container"
+    <FrameLayout android:id="@+id/detail_container"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="3" />

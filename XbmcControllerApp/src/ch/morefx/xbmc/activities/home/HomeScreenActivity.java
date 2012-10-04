@@ -11,6 +11,7 @@ import ch.morefx.xbmc.activities.XbmcListActivity;
 import ch.morefx.xbmc.activities.musiclibrary.ArtistActivity;
 import ch.morefx.xbmc.activities.players.AudioPlayerActivity;
 import ch.morefx.xbmc.activities.sourcebrowser.SourceBrowserActivity;
+import ch.morefx.xbmc.activities.testing.MasterDetailActivity;
 import ch.morefx.xbmc.activities.testing.TestArtistListActivity;
 import ch.morefx.xbmc.activities.videolibrary.VideoActivity;
 import ch.morefx.xbmc.model.Song;
@@ -62,6 +63,9 @@ public class HomeScreenActivity extends XbmcListActivity {
 		items.add(new HomeScreenMenuItem(getResources().getDrawable(R.drawable.filebrowser), "File Browser", "Browse your Media Files", new Intent(this, SourceBrowserActivity.class)));
 		items.add(new HomeScreenMenuItem(getResources().getDrawable(R.drawable.remotecontrol), "Remote Control", "Control Xbmc", new Intent(this, RemoteControlActivity.class)));
 		items.add(new HomeScreenMenuItem(getResources().getDrawable(R.drawable.remotecontrol), "TEST TEST TEST", "TEST TEST TEST", new Intent(this, TestArtistListActivity.class)));
+		
+		items.add(new HomeScreenMenuItem(getResources().getDrawable(R.drawable.remotecontrol), "MasterDetail", "MasterDetail", new Intent(this, MasterDetailActivity.class)));
+		
 		
 		
 		if (getAudioPlayer().isActive()) {

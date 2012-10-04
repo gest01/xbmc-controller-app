@@ -18,6 +18,7 @@ import ch.morefx.xbmc.activities.ContextMenuPlayItemActionCommand;
 import ch.morefx.xbmc.activities.ContextMenuShowArtistInfoActionCommand;
 import ch.morefx.xbmc.activities.IXbmcActivity;
 import ch.morefx.xbmc.activities.musiclibrary.ArtistArrayAdapter;
+import ch.morefx.xbmc.model.Album;
 import ch.morefx.xbmc.model.Artist;
 import ch.morefx.xbmc.model.loaders.ArtistLoader;
 
@@ -35,6 +36,11 @@ public class TestArtistListFragment extends ListFragment
     public interface Callbacks {
 
         public void onItemSelected(Artist artist);
+    }
+    
+    public interface Callbacks2 extends Callbacks {
+
+        public void onItemSelected(Album album);
     }
 
     @Override

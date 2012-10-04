@@ -11,12 +11,12 @@ public class Artist extends LibraryItem
 	
 	private int artistid;
 	private String thumbnail;
-	private String fanart;
-	private String formed;
 	private String description;
-	private String mood;
-	private String died;
-	private String instrument, style, genre;
+//	private String mood;
+//	private String died;
+//	private String instrument, style, genre;
+//	private String fanart;
+//	private String formed;
 	
 	
 	
