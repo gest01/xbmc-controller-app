@@ -18,31 +18,21 @@ import ch.morefx.xbmc.activities.ContextMenuPlayItemActionCommand;
 import ch.morefx.xbmc.activities.ContextMenuShowArtistInfoActionCommand;
 import ch.morefx.xbmc.activities.IXbmcActivity;
 import ch.morefx.xbmc.activities.musiclibrary.ArtistArrayAdapter;
-import ch.morefx.xbmc.model.Album;
 import ch.morefx.xbmc.model.Artist;
 import ch.morefx.xbmc.model.loaders.ArtistLoader;
 
-public class TestArtistListFragment extends ListFragment 
+public class ArtistListFragment extends ListFragment 
 	implements IXbmcActivity{
 
     private static final String STATE_ACTIVATED_POSITION = "activated_position";
 
-    private Callbacks mCallbacks;
-    private int mActivatedPosition = ListView.INVALID_POSITION;
-
-    
+    private AudioItemSelectionCallback selectionCallback;
     private ArtistArrayAdapter adapter;
     
-    public interface Callbacks {
-
-        public void onItemSelected(Artist artist);
-    }
+    private int mActivatedPosition = ListView.INVALID_POSITION;
     
-    public interface Callbacks2 extends Callbacks {
-
-        public void onItemSelected(Album album);
-    }
-
+    
+   
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,11 +57,12 @@ public class TestArtistListFragment extends ListFragment
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        if (!(activity instanceof Callbacks)) {
+        
+        if (!(activity instanceof AudioItemSelectionCallback)) {
             throw new IllegalStateException("Activity must implement fragment's callbacks.");
         }
 
-        mCallbacks = (Callbacks) activity;
+        selectionCallback = (AudioItemSelectionCallback) activity;
     }
     
 	public void onPlayerUpdate() {
@@ -94,7 +85,7 @@ public class TestArtistListFragment extends ListFragment
     @Override
     public void onListItemClick(ListView listView, View view, int position, long id) {
 		Artist artist = (Artist)super.getListAdapter().getItem(position);
-		mCallbacks.onItemSelected(artist);
+		selectionCallback.onItemSelected(artist);
     }
 
     @Override

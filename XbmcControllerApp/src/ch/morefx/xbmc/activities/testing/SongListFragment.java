@@ -58,12 +58,8 @@ public class SongListFragment extends ListFragment
 
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-		
-		super.onCreateContextMenu(menu, v, menuInfo);
-		
 		AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
 		Song song = (Song)super.getListAdapter().getItem(info.position);
-		
 		ContextMenuAdapter cmadapter = new ContextMenuAdapter(menu, this);
 		cmadapter.setTitle(song.toString());
 		cmadapter.add("Play song", new ContextMenuPlayItemActionCommand());

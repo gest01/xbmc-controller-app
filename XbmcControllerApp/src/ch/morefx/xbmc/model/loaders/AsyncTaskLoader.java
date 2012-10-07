@@ -19,6 +19,8 @@ public abstract class AsyncTaskLoader<Params, Progress, Result>
 	private Context context;
 	private PostExecuteHandler<Result> handler;
 	
+	private AsyncTaskCompleteListener<Result> callback;
+	
 	AsyncTaskLoader(Context context) {
 		this.context = context;
 	}
@@ -34,6 +36,17 @@ public abstract class AsyncTaskLoader<Params, Progress, Result>
 	public AsyncTaskLoader<Params, Progress, Result> setPostExecuteHandler(PostExecuteHandler<Result> handler){
 		this.handler = handler;
 		return this;
+	}
+	
+	public AsyncTaskLoader<Params, Progress, Result> setOnTaskCompleteListener(AsyncTaskCompleteListener<Result> callback){
+		this.callback = callback;
+		return this;
+	}
+	
+	protected void fireOnTaskComplete(Result result){
+		if (this.callback != null){
+			this.callback.onTaskComplete(result);
+		}
 	}
 	
 	protected void onPostExecute(Result result) {

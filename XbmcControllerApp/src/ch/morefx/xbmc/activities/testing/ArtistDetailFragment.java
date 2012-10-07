@@ -2,7 +2,6 @@ package ch.morefx.xbmc.activities.testing;
 
 import android.app.Activity;
 import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -22,30 +21,21 @@ import ch.morefx.xbmc.activities.ContextMenuAddToPlaylistActionCommand;
 import ch.morefx.xbmc.activities.ContextMenuPlayItemActionCommand;
 import ch.morefx.xbmc.activities.ContextMenuShowAlbumInfoActionCommand;
 import ch.morefx.xbmc.activities.IXbmcActivity;
-import ch.morefx.xbmc.activities.testing.TestArtistListFragment.Callbacks2;
+import ch.morefx.xbmc.activities.musiclibrary.AlbumArrayAdapter;
 import ch.morefx.xbmc.model.Album;
 import ch.morefx.xbmc.model.Artist;
 import ch.morefx.xbmc.model.loaders.AlbumLoader;
+import ch.morefx.xbmc.util.CastHelper;
 import ch.morefx.xbmc.util.Check;
 import ch.morefx.xbmc.util.ExtrasHelper;
 
-public class TestArtistDetailFragment extends Fragment 
+public class ArtistDetailFragment extends Fragment 
 	implements IXbmcActivity, ListAdapterProvider {
 
     private static final String ARG_ARTIST = "arg_artist";
-
-    public static TestArtistDetailFragment newInstance(Artist artist){
-    	Check.argumentNotNull(artist, "artist");
-    	
-    	Bundle arguments = new Bundle();
-        arguments.putSerializable(ARG_ARTIST, artist);
-    	
-    	TestArtistDetailFragment fragment = new TestArtistDetailFragment();
-    	fragment.setArguments(arguments);
-    	return fragment;
-    }
-    
-    private AlbumArrayAdapter2 adapter;
+  
+    private AudioItemSelectionCallback selectionCallback;   
+    private AlbumArrayAdapter adapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -53,7 +43,10 @@ public class TestArtistDetailFragment extends Fragment
         
         GridView gridview = (GridView)rootView.findViewById(R.id.album_gridview);
         
-        adapter = new AlbumArrayAdapter2(getActivity(), android.R.layout.simple_list_item_1);
+        adapter = new AlbumArrayAdapter(getActivity(), 
+        		android.R.layout.simple_list_item_1, 
+        		R.layout.album_grid_item);
+        
         gridview.setAdapter(adapter);
         
         registerForContextMenu(gridview);
@@ -61,7 +54,7 @@ public class TestArtistDetailFragment extends Fragment
         gridview.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
             	Album album = adapter.getItem(position);
-            	arschpenner(album);
+            	selectionCallback.onItemSelected(album);
             }
         });
         
@@ -71,34 +64,10 @@ public class TestArtistDetailFragment extends Fragment
         return rootView;
     }
     
-    private void arschpenner(Album album){
-    	
-    	if (mCallbacks != null){
-    		mCallbacks.onItemSelected(album);
-    	} else {
-        	
-        	FragmentTransaction ft = getFragmentManager().beginTransaction();
-        	ft.setCustomAnimations(android.R.animator.fade_in, android.R.animator.fade_out);
-
-        	ft.replace( R.id.testartist_detail_container , new AlbumDetailFragment(), "detailFragment");
-
-        	// Start the animated transition.
-        	ft.commit();
-    	}
-
-    }
-    
-	
-	Callbacks2 mCallbacks;
-	
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        if (!(activity instanceof Callbacks2)) {
-            throw new IllegalStateException("Activity must implement fragment's callbacks.");
-        }
-
-        mCallbacks = (Callbacks2) activity;
+        selectionCallback = CastHelper.cast(activity, AudioItemSelectionCallback.class);
     }
     
 	@Override
@@ -126,4 +95,20 @@ public class TestArtistDetailFragment extends Fragment
 	public ListAdapter getListAdapter() {
 		return ((GridView)getView().findViewById(R.id.album_gridview)).getAdapter();
 	}
+	
+	/**
+	 * 
+	 * @param artist
+	 * @return
+	 */
+    public static ArtistDetailFragment newInstance(Artist artist){
+    	Check.argumentNotNull(artist, "artist");
+    	
+    	Bundle arguments = new Bundle();
+        arguments.putSerializable(ARG_ARTIST, artist);
+    	
+    	ArtistDetailFragment fragment = new ArtistDetailFragment();
+    	fragment.setArguments(arguments);
+    	return fragment;
+    }
 }

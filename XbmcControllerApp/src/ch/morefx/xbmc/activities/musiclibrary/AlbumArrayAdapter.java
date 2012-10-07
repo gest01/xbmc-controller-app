@@ -17,19 +17,25 @@ import ch.morefx.xbmc.model.players.AudioPlayer;
 public class AlbumArrayAdapter extends ArrayAdapter<Album>{
 	
 	private LayoutInflater inflater;
+	private int viewResourceId;
 	
 	public AlbumArrayAdapter(Context context, int textViewResourceId) {
-		super(context, textViewResourceId);
-		this.inflater = LayoutInflater.from(context);
+		this(context, textViewResourceId, R.layout.album_list_item);
 	}
 
+	public AlbumArrayAdapter(Context context, int textViewResourceId, int viewResourceId) {
+		super(context, textViewResourceId);
+		this.inflater = LayoutInflater.from(context);
+		this.viewResourceId = viewResourceId;
+	}
+	
 	
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder holder;
 		
 		if (convertView == null) {
-			convertView = this.inflater.inflate(R.layout.album_list_item, parent, false);
+			convertView = this.inflater.inflate(this.viewResourceId, parent, false);
 			holder = new ViewHolder();
 			holder.image = (ImageView) convertView.findViewById(R.id.image);
 			holder.title = (TextView) convertView.findViewById(R.id.title);
@@ -50,6 +56,17 @@ public class AlbumArrayAdapter extends ArrayAdapter<Album>{
 		holder.image.setImageDrawable(album.getThumbnail());
 		
 		return convertView;
+	}
+	
+	@Override
+	public int getPosition(Album item) {
+		for(int position = 0 ; position < getCount(); position++){
+			Album a = getItem(position);
+			if (a.getAlbumId() == item.getAlbumId())
+				return position;
+		}
+		
+		return super.getPosition(item);
 	}
 	
   	private static class ViewHolder {

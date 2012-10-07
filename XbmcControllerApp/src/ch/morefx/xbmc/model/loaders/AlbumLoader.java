@@ -35,5 +35,7 @@ public class AlbumLoader extends AsyncTaskLoader<Artist, Void, List<Album>>{
 		if (result != null){
 			this.adapter.addAll(result);
 		}
+		
+		fireOnTaskComplete(result);
 	}
 }
