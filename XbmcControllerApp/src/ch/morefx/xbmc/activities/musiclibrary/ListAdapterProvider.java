@@ -1,4 +1,4 @@
-package ch.morefx.xbmc.activities.testing;
+package ch.morefx.xbmc.activities.musiclibrary;
 
 import android.widget.ListAdapter;
 

@@ -29,9 +29,6 @@
             android:name=".activities.XbmcConnectionEditActivity"
             android:label="" />
         <activity
-            android:name=".activities.testing.MytestActivity"
-            android:label="" />
-        <activity
             android:name=".activities.home.HomeScreenActivity"
             android:label="HomeScreenActivity" />
         <activity
@@ -47,17 +44,12 @@
             android:name=".activities.videolibrary.VideoActivity"
             android:label="VideoActivity" />
         <activity
-            android:name=".activities.musiclibrary.ArtistActivity"
-            android:icon="@drawable/audioibrary"
-            android:label="@string/music_library" />
-        <activity
-            android:name=".activities.musiclibrary.AlbumActivity"
-            android:icon="@drawable/audioibrary"
-            android:label="Album Activity" />
-        <activity
-            android:name=".activities.musiclibrary.SongActivity"
-            android:icon="@drawable/audioibrary"
-            android:label="Song Activity" />
+            android:name=".activities.musiclibrary.MusicLibraryActivity"
+            android:label="HELL WORLD" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ch.morefx.xbmc.activities.home.HomeScreenActivity" />
+        </activity>
         <activity
             android:name=".activities.players.AudioPlayerActivity"
             android:icon="@drawable/audioibrary"
@@ -65,24 +57,6 @@
         <activity
             android:name=".activities.preferences.ApplicationPreferenceActivity"
             android:label="" />
-     
-        <activity
-            android:name=".activities.testing.TestArtistListActivity"
-            android:label="@string/title_testartist_list" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="ch.morefx.xbmc.activities.testing.MytestActivity" />
-        </activity>
-        
-        
-        <activity
-            android:name=".activities.testing.MasterDetailActivity"
-            android:label="HELL WORLD" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="ch.morefx.xbmc.activities.home.HomeScreenActivity" />
-        </activity>
-        
     </application>
 
 </manifest>

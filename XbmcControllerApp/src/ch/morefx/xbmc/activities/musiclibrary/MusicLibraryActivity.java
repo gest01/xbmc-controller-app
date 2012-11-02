@@ -1,4 +1,4 @@
-package ch.morefx.xbmc.activities.testing;
+package ch.morefx.xbmc.activities.musiclibrary;
 
 import android.app.FragmentTransaction;
 import android.os.Bundle;
@@ -7,7 +7,7 @@ import ch.morefx.xbmc.activities.XbmcActivity;
 import ch.morefx.xbmc.model.Album;
 import ch.morefx.xbmc.model.Artist;
 
-public class MasterDetailActivity extends XbmcActivity 
+public class MusicLibraryActivity extends XbmcActivity 
 	implements AudioItemSelectionCallback{
 
 	@Override

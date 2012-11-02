@@ -18,7 +18,7 @@ public class ArtistArrayAdapter extends ArrayAdapter<Artist>{
 	private LayoutInflater inflater;
 	
 	public ArtistArrayAdapter(Context context, int textViewResourceId) {
-		super(context, textViewResourceId);
+		super(context, textViewResourceId/*R.layout.list_row*/);
 		
 		this.inflater = LayoutInflater.from(context);
 	}
@@ -26,11 +26,11 @@ public class ArtistArrayAdapter extends ArrayAdapter<Artist>{
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder holder;
-		
 		if (convertView == null) {
 			convertView = this.inflater.inflate(R.layout.artist_list_item, parent, false);
 			holder = new ViewHolder();
 			holder.title = (TextView) convertView.findViewById(R.id.title);
+			//holder.image = (ImageView) convertView.findViewById(R.id.list_image);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
@@ -38,7 +38,7 @@ public class ArtistArrayAdapter extends ArrayAdapter<Artist>{
 		
 		Artist artist = getItem(position);
 		
-		XbmcRemoteControlApplication app = (XbmcRemoteControlApplication)getContext().getApplicationContext();
+		XbmcRemoteControlApplication app = XbmcRemoteControlApplication.getInstance();
 		XbmcConnection connection = app.getCurrentConnection();
 		AudioPlayer player = connection.getAudioPlayer();
 		boolean isPlaying = player.isPlaying(artist);
@@ -46,10 +46,15 @@ public class ArtistArrayAdapter extends ArrayAdapter<Artist>{
 		holder.title.setTypeface(null, isPlaying ? Typeface.BOLD_ITALIC : Typeface.NORMAL);
 		holder.title.setText(artist.toString());
 		
+		//ThumbnailLoader loader = new ThumbnailLoader(artist, getContext());
+		//loader.loadIntoView(holder.image);
+		
+		
 		return convertView;
 	}
 	
   	private static class ViewHolder {
  		TextView title;
+ 		//ImageView image;
  	}
 }

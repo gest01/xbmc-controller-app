@@ -5,7 +5,7 @@ import android.app.ListFragment;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
-import ch.morefx.xbmc.activities.testing.ListAdapterProvider;
+import ch.morefx.xbmc.activities.musiclibrary.ListAdapterProvider;
 
 public abstract class ContextMenuListAdapterActionCommand implements ContextMenuAction{
 

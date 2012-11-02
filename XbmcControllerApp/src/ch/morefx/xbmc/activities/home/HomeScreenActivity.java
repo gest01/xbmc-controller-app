@@ -8,10 +8,9 @@ import android.view.View;
 import android.widget.ListView;
 import ch.morefx.xbmc.R;
 import ch.morefx.xbmc.activities.XbmcListActivity;
-import ch.morefx.xbmc.activities.musiclibrary.ArtistActivity;
+import ch.morefx.xbmc.activities.musiclibrary.MusicLibraryActivity;
 import ch.morefx.xbmc.activities.players.AudioPlayerActivity;
 import ch.morefx.xbmc.activities.sourcebrowser.SourceBrowserActivity;
-import ch.morefx.xbmc.activities.testing.MasterDetailActivity;
 import ch.morefx.xbmc.activities.videolibrary.VideoActivity;
 import ch.morefx.xbmc.model.Song;
 
@@ -57,14 +56,10 @@ public class HomeScreenActivity extends XbmcListActivity {
 	private void populateMenuItem(){
 		
 		ArrayList<HomeScreenMenuItem> items = new ArrayList<HomeScreenMenuItem>();
-		items.add(new HomeScreenMenuItem(getResources().getDrawable(R.drawable.audioibrary), "Music Library", "Listen to your Music", new Intent(this, ArtistActivity.class)));
+		items.add(new HomeScreenMenuItem(getResources().getDrawable(R.drawable.audioibrary), "Music Library", "Listen to your Music", new Intent(this, MusicLibraryActivity.class)));
 		items.add(new HomeScreenMenuItem(getResources().getDrawable(R.drawable.videolibrary), "Video Library", "Watch your Movies", new Intent(this, VideoActivity.class)));
 		items.add(new HomeScreenMenuItem(getResources().getDrawable(R.drawable.filebrowser), "File Browser", "Browse your Media Files", new Intent(this, SourceBrowserActivity.class)));
 		items.add(new HomeScreenMenuItem(getResources().getDrawable(R.drawable.remotecontrol), "Remote Control", "Control Xbmc", new Intent(this, RemoteControlActivity.class)));
-		
-		items.add(new HomeScreenMenuItem(getResources().getDrawable(R.drawable.remotecontrol), "MasterDetail", "MasterDetail", new Intent(this, MasterDetailActivity.class)));
-		
-		
 		
 		if (getAudioPlayer().isActive()) {
 			Song sucker = getAudioPlayer().getCurrentSong();

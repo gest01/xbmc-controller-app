@@ -1,4 +1,4 @@
-package ch.morefx.xbmc.activities.testing;
+package ch.morefx.xbmc.activities.musiclibrary;
 
 import android.app.ListFragment;
 import android.content.Context;
@@ -14,7 +14,6 @@ import ch.morefx.xbmc.activities.ContextMenuAdapter;
 import ch.morefx.xbmc.activities.ContextMenuAddToPlaylistActionCommand;
 import ch.morefx.xbmc.activities.ContextMenuPlayItemActionCommand;
 import ch.morefx.xbmc.activities.IXbmcActivity;
-import ch.morefx.xbmc.activities.musiclibrary.SongArrayAdapter;
 import ch.morefx.xbmc.model.Album;
 import ch.morefx.xbmc.model.Song;
 import ch.morefx.xbmc.model.loaders.SongLoader;

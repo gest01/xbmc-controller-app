@@ -1,4 +1,4 @@
-package ch.morefx.xbmc.activities.testing;
+package ch.morefx.xbmc.activities.musiclibrary;
 
 import ch.morefx.xbmc.model.Album;
 import ch.morefx.xbmc.model.Artist;

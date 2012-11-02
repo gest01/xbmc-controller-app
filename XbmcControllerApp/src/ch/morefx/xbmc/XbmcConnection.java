@@ -54,8 +54,8 @@ public class XbmcConnection implements Serializable {
 	}
 	
 	/**
-	 * 
-	 * @return
+	 * Gets the underlying connector interface
+	 * @return XbmcConnector
 	 */
 	public XbmcConnector getConnector(){
 		if (connector == null){

@@ -36,6 +36,8 @@ public final class ThumbnailLoader {
 	 * @param view The ImageView that holds the Thumbnail.
 	 */
 	public void loadIntoView(final ImageView view){
+		Check.argumentNotNull(view, "view");
+		
 		Handler handler = new Handler(){
 			@Override public void handleMessage(Message msg) {
 				view.setImageDrawable(holder.getThumbnail());
@@ -51,6 +53,8 @@ public final class ThumbnailLoader {
 	 * @param view The View that holds the Thumbnailas background
 	 */
 	public void loadIntoView(final View view){
+		Check.argumentNotNull(view, "view");
+		
 		Handler handler = new Handler(){
 			@Override public void handleMessage(Message msg) {
 				view.setBackgroundDrawable(holder.getThumbnail());
