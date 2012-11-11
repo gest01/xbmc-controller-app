@@ -29,10 +29,15 @@ public class PlayerGetPropertiesCommand extends JsonCommand
 	
 	public void handleResponse(JsonCommandResponse response) {
 		properties = response.asObjectResult(PlayerProperties.class);
+		
+		PlayerProperties.TimeStamp current = response.asObjectResult(PlayerProperties.TimeStamp.class, "time");
+		PlayerProperties.TimeStamp total = response.asObjectResult(PlayerProperties.TimeStamp.class, "totaltime");
+		
+		properties.setCurrentTime(current);
+		properties.setTotalTime(total);
 	}
 	
 	public PlayerProperties getProperties(){
 		return this.properties;
 	}
-	
 }

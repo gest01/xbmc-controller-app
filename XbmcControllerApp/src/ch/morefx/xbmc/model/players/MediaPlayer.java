@@ -16,12 +16,14 @@ public class MediaPlayer {
 	
 	private int playerId;
 	private XbmcConnector connector;
+	private boolean isSuspended;
 	
 	public MediaPlayer(XbmcConnector connector) {
 		Check.argumentNotNull(connector, "connector");
 		
 		this.connector = connector;
 		this.playerId = DISABLED_PLAYER_ID;
+		this.isSuspended = false;
 	}
 	
 	/**
@@ -34,6 +36,16 @@ public class MediaPlayer {
 	
 	public void updatePlayer(int playerid){
 		this.playerId = playerid;
+	}
+	
+	
+	
+	public void setSuspended(boolean isSuspended){
+		this.isSuspended = isSuspended;
+	}
+	
+	public boolean isSuspended(){
+		return this.isSuspended;
 	}
 	
 	/**

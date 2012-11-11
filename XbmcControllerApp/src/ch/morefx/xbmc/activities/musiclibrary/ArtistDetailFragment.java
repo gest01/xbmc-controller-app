@@ -33,8 +33,9 @@ public class ArtistDetailFragment extends Fragment
 
     private static final String ARG_ARTIST = "arg_artist";
   
-    private AudioItemSelectionCallback selectionCallback;   
+    private AudioLibrarySelectionCallback selectionCallback;   
     private AlbumArrayAdapter adapter;
+    private Artist artist;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -57,16 +58,20 @@ public class ArtistDetailFragment extends Fragment
             }
         });
         
-        Artist artist = ExtrasHelper.getExtra(this, ARG_ARTIST, Artist.class);
-        new AlbumLoader(adapter).execute(artist);
-        
+        artist = ExtrasHelper.getExtra(this, ARG_ARTIST, Artist.class);
+       
+        onPlayerUpdate();
         return rootView;
     }
     
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        selectionCallback = CastHelper.cast(activity, AudioItemSelectionCallback.class);
+        selectionCallback = CastHelper.cast(activity, AudioLibrarySelectionCallback.class);
+    }
+    
+    public void onPlayerUpdate() {
+    	 new AlbumLoader(adapter).execute(artist);
     }
     
 	@Override

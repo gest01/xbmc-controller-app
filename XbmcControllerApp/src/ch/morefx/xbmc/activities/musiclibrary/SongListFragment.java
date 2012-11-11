@@ -27,6 +27,7 @@ public class SongListFragment extends ListFragment
 	private static final String ARG_ALBUM = "ARG_ALBUM"; 
 	
 	private SongArrayAdapter adapter;
+	private Album album;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -35,8 +36,13 @@ public class SongListFragment extends ListFragment
 		adapter = new SongArrayAdapter(getActivity(), android.R.layout.simple_list_item_1);
 		setListAdapter(adapter);
 		
-		Album album = ExtrasHelper.getExtra(this, ARG_ALBUM,  Album.class);
+		album = ExtrasHelper.getExtra(this, ARG_ALBUM,  Album.class);
 			
+		onPlayerUpdate();
+		//new SongLoader(adapter).execute(album);
+	}
+	
+	public void onPlayerUpdate() {
 		new SongLoader(adapter).execute(album);
 	}
 	

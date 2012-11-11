@@ -27,6 +27,7 @@ public class AudioPlayer extends MediaPlayer {
 	
 	public void setPlaying(Song song){
 		playingSong = song;
+		setSuspended(false);
 	}
 	
 	public boolean isPlaying(Artist artist){

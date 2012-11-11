@@ -25,7 +25,7 @@ public class ArtistListFragment extends ListFragment
 
     private static final String STATE_ACTIVATED_POSITION = "activated_position";
 
-    private AudioItemSelectionCallback selectionCallback;
+    private AudioLibrarySelectionCallback selectionCallback;
     private ArtistArrayAdapter adapter;
     
     private int mActivatedPosition = ListView.INVALID_POSITION;
@@ -38,8 +38,8 @@ public class ArtistListFragment extends ListFragment
         
 		this.adapter = new ArtistArrayAdapter(this.getActivity(), android.R.layout.simple_list_item_1);
 		setListAdapter(adapter);
-        	
-		onPlayerUpdate() ;
+		
+		onPlayerUpdate();
     }
 
     @Override
@@ -47,6 +47,9 @@ public class ArtistListFragment extends ListFragment
         super.onViewCreated(view, savedInstanceState);
         
 		registerForContextMenu(getListView());
+        
+        getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+        getListView().setSelector(android.R.color.darker_gray);
         
         if (savedInstanceState != null && savedInstanceState.containsKey(STATE_ACTIVATED_POSITION)) {
             setActivatedPosition(savedInstanceState.getInt(STATE_ACTIVATED_POSITION));
@@ -57,11 +60,11 @@ public class ArtistListFragment extends ListFragment
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         
-        if (!(activity instanceof AudioItemSelectionCallback)) {
+        if (!(activity instanceof AudioLibrarySelectionCallback)) {
             throw new IllegalStateException("Activity must implement fragment's callbacks.");
         }
 
-        selectionCallback = (AudioItemSelectionCallback) activity;
+        selectionCallback = (AudioLibrarySelectionCallback) activity;
     }
     
 	public void onPlayerUpdate() {
@@ -93,12 +96,6 @@ public class ArtistListFragment extends ListFragment
         if (mActivatedPosition != ListView.INVALID_POSITION) {
             outState.putInt(STATE_ACTIVATED_POSITION, mActivatedPosition);
         }
-    }
-
-    public void setActivateOnItemClick(boolean activateOnItemClick) {
-        getListView().setChoiceMode(activateOnItemClick
-                ? ListView.CHOICE_MODE_SINGLE
-                : ListView.CHOICE_MODE_NONE);
     }
 
     private void setActivatedPosition(int position) {

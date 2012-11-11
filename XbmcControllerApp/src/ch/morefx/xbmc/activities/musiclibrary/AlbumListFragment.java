@@ -44,9 +44,7 @@ public class AlbumListFragment extends ListFragment
 		setListAdapter(adapter);
 		
 		album = ExtrasHelper.getExtra(this, ARG_ALBUM, Album.class);
-		new AlbumLoader(adapter)
-			.setOnTaskCompleteListener(this)
-			.execute(album.getArtist());
+		onPlayerUpdate();
     }
     
 
@@ -93,6 +91,12 @@ public class AlbumListFragment extends ListFragment
                 : ListView.CHOICE_MODE_NONE);
     }
 	
+    public void onPlayerUpdate() {
+		new AlbumLoader(adapter)
+		.setOnTaskCompleteListener(this)
+		.execute(album.getArtist());
+    }    
+    
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
     	Album album = adapter.getItem(position);

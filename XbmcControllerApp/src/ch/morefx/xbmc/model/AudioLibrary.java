@@ -22,15 +22,23 @@ public final class AudioLibrary extends XbmcLibrary {
 	}
 
 
+	private List<Artist> _cache;
 	
 	/**
 	 * 
 	 * @return
 	 */
 	public List<Artist> getArtists(){
-		AudioLibraryGetArtistsCommand command = new AudioLibraryGetArtistsCommand();
-		execute(command);
-		return command.getArtists();
+		
+		if (_cache == null){
+			AudioLibraryGetArtistsCommand command = new AudioLibraryGetArtistsCommand();
+			execute(command);
+			_cache = command.getArtists();
+		}
+		
+		//AudioLibraryGetArtistsCommand command = new AudioLibraryGetArtistsCommand();
+		//execute(command);
+		return _cache;
 	}
 	
 	/**

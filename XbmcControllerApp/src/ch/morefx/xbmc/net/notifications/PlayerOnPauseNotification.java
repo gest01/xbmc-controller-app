@@ -11,6 +11,7 @@ public class PlayerOnPauseNotification extends XbmcNotification{
 	
 	@Override
 	public String handle(XbmcConnection connection) {
+		connection.getAudioPlayer().setSuspended(true);
 		return PLAYER_UPDATE;
 	}
 }

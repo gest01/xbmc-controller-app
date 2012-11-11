@@ -9,4 +9,6 @@ public interface IXbmcActivity {
 	
 	XbmcConnection getConnection();
 	
+	void onPlayerUpdate();
+	
 }
