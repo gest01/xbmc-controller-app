@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
-
+    
      <TextView
         android:id="@+id/txtArtist"
         android:layout_width="fill_parent"
@@ -10,22 +10,23 @@
         android:layout_marginTop="20dp"
         android:gravity="center"
         android:textColor="#FFF"
-        android:textSize="30dp" />
+        android:textSize="20dp" />
     
     <ImageView
         android:id="@+id/albumCover"
         android:layout_below="@+id/txtArtist"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp" />
+        android:layout_width="400dip"
+        android:layout_height="400dip"
+        android:background="@drawable/album_border"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="10dp" />
 
     <TextView
         android:id="@+id/txtSongname"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/albumCover"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:gravity="center"
         android:textColor="#FFF"
         android:textSize="30dp" />
@@ -35,7 +36,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/txtSongname"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="60dp"
         android:gravity="center"
         android:orientation="horizontal" >
 
@@ -70,7 +71,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/navigation"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal" >
 
         <TextView

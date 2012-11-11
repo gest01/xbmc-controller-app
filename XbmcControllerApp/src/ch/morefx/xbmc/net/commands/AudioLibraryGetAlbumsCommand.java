@@ -9,6 +9,11 @@ import ch.morefx.xbmc.model.Artist;
 
 import com.google.gson.InstanceCreator;
 
+
+/**
+ * Implements the AudioLibrary.GetAlbums notification event
+ * See http://wiki.xbmc.org/index.php?title=JSON-RPC_API/v3#AudioLibrary.GetAlbums
+ */
 public class AudioLibraryGetAlbumsCommand extends JsonCommand
 	implements JsonCommandResponseHandler {
 

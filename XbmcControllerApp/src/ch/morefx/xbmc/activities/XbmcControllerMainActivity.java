@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import ch.morefx.xbmc.Bootstrapper;
 import ch.morefx.xbmc.R;
 import ch.morefx.xbmc.XbmcConnection;
 import ch.morefx.xbmc.XbmcRemoteControlApplication;
@@ -91,9 +92,7 @@ public class XbmcControllerMainActivity extends Activity {
         	public void handleMessage(Message msg) {
                 pd.dismiss();
                 if (msg.what == ConnectionTester.CONNECTION_OK){
-                	application.setCurrentConnection(connection);
-             	   	Intent i = new Intent(XbmcControllerMainActivity.this, HomeScreenActivity.class);
-             	   	startActivity(i);
+                	setupConnection(connection);
                 } else {
                 	DialogUtility.showError(XbmcControllerMainActivity.this, "unable to connect " + connection.getConnectionName(), "Connection failed");
                 }
@@ -102,5 +101,14 @@ public class XbmcControllerMainActivity extends Activity {
         
         ConnectionTester tester = new ConnectionTester();
         tester.canConnect(connection.getConnector(), handler);
+    }
+    
+    /**
+     * Sets up the connection
+     * @param connection The connection to be establish
+     */
+    private void setupConnection(XbmcConnection connection){  	
+    	application.setupConnection(connection);
+ 	   	startActivity(new Intent(XbmcControllerMainActivity.this, HomeScreenActivity.class));
     }
 }

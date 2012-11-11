@@ -3,6 +3,7 @@ package ch.morefx.xbmc;
 import java.io.Serializable;
 
 import android.graphics.drawable.Drawable;
+import ch.morefx.xbmc.model.ApplicationProperties;
 import ch.morefx.xbmc.model.AudioLibrary;
 import ch.morefx.xbmc.model.ThumbnailHolder;
 import ch.morefx.xbmc.model.VideoLibrary;
@@ -34,6 +35,7 @@ public class XbmcConnection implements Serializable {
 	private long id;
 	
 	private transient DrawableManager drawableManager;
+	private transient ApplicationProperties properties;
 	
 	private AudioLibrary audioLibrary;
 	private VideoLibrary videoLibrary;
@@ -51,6 +53,14 @@ public class XbmcConnection implements Serializable {
 		id = DEFAULT_NOID;
 		this.audioLibrary = null;
 		this.videoLibrary = null;
+	}
+	
+	/**
+	 * Initializes this connection with dynamic information 
+	 * @param properties ApplicationProperties
+	 */
+	void initialize(ApplicationProperties properties){
+		this.properties = properties;
 	}
 	
 	/**

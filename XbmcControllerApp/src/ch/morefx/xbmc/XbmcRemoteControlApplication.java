@@ -35,14 +35,17 @@ public class XbmcRemoteControlApplication extends Application {
 	}
 	
 	/**
-	 * Sets the current active connection.
-	 * @param connection
+	 * Initializes a new connection using the bootstraper and sets the connection as active.
+	 * @param connection The connection to be set up.
 	 */
-	public void setCurrentConnection(XbmcConnection connection){
+	public void setupConnection(XbmcConnection connection){
 		if (this.currentConnection != null){
 			this.currentConnection.close();
 			this.currentConnection = null;
 		}
+		
+    	Bootstrapper bootstrapper = new Bootstrapper();
+    	bootstrapper.settingUpConnection(connection);
 		
 		this.currentConnection = connection;
 		

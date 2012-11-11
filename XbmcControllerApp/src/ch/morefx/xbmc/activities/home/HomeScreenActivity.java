@@ -30,7 +30,7 @@ public class HomeScreenActivity extends XbmcListActivity {
 		getActionBar().setHomeButtonEnabled(false);
 		getActionBar().setDisplayHomeAsUpEnabled(false);
 		
-		startPlayerService();
+		startNotificationService();
 		
 		adapter = new HomeScreenMenuItemAdapter(this, R.layout.song_list_item);		
 		setListAdapter(adapter);
@@ -53,7 +53,7 @@ public class HomeScreenActivity extends XbmcListActivity {
 	
 	@Override
 	protected void onDestroy() {
-		stopPlayerService();
+		stopNotificationService();
 		super.onDestroy();
 	}
 		

@@ -6,12 +6,12 @@ import ch.morefx.xbmc.model.Album;
  * Implements the AudioLibrary.GetAlbumDetails json command
  * See http://wiki.xbmc.org/index.php?title=JSON-RPC_API/v3#AudioLibrary.GetAlbumDetails
  */
-public class AudioLibraryGetAlbumDetails extends JsonCommand
+public class AudioLibraryGetAlbumDetailsCommand extends JsonCommand
 	implements JsonCommandResponseHandler{
 	
 	private int albumid;
 	
-	public AudioLibraryGetAlbumDetails(int albumid) {
+	public AudioLibraryGetAlbumDetailsCommand(int albumid) {
 		super("AudioLibrary.GetAlbumDetails");
 		
 		this.albumid = albumid;

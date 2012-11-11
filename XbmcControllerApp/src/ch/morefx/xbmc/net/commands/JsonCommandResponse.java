@@ -112,13 +112,44 @@ public class JsonCommandResponse {
 			return g.fromJson(jsonResult.getJSONObject(jsonField).toString(), typeOfResultClass);
 			
 		} catch (JsonSyntaxException e) {
-			XbmcExceptionHandler.handleException(TAG, "json deserialization error", e);
+			XbmcExceptionHandler.handleException(TAG, "json deserialization error for field " + jsonField, e);
 		} catch (JSONException e) {
-			XbmcExceptionHandler.handleException(TAG, "JSONException", e);
+			XbmcExceptionHandler.handleException(TAG, "JSONException for field " + jsonField, e);
 		}
 		
 		return null;
 	}
+	
+	/**
+	 * Returns an Integer from the Json Response
+	 * @param jsonField Name of the JsonField containing the integer value
+	 * @return integer
+	 */
+	public int asIntegerResult(String jsonField) {
+		try {
+			return jsonResult.getInt(jsonField);
+		}  catch (JSONException e) {
+			XbmcExceptionHandler.handleException(TAG, "JSONException for field " + jsonField, e);
+		}
+		
+		return 0;
+	}
+	
+	/**
+	 * Returns a boolean from the Json Response
+	 * @param jsonField Name of the JsonField containing the integer value
+	 * @return boolean
+	 */
+	public boolean asBooleanResult(String jsonField) {
+		try {
+			return jsonResult.getBoolean(jsonField);
+		}  catch (JSONException e) {
+			XbmcExceptionHandler.handleException(TAG, "JSONException for field " + jsonField, e);
+		}
+		
+		return false;
+	}
+	
 	
 	private <T> T toArrayResult(JSONArray jsonArrayResult, Class<T> typeOfResultClass) {
 		try {

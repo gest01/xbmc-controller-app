@@ -75,7 +75,7 @@ public class XbmcListActivity extends ListActivity
 	        return true;
 	      case R.id.mnu_close_connection:
 	    	  	XbmcRemoteControlApplication.getInstance().closeCurrentConnection();
-				stopPlayerService();
+				stopNotificationService();
 				  
 				Intent intent = new Intent(this, XbmcControllerMainActivity.class);
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -86,11 +86,11 @@ public class XbmcListActivity extends ListActivity
        }
     }
     
-    protected void startPlayerService(){
+    protected void startNotificationService(){
         startService(new Intent(this, NotificationsService.class));
 	}
 	
-	protected void stopPlayerService(){
+	protected void stopNotificationService(){
 		stopService(new Intent(this, NotificationsService.class));
 	}
     

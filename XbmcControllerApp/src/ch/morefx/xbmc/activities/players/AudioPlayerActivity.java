@@ -10,11 +10,9 @@ import android.widget.TextView;
 import ch.morefx.xbmc.R;
 import ch.morefx.xbmc.activities.XbmcActivity;
 import ch.morefx.xbmc.model.PlayerInfo;
+import ch.morefx.xbmc.model.PlayerInfo.PlayerType;
 import ch.morefx.xbmc.model.PlayerProperties;
 import ch.morefx.xbmc.model.Song;
-import ch.morefx.xbmc.model.PlayerInfo.PlayerType;
-import ch.morefx.xbmc.net.CommandExecutorAdapter;
-import ch.morefx.xbmc.net.JsonCommandExecutor;
 import ch.morefx.xbmc.net.commands.PlayerGetPropertiesCommand;
 import ch.morefx.xbmc.util.ThumbnailLoader;
 
@@ -85,12 +83,8 @@ public class AudioPlayerActivity extends XbmcActivity {
 				
 				while(true){
 					
-					PlayerGetPropertiesCommand command = new
-							PlayerGetPropertiesCommand( new PlayerInfo(PlayerType.Audio, 0) );
-					
-					JsonCommandExecutor executor = new JsonCommandExecutor(getConnection().getConnector());
-					CommandExecutorAdapter adapter = new CommandExecutorAdapter(executor);
-					adapter.execute(command);
+					PlayerGetPropertiesCommand command = new PlayerGetPropertiesCommand( new PlayerInfo(PlayerType.Audio, 0) );
+					command.execute();
 					
 					final PlayerProperties.TimeStamp total = command.getProperties().getTotalTime();
 					final PlayerProperties.TimeStamp current = command.getProperties().getCurrentTime();
