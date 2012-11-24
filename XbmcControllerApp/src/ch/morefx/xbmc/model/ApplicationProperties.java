@@ -25,13 +25,17 @@ public class ApplicationProperties {
 		return volume;
 	}
 	
+	public String getVersionString(){
+		return this.version.toString();
+	}
+	
 	public static class Version {
 		int major, minor;
 		String tag;
 		
 		@Override
 		public String toString() {
-			return String.format("%s.%s (%s)", major, minor, tag);
+			return String.format("%s.%s-%s", major, minor, tag);
 		}
 	}
 }

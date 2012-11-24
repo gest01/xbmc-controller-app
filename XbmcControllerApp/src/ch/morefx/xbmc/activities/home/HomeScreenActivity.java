@@ -26,7 +26,6 @@ public class HomeScreenActivity extends XbmcListActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		//getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(false);
 		getActionBar().setDisplayHomeAsUpEnabled(false);
 		
@@ -34,6 +33,9 @@ public class HomeScreenActivity extends XbmcListActivity {
 		
 		adapter = new HomeScreenMenuItemAdapter(this, R.layout.song_list_item);		
 		setListAdapter(adapter);
+		
+		
+		setTitle("Xbmc (" + getConnection().getProperties().getVersionString() + ")");
 		
 		populateMenuItem();
 	}

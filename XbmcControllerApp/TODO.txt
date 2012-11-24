@@ -31,12 +31,6 @@
 		- http://android-developers.blogspot.com/2011/08/horizontal-view-swiping-with-viewpager.html
 		 
 	
-		 
-	
-* Notification Service
-	- Beim Start muss der aktuelle Song / album etc ausgelesen werden
-	
-	
 * API
 	- Caching
 	- Exclude von Alben / Interpreten aus dem UI 

@@ -64,6 +64,14 @@ public class XbmcConnection implements Serializable {
 	}
 	
 	/**
+	 * Gets the Application Properties for this connection.
+	 * @return An instance of the class<code>ApplicationProperties</code>
+	 */
+	public ApplicationProperties getProperties(){
+		return this.properties;
+	}
+	
+	/**
 	 * Gets the underlying connector interface
 	 * @return XbmcConnector
 	 */

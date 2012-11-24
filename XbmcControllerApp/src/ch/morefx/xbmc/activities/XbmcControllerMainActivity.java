@@ -14,7 +14,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
-import ch.morefx.xbmc.Bootstrapper;
 import ch.morefx.xbmc.R;
 import ch.morefx.xbmc.XbmcConnection;
 import ch.morefx.xbmc.XbmcRemoteControlApplication;
