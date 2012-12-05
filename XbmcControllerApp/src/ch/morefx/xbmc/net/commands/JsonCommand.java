@@ -18,6 +18,10 @@ public abstract class JsonCommand {
 		this.builders = new JsonCommandBuilder(method);
 	}
 	
+	public String getMethod(){
+		return this.builders.getMethod();
+	}
+	
 	/**
 	 * Executes the command against a xbmc connection
 	 * @param connection the connection
@@ -39,11 +43,23 @@ public abstract class JsonCommand {
 		execute(connection);
 	}
 	
+	/**
+	 * Execute this command using the current active connection 
+	 */
+	public void executeAsync(){
+		XbmcRemoteControlApplication application = XbmcRemoteControlApplication.getInstance();
+		XbmcConnection connection = application.getCurrentConnection();
+		
+		JsonCommandExecutor executor = new JsonCommandExecutor(connection.getConnector());
+		CommandExecutorAdapter adapter = new CommandExecutorAdapter(executor);
+		adapter.executeAsync(this);
+	}
+	
 	public final String prepareCommand(){
 		prepareCommand(this.builders);
 		
 		Gson gson = new GsonBuilder()
-			.setPrettyPrinting()
+		//	.setPrettyPrinting()
 			.enableComplexMapKeySerialization()
 			.create();
 		

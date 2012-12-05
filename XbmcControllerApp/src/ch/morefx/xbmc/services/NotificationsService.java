@@ -17,7 +17,7 @@ import ch.morefx.xbmc.net.notifications.NotificationParserException;
 
 public class NotificationsService extends XbmcService {
 	
-	private static final String TAG = NotificationsService.class.getName();
+	private static final String TAG = NotificationsService.class.getSimpleName();
 	
 	private boolean running;
 	private Thread workerThread;

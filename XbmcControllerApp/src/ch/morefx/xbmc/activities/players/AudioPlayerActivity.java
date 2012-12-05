@@ -1,5 +1,6 @@
 package ch.morefx.xbmc.activities.players;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -8,11 +9,15 @@ import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.SeekBar;
+import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 import ch.morefx.xbmc.R;
 import ch.morefx.xbmc.activities.XbmcActivity;
+import ch.morefx.xbmc.activities.home.HomeScreenActivity;
 import ch.morefx.xbmc.model.PlayerProperties;
 import ch.morefx.xbmc.model.Song;
+import ch.morefx.xbmc.net.commands.ApplicationSetVolumeCommand;
 import ch.morefx.xbmc.util.ExtrasHelper;
 import ch.morefx.xbmc.util.ThumbnailLoader;
 
@@ -33,6 +38,23 @@ public class AudioPlayerActivity extends XbmcActivity {
 		
 		this.syncthread = new AudioPlayerSyncThread();
 		
+		SeekBar sb =(SeekBar) findViewById(R.id.skbVolume);
+		sb.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
+			
+			public void onStopTrackingTouch(SeekBar seekBar) {
+				ApplicationSetVolumeCommand penner = new ApplicationSetVolumeCommand(seekBar.getProgress());
+				penner.executeAsync();
+			}
+			
+			public void onStartTrackingTouch(SeekBar seekBar) {
+			}
+			
+			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+			}
+		});
+				
+				
+				
 		progressBar = (ProgressBar) findViewById(R.id.progressBar1);
 		btnPause = (ImageButton) findViewById(R.id.btnPause);
 		currentView = (TextView) findViewById(R.id.txtCurrentTime);
@@ -123,7 +145,12 @@ public class AudioPlayerActivity extends XbmcActivity {
 	private void updateSongInformation(){
 
 		if (!getAudioPlayer().isActive()){
-			System.out.println(" --------------------------- lkfjsdklfj");
+
+			Intent intent = new Intent(this, HomeScreenActivity.class);
+			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivity(intent);
+
+			
 		} else {
 			
 			Song song = getAudioPlayer().getCurrentSong();

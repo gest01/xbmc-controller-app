@@ -10,7 +10,7 @@
         android:layout_marginTop="20dp"
         android:gravity="center"
         android:textColor="#FFF"
-        android:textSize="20dp" />
+        android:textSize="20sp" />
     
     <ImageView
         android:id="@+id/albumCover"
@@ -29,7 +29,7 @@
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:textColor="#FFF"
-        android:textSize="30dp" />
+        android:textSize="30sp" />
 
     <LinearLayout
         android:id="@+id/navigation"
@@ -40,6 +40,20 @@
         android:gravity="center"
         android:orientation="horizontal" >
 
+        <SeekBar android:id="@+id/skbVolume"
+            android:max="100"
+            android:progress="10"
+            android:indeterminate="false"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content" />
+        
+        <ImageButton
+            android:id="@+id/btnToggleMute"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_lock_silent_mode_off"
+            android:text="Previous" />
+        
         <ImageButton
             android:id="@+id/btnPrevious"
             android:layout_width="wrap_content"
@@ -79,7 +93,6 @@
             android:gravity="left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="00:02:15"
             android:layout_marginLeft="20dp"
             android:textColor="#FFF" />
 
@@ -88,7 +101,6 @@
             android:gravity="right"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="00:04:35"
             android:layout_marginRight="20dp"
             android:textColor="#FFF" />
     </LinearLayout>

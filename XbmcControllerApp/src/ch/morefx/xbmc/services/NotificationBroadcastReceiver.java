@@ -20,7 +20,7 @@ import ch.morefx.xbmc.util.DialogUtility;
  * Implements a broadcast receiver that handles all incoming notifications sent by xbmc
  */
 public class NotificationBroadcastReceiver extends BroadcastReceiver {
-	private static final String TAG = NotificationBroadcastReceiver.class.getName(); 
+	private static final String TAG = NotificationBroadcastReceiver.class.getSimpleName(); 
 	
 	private NotificationListener notificationlistener;
 	private Activity activity;

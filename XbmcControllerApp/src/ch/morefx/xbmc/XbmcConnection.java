@@ -158,7 +158,7 @@ public class XbmcConnection implements Serializable {
 	 */
 	public RemoteController getRemoteControl(){
 		if (this.remotecontrol == null){
-			this.remotecontrol = new RemoteController(getConnector());
+			this.remotecontrol = new RemoteController();
 		}
 		
 		return this.remotecontrol;

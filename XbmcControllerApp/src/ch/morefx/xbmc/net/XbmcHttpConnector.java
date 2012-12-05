@@ -40,7 +40,6 @@ class XbmcHttpConnector implements XbmcConnector {
 	public String send(String jsonCommand) throws Exception {
 		
 		HttpPost post = new HttpPost(this.connection.getXbmcConnectionUri());
-		
 		StringEntity entity = new StringEntity(jsonCommand);
 		entity.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
 		post.setEntity(entity);

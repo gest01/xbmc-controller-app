@@ -5,6 +5,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.util.Log;
+import ch.morefx.xbmc.BuildConfig;
 import ch.morefx.xbmc.net.commands.JsonCommand;
 import ch.morefx.xbmc.net.commands.JsonCommandResponse;
 import ch.morefx.xbmc.net.commands.JsonCommandResponseHandler;
@@ -35,6 +36,9 @@ public final class JsonCommandExecutor
 
 	public final void execute(JsonCommand command) throws CommandExecutorException{
 		try {
+			
+			if (BuildConfig.DEBUG)
+				Log.d(TAG, String.format("SEND : %s", command.getMethod()));
 			
 			String jsonCommand = command.prepareCommand();
 			String responseString = connector.send(jsonCommand);
@@ -67,6 +71,8 @@ public final class JsonCommandExecutor
 			JsonCommandResponse commandResponse = null;
 			
 			Object resultObject = jsonResponse.get("result");
+			if (resultObject instanceof Integer)
+				commandResponse = new JsonCommandResponse(resultObject.toString());
 			if (resultObject instanceof String)
 				commandResponse = new JsonCommandResponse((String)resultObject);
 			if (resultObject instanceof JSONObject)

@@ -16,6 +16,10 @@ public class JsonCommandBuilder{
 		method = jsonMethod;
 	}
 	
+	public String getMethod(){ 
+		return this.method;
+	}
+	
 	public void setSortMethod(String value){
 		
 		if (this.params == null)
