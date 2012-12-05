@@ -59,7 +59,7 @@ public abstract class JsonCommand {
 		prepareCommand(this.builders);
 		
 		Gson gson = new GsonBuilder()
-		//	.setPrettyPrinting()
+			.setPrettyPrinting()
 			.enableComplexMapKeySerialization()
 			.create();
 		
