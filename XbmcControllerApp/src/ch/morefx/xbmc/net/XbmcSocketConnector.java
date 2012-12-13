@@ -7,19 +7,19 @@ import java.net.Socket;
 
 import android.graphics.drawable.Drawable;
 import android.util.Log;
-import ch.morefx.xbmc.XbmcConnection;
+import ch.morefx.xbmc.ConnectionDescriptor;
 import ch.morefx.xbmc.util.Check;
 
 // http://wiki.xbmc.org/index.php?title=JSON-RPC_API
 
 
 class XbmcSocketConnector implements XbmcConnector {
-	private XbmcConnection connection;
+	private ConnectionDescriptor descriptor;
 	
-	public XbmcSocketConnector(XbmcConnection connection) {
-		Check.argumentNotNull(connection, "connection");
+	public XbmcSocketConnector(ConnectionDescriptor descriptor) {
+		Check.argumentNotNull(descriptor, "descriptor");
 		
-		this.connection = connection;
+		this.descriptor = descriptor;
 	}
 	
 	/* (non-Javadoc)
@@ -65,7 +65,7 @@ class XbmcSocketConnector implements XbmcConnector {
 	
 	private void createSocket() throws Exception {
 		if (in == null || out == null) {
-			Socket socket = new Socket(connection.getHost(), XbmcConnection.DEFAULT_JSON_RPC_PORT);
+			Socket socket = new Socket(this.descriptor.getHost(), ConnectionDescriptor.DEFAULT_JSON_RPC_PORT);
 			in = new InputStreamReader(socket.getInputStream());
 			out = new OutputStreamWriter(socket.getOutputStream());
 		}

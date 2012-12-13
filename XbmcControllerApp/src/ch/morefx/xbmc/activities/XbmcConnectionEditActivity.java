@@ -9,8 +9,9 @@ import android.view.View.OnFocusChangeListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+import ch.morefx.xbmc.ConnectionDescriptor;
 import ch.morefx.xbmc.R;
-import ch.morefx.xbmc.XbmcConnection;
+import ch.morefx.xbmc.XbmcConnectionDescriptor;
 import ch.morefx.xbmc.XbmcConnectionManager;
 import ch.morefx.xbmc.XbmcRemoteControlApplication;
 import ch.morefx.xbmc.util.DialogUtility;
@@ -18,9 +19,9 @@ import ch.morefx.xbmc.util.MacAddressResolver;
 
 public class XbmcConnectionEditActivity extends XbmcActivity {
 
-	public static final String PARAM_EXTRA_CONNECTION = "CONNECTION";
+	private static final String PARAM_EXTRA_CONNECTION = "CONNECTION";
 	
-	private XbmcConnection connection;
+	private ConnectionDescriptor connection;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -28,9 +29,9 @@ public class XbmcConnectionEditActivity extends XbmcActivity {
 		setContentView(R.layout.xbmc_connection_detail);
 
 		
-		this.connection = (XbmcConnection)getIntent().getSerializableExtra(PARAM_EXTRA_CONNECTION);
+		this.connection = (ConnectionDescriptor)getIntent().getSerializableExtra(PARAM_EXTRA_CONNECTION);
 		if (this.connection == null){
-			this.connection = new XbmcConnection();
+			this.connection = new XbmcConnectionDescriptor();
 			setTitle("Todo new connection");
 		}
 		
@@ -39,8 +40,6 @@ public class XbmcConnectionEditActivity extends XbmcActivity {
 				public void handleMessage(android.os.Message message){
 					if(message.getData().containsKey(MacAddressResolver.MESSAGE_MAC_ADDRESS)){
 						String mac = message.getData().getString(MacAddressResolver.MESSAGE_MAC_ADDRESS);
-						System.out.println("FUCK " + mac);
-						
 						if(!mac.equals("")){
 							getMacTextView().setText(mac);
 							Toast toast = Toast.makeText(XbmcConnectionEditActivity.this, "Updated MAC for host: " + getHostTextView().getText().toString() + "\nto: " + mac, Toast.LENGTH_SHORT);
@@ -66,7 +65,7 @@ public class XbmcConnectionEditActivity extends XbmcActivity {
 					
 					XbmcRemoteControlApplication application = (XbmcRemoteControlApplication)getApplication();
 					XbmcConnectionManager manager = application.getConnectionManager();
-					if (connection.isNew()){
+					if (connection.getId() == 0){
 						manager.add(connection);
 					}
 					

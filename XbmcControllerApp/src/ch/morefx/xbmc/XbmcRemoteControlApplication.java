@@ -36,20 +36,23 @@ public class XbmcRemoteControlApplication extends Application {
 	
 	/**
 	 * Initializes a new connection using the bootstraper and sets the connection as active.
-	 * @param connection The connection to be set up.
+	 * @param descriptor The connection to be set up.
 	 */
-	public void setupConnection(XbmcConnection connection){
+	public void setupConnection(ConnectionDescriptor descriptor){
 		if (this.currentConnection != null){
 			this.currentConnection.close();
 			this.currentConnection = null;
 		}
+		
+		// Create connection
+		XbmcConnection connection = new XbmcConnection(descriptor);
 		
     	Bootstrapper bootstrapper = new Bootstrapper();
     	bootstrapper.settingUpConnection(connection);
 		
 		this.currentConnection = connection;
 		
-		Log.d(TAG, "Current XbmcConnection : " + connection.toString() + "(" + connection.getXbmcConnectionUri() + ")");
+		Log.d(TAG, "Current XbmcConnection : " + connection.toString() + "(" + descriptor.getConnectionUri() + ")");
 	}
 	
 	/**

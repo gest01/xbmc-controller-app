@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 import ch.morefx.xbmc.BuildConfig;
+import ch.morefx.xbmc.ConnectionDescriptor;
 import ch.morefx.xbmc.XbmcConnection;
 import ch.morefx.xbmc.XbmcExceptionHandler;
 import ch.morefx.xbmc.net.notifications.Notification;
@@ -54,7 +55,7 @@ public class NotificationsService extends XbmcService {
 		try{
 			
 			XbmcConnection connection = getXbmcApplication().getCurrentConnection();
-			socket = new Socket(connection.getHost(), connection.getJsonTcpPort());
+			socket = new Socket(connection.getConnectionDescriptor().getHost(), ConnectionDescriptor.DEFAULT_JSON_RPC_PORT);
 			reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
 			while(running)

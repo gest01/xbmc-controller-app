@@ -14,8 +14,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
+import ch.morefx.xbmc.ConnectionDescriptor;
 import ch.morefx.xbmc.R;
-import ch.morefx.xbmc.XbmcConnection;
 import ch.morefx.xbmc.XbmcRemoteControlApplication;
 import ch.morefx.xbmc.activities.home.HomeScreenActivity;
 import ch.morefx.xbmc.util.ConnectionTester;
@@ -60,9 +60,9 @@ public class XbmcControllerMainActivity extends Activity {
     
     private void showConnectionSelectionDialog(){
     	
-    	List<XbmcConnection> connections = this.application.getConnectionManager().getConnections();
+    	List<ConnectionDescriptor> connections = this.application.getConnectionManager().getConnections();
     	
-    	final ArrayAdapter<XbmcConnection> items = new ArrayAdapter<XbmcConnection>(this, R.layout.list_item, connections);
+    	final ArrayAdapter<ConnectionDescriptor> items = new ArrayAdapter<ConnectionDescriptor>(this, R.layout.list_item, connections);
     	
     	AlertDialog.Builder builder = new AlertDialog.Builder(this);
     	builder.setTitle("Select connection");
@@ -78,10 +78,10 @@ public class XbmcControllerMainActivity extends Activity {
     	alert.show();
     }
     
-    private void tryConnect(final XbmcConnection connection){
+    private void tryConnect(final ConnectionDescriptor descriptor){
 		final ProgressDialog pd = new ProgressDialog(XbmcControllerMainActivity.this);
         pd.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        pd.setMessage("Connecting " + connection.getConnectionName() + "...");
+        pd.setMessage("Connecting " + descriptor.getConnectionName() + "...");
         pd.setIndeterminate(true);
         pd.setCancelable(false);
         pd.show();
@@ -91,22 +91,22 @@ public class XbmcControllerMainActivity extends Activity {
         	public void handleMessage(Message msg) {
                 pd.dismiss();
                 if (msg.what == ConnectionTester.CONNECTION_OK){
-                	setupConnection(connection);
+                	setupConnection(descriptor);
                 } else {
-                	DialogUtility.showError(XbmcControllerMainActivity.this, "unable to connect " + connection.getConnectionName(), "Connection failed");
+                	DialogUtility.showError(XbmcControllerMainActivity.this, "unable to connect " + descriptor.getConnectionName(), "Connection failed");
                 }
         	}
         };
         
         ConnectionTester tester = new ConnectionTester();
-        tester.canConnect(connection.getConnector(), handler);
+        tester.canConnect(descriptor, handler);
     }
     
     /**
      * Sets up the connection
      * @param connection The connection to be establish
      */
-    private void setupConnection(XbmcConnection connection){  	
+    private void setupConnection(ConnectionDescriptor connection){  	
     	application.setupConnection(connection);
  	   	startActivity(new Intent(XbmcControllerMainActivity.this, HomeScreenActivity.class));
     }

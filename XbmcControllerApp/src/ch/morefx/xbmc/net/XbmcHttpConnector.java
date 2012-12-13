@@ -17,7 +17,7 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.protocol.HTTP;
 
 import android.graphics.drawable.Drawable;
-import ch.morefx.xbmc.XbmcConnection;
+import ch.morefx.xbmc.ConnectionDescriptor;
 import ch.morefx.xbmc.util.Check;
 
 /**
@@ -25,21 +25,21 @@ import ch.morefx.xbmc.util.Check;
  */
 class XbmcHttpConnector implements XbmcConnector {
 
-	private XbmcConnection connection;
+	private ConnectionDescriptor descriptor;
 	
 	/**
 	 * Defines the connection timeout in miliseconds
 	 */
 	private static final int CONNECTION_TIMEOUT = 10000; // 10s
 	
-	public XbmcHttpConnector(XbmcConnection connection) {
-		Check.argumentNotNull(connection, "connection");
-		this.connection = connection;
+	public XbmcHttpConnector(ConnectionDescriptor descriptor) {
+		Check.argumentNotNull(descriptor, "descriptor");
+		this.descriptor = descriptor;
 	}
 	
 	public String send(String jsonCommand) throws Exception {
 		
-		HttpPost post = new HttpPost(this.connection.getXbmcConnectionUri());
+		HttpPost post = new HttpPost(this.descriptor.getConnectionUri());
 		StringEntity entity = new StringEntity(jsonCommand);
 		entity.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
 		post.setEntity(entity);
@@ -66,7 +66,7 @@ class XbmcHttpConnector implements XbmcConnector {
 		client.setHttpRequestRetryHandler(new HttpRequestRetryHandlerImpl());
 		client.getCredentialsProvider().setCredentials(
 				new AuthScope(AuthScope.ANY_HOST, AuthScope.ANY_PORT),
-				new UsernamePasswordCredentials(this.connection.getUsername(), this.connection.getPassword()));
+				new UsernamePasswordCredentials(this.descriptor.getUsername(), this.descriptor.getPassword()));
 		
 		HttpConnectionParams.setConnectionTimeout(client.getParams(), CONNECTION_TIMEOUT);
 		return client;

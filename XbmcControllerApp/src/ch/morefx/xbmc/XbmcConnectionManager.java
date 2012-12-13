@@ -13,13 +13,15 @@ import android.util.Log;
 
 public class XbmcConnectionManager {
 
-	public static final String TAG = "XbmcConnectionManager";
+	public static final String TAG = XbmcConnectionManager.class.getSimpleName();
 	
-	private List<XbmcConnection> connections;
+	private static final String FILE = "xbmc_connections";
+	
+	private List<ConnectionDescriptor> connections;
 	private Context context;
 	
 	public XbmcConnectionManager(Context context) {
-		this.connections = new ArrayList<XbmcConnection>();
+		this.connections = new ArrayList<ConnectionDescriptor>();
 		this.context = context;
 		load(context);
 	}
@@ -27,33 +29,35 @@ public class XbmcConnectionManager {
 	@SuppressWarnings("unchecked")
 	private void load(Context context) {
 		try {
-			FileInputStream fis = context.openFileInput("xbmc_connections");
+			FileInputStream fis = context.openFileInput(FILE);
 			ObjectInputStream is = new ObjectInputStream(fis);
-			this.connections = (List<XbmcConnection>) is.readObject();
+			this.connections = (List<ConnectionDescriptor>) is.readObject();
 			fis.close();
 		} catch (FileNotFoundException e) {
 			// That's ok..probably the first time
 		} catch (Exception e) {
-			XbmcExceptionHandler.handleException(TAG, "Error while opening xbmc_connections - settingsfile", e);
+			
+			Log.w(TAG, "Error reading " + FILE);
+			context.deleteFile(FILE);
 		}
 	}
 	
 	public void persist(){
 		try {
-			FileOutputStream fos = this.context.openFileOutput("xbmc_connections", Context.MODE_PRIVATE);
+			FileOutputStream fos = this.context.openFileOutput(FILE, Context.MODE_PRIVATE);
 			ObjectOutputStream os = new ObjectOutputStream(fos);
 			os.writeObject(this.connections);
 			os.close();
 		} catch (FileNotFoundException e) {
 			/// That's ok..probably the first time
 		} catch (Exception e) {
-			XbmcExceptionHandler.handleException(TAG, "Error while saving xbmc_connections", e);
+			XbmcExceptionHandler.handleException(TAG, "Error while saving settingsfile", e);
 		}
 	}
 	
 	public void deleteConnection(long connectionId){	
-		XbmcConnection connectionToDelete = null;
-		for(XbmcConnection connection : this.connections){
+		ConnectionDescriptor connectionToDelete = null;
+		for(ConnectionDescriptor connection : this.connections){
 			if (connection.getId() == connectionId){
 				connectionToDelete = connection; 
 				break;
@@ -66,21 +70,21 @@ public class XbmcConnectionManager {
 		}
 	}
 	
-	public void add(XbmcConnection connection){
+	public void add(ConnectionDescriptor connection){
 		if (connection == null){
 			throw new IllegalArgumentException("connection is null");
 		}
 		
 		Log.d(TAG, "New Connection added : " + connection.getConnectionName());
-		connection.initializeId();
+		connection.setId(System.currentTimeMillis());
 		this.connections.add(connection);
 	}
 	
 	/**
 	 * Gets all available connections
-	 * @return List of Type <code>XbmcConnection</code>
+	 * @return List of Type <code>ConnectionDescriptor</code>
 	 */
-	public List<XbmcConnection> getConnections(){
+	public List<ConnectionDescriptor> getConnections(){
 		return this.connections;
 	}
 }

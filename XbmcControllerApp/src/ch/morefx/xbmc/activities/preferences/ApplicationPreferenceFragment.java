@@ -7,8 +7,9 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceFragment;
+import ch.morefx.xbmc.ConnectionDescriptor;
 import ch.morefx.xbmc.R;
-import ch.morefx.xbmc.XbmcConnection;
+import ch.morefx.xbmc.XbmcConnectionDescriptor;
 import ch.morefx.xbmc.XbmcConnectionManager;
 import ch.morefx.xbmc.XbmcRemoteControlApplication;
 import ch.morefx.xbmc.activities.XbmcConnectionEditActivity;
@@ -56,7 +57,7 @@ public class ApplicationPreferenceFragment extends PreferenceFragment {
 	private void loadConnections(){
 		
 		final XbmcConnectionManager manager = getConnectionManager();
-        XbmcConnection[] connections = (XbmcConnection[])manager.getConnections().toArray(new XbmcConnection[0]);
+		ConnectionDescriptor[] connections = (ConnectionDescriptor[])manager.getConnections().toArray(new XbmcConnectionDescriptor[0]);
         String[] entries = new String[connections.length];
         String[] entriesKeys = new String[connections.length];
         for(int i = 0 ; i < connections.length; i++){

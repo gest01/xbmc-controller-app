@@ -10,8 +10,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
-import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
+import ch.morefx.xbmc.OnSeekBarChangeListenerAdapter;
 import ch.morefx.xbmc.R;
 import ch.morefx.xbmc.activities.XbmcActivity;
 import ch.morefx.xbmc.activities.home.HomeScreenActivity;
@@ -34,26 +34,19 @@ public class AudioPlayerActivity extends XbmcActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
+		
 		setContentView(R.layout.player_activity_layout);
 		
 		this.syncthread = new AudioPlayerSyncThread();
 		
 		SeekBar sb =(SeekBar) findViewById(R.id.skbVolume);
-		sb.setOnSeekBarChangeListener(new OnSeekBarChangeListener() {
-			
-			public void onStopTrackingTouch(SeekBar seekBar) {
+		sb.setOnSeekBarChangeListener(new OnSeekBarChangeListenerAdapter(){
+			@Override public void onStopTrackingTouch(SeekBar seekBar) {
 				ApplicationSetVolumeCommand penner = new ApplicationSetVolumeCommand(seekBar.getProgress());
 				penner.executeAsync();
 			}
-			
-			public void onStartTrackingTouch(SeekBar seekBar) {
-			}
-			
-			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-			}
 		});
-				
-				
+		
 				
 		progressBar = (ProgressBar) findViewById(R.id.progressBar1);
 		btnPause = (ImageButton) findViewById(R.id.btnPause);

@@ -7,7 +7,7 @@ import ch.morefx.xbmc.XbmcExceptionHandler;
 
 public class NotificationParser {
 
-	private static final String TAG = NotificationParser.class.getName();
+	private static final String TAG = NotificationParser.class.getSimpleName();
 
 	/**
 	 * Creates a Notification object from json.

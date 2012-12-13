@@ -1,6 +1,6 @@
 package ch.morefx.xbmc.net;
 
-import ch.morefx.xbmc.XbmcConnection;
+import ch.morefx.xbmc.ConnectionDescriptor;
 import ch.morefx.xbmc.util.Check;
 
 /**
@@ -10,12 +10,12 @@ public final class XbmcConnectorFactory {
 
 	/**
 	 * Creates an instance of a class that implements the <code>XbmcConnector</code> interface by using a specified XbmcConnection for creation.
-	 * @param connection The Connection
+	 * @param descriptor The ConnectionDescriptor
 	 * @return XbmcConnector
 	 */
-	public static XbmcConnector create(XbmcConnection connection){
-		Check.argumentNotNull(connection, "connection");
+	public static XbmcConnector create(ConnectionDescriptor descriptor){
+		Check.argumentNotNull(descriptor, "descriptor");
 		
-		return new XbmcHttpConnector(connection);
+		return new XbmcHttpConnector(descriptor);
 	}
 }
