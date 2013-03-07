@@ -40,7 +40,8 @@ class XbmcSocketConnector implements XbmcConnector {
 		
 		out.write(jsonCommand);
 		out.flush();
-
+	
+		
 		char[] buffer = new char[1024];
 
 		int read = 0, totalread = 0;

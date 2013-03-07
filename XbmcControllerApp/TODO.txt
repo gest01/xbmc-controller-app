@@ -5,30 +5,28 @@
 	- Exclude/ReScan from Library
 	
 	
-* Aktuelle Playlist anzeigen 
-	-> von KontextMenau -> Add to Playlisrt
+* AudioPlayerActivity
+ - Aktuelle Playlist anzeigen
+ - cover flow der Playlist 
+
+* Remote Control
+
+* File Browser
+		
+* Addon Browser
+	- Addons auflisten und ausführen
+	- Video Stream der Video-Addons (SRF Videoportal) über Tablet
 	
-	
-* Eigene Playlist zusammenstellen und lokal abspeichern 
- 	- Playlist mit custom name erstellen
+* Genre Tag Cloud Browser (Custom Playlist)
+    - Filtern/Suchen nach Genre
+    - Playlist mit custom name erstellen
  	- Pro Playlist die dazugehörenden Albums / Songs anzeigen und löschen
  	- Pro Playlist neue Albums / Songs hinzufügen
  	- Hinzufügen über ContextMenu -> Playlist -> List aller Playlists anzeigen -> Auswählen
-	
-* Genre Tag Cloud Browser
-    - Filtern/Suchen nach Genre
-	
+		
 * UI
-    - Ansicht wie bei Google Reader / Google Mail
-	- Grössere Albenansicht
 	- Grösserer HomeScreen
-	- Navigation ist nicht optimal
-		- http://developer.android.com/design/patterns/navigation.html
-	- Android icon als UP/Back Button
-		- http://developer.android.com/guide/topics/ui/actionbar.html
-	- Swipe
-		- http://developer.android.com/design/patterns/swipe-views.html
-		- http://android-developers.blogspot.com/2011/08/horizontal-view-swiping-with-viewpager.html
+	- Aktueller Song in Status menu
 		 
 	
 * API

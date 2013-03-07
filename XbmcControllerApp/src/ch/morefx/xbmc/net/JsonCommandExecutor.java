@@ -48,12 +48,18 @@ public final class JsonCommandExecutor
 				return;
 			}
 			
-//			if (responseString.trim().contains("error")) {
-//				Log.e(TAG, "ERROR  : " + responseString);
-//				return;
-//			}
+		/*	if (responseString.trim().contains("error")) {
+				Log.e(TAG, "ERROR  : " + responseString);				
+				return;
+			}*/
 			
 			JSONObject jsonResponse = new JSONObject(responseString);		
+			if (!jsonResponse.isNull("error")){
+				Object errorObject = jsonResponse.get("error");
+				Log.e(TAG, "ERROR  : " + errorObject.toString());	
+				return;
+			}
+			
 			if (!jsonResponse.isNull("result")) {
 				handleJsonResult(command, jsonResponse);
 			} else {

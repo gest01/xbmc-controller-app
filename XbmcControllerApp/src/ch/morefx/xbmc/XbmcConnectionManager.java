@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import android.content.Context;
@@ -85,6 +86,7 @@ public class XbmcConnectionManager {
 	 * @return List of Type <code>ConnectionDescriptor</code>
 	 */
 	public List<ConnectionDescriptor> getConnections(){
+		Collections.sort(this.connections, new ConnectionDescriptorComparator());
 		return this.connections;
 	}
 }

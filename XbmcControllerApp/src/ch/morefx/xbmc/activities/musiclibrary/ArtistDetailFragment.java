@@ -39,7 +39,7 @@ public class ArtistDetailFragment extends Fragment
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_testartist_detail, container, false);
+        View rootView = inflater.inflate(R.layout.artist_fragment_detail, container, false);
         
         GridView gridview = (GridView)rootView.findViewById(R.id.album_gridview);
         

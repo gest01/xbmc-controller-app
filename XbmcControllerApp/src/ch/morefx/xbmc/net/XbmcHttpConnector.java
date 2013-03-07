@@ -41,7 +41,7 @@ class XbmcHttpConnector implements XbmcConnector {
 		
 		HttpPost post = new HttpPost(this.descriptor.getConnectionUri());
 		StringEntity entity = new StringEntity(jsonCommand);
-		entity.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
+		entity.setContentType(new BasicHeader(HTTP.CONTENT_TYPE, "application/json"));
 		post.setEntity(entity);
 		
 		HttpResponse response = createHttpClient().execute(post);

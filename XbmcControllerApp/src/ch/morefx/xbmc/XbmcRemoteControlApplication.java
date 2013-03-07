@@ -52,7 +52,7 @@ public class XbmcRemoteControlApplication extends Application {
 		
 		this.currentConnection = connection;
 		
-		Log.d(TAG, "Current XbmcConnection : " + connection.toString() + "(" + descriptor.getConnectionUri() + ")");
+		Log.d(TAG, "Current XbmcConnection : " + descriptor.toString() + "(" + descriptor.getConnectionUri() + ")");
 	}
 	
 	/**
