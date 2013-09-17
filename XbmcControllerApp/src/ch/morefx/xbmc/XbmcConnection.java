@@ -34,7 +34,7 @@ public class XbmcConnection implements Serializable {
 	private ConnectionDescriptor descriptor;
 		
 	/**
-	 * 
+	 * Creates a new instance of the <code>XbmcConnection</code> class
 	 * @param descriptor
 	 */
 	public XbmcConnection(ConnectionDescriptor descriptor) {
